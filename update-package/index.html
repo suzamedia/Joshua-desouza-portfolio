@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Joshua J. DeSouza | Toronto Film & TV Producer, Coordinator</title>
+<meta name="description" content="Joshua J. DeSouza is a Toronto-based union production coordinator, set decorating coordinator, and independent producer/director working across film, TV, and music video.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Archivo+Black&amp;display=swap" rel="stylesheet">
+<script src="./image-slot.js"></script>
+<style>
+  body { margin: 0; background: #ffffff; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: oklch(0.45 0.17 262); }
+  .nav-toggle-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+  .nav-toggle-cb:focus-visible ~ .nav-burger { outline: 2px solid currentColor; outline-offset: 3px; }
+  .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 18px; cursor: pointer; }
+  .nav-burger span { display: block; height: 2px; background: currentColor; border-radius: 1px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes apertureSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
+  .aperture-spin { animation: apertureSpin 60s linear infinite; }
+
+
+  .cta-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+  .cta-union:hover { transform: translateY(-6px); box-shadow: 0 32px 60px rgba(20,19,15,0.28); }
+  .cta-freelance:hover { transform: translateY(-6px); box-shadow: 0 32px 60px rgba(20,19,15,0.16); }
+  .cta-union:hover .cta-text { color: oklch(0.72 0.13 262); text-shadow: 0 0 22px oklch(0.62 0.15 262 / 0.9); }
+  .cta-freelance:hover .cta-text { color: oklch(0.72 0.13 262); text-shadow: 0 0 22px oklch(0.62 0.15 262 / 0.9); }
+  .cta-text-freelance { color: #fbfaf5; }
+  .cta-text { transition: color 0.25s ease, text-shadow 0.25s ease; }
+  .wh-wrap:hover .wh-menu, .wh-wrap:focus-within .wh-menu { display: flex !important; }
+
+  @media (max-width: 900px) {
+    .landing-two-col { grid-template-columns: 1fr !important; }
+  }
+  @media (max-width: 720px) {
+    .site-header { padding: 16px 20px !important; }
+    .nav-burger { display: flex !important; }
+    .site-nav { display: none !important; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
+    .nav-toggle-cb:checked ~ .site-nav { display: flex !important; }
+    .landing-split { grid-template-columns: 1fr !important; }
+    .upcoming-grid > a { flex-basis: 100% !important; }
+  }
+</style>
+</helmet>
+
+<div data-screen-label="Landing" style="background-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E&quot;), linear-gradient(180deg, #ffffff 0%, #f6f4ee 45%, #ece7db 100%); background-repeat: repeat, no-repeat; background-size: 180px 180px, 100% 100%; color: #14130f">
+
+  <header class="site-header" style="position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+    <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</span>
+    <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
+    <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
+    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
+      <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Home</span>
+      <a href="/union-work">Union Work</a>
+      <a href="/freelance-work">Freelance</a>
+      <a href="/about-me">About</a>
+      <a href="/updates">Updates</a>
+      <a href="#" onClick="{{ openContact }}">Get in touch</a>
+    </nav>
+  </header>
+
+  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 64px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; box-shadow: 0 32px 56px -20px rgba(20,19,15,0.4); overflow: hidden">
+    <svg class="aperture-spin" viewBox="0 0 200 200" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 480px; max-width: 80vw; height: 480px; max-height: 80vw; pointer-events: none; opacity: 0.4">
+      <circle cx="100" cy="100" r="95" fill="none" stroke="oklch(0.62 0.15 262)" stroke-width="1"></circle>
+      <path ref="{{ bladeRef0 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+      <path ref="{{ bladeRef1 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+      <path ref="{{ bladeRef2 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+      <path ref="{{ bladeRef3 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+      <path ref="{{ bladeRef4 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+      <path ref="{{ bladeRef5 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+    </svg>
+    <h1 class="fade-up" style="position: relative; margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -0.01em">Joshua J. DeSouza</h1>
+    
+    <p class="fade-up" style="position: relative; animation-delay: 0.2s; margin: 0; font-size: 13px; letter-spacing: 0.1em; color: #b8b4a9">Producer&nbsp;·&nbsp;Coordinator&nbsp;·&nbsp;Filmmaker</p>  </div>
+
+  <div class="landing-two-col" style="display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: stretch; padding: 64px 5vw 0; max-width: 1180px; margin: 0 auto">
+   <div style="display: flex; flex-direction: column; gap: 12px; border-radius: 24px; background: #fbfaf5; border: 1px solid rgba(20,19,15,0.08); box-shadow: 0 24px 48px rgba(20,19,15,0.1); padding: 12px">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; padding: 4px 8px 0">
+      <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Recent Work</span>
+    </div>
+    <div style="overflow: hidden; border-radius: 16px">
+      <div style="display: flex; transform: {{ recentTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
+        <a href="/freelance-work?project=Red%20Door%20PSA" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/Red Door FINAL FINAL-13.jpg') center / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
+        <a href="/freelance-work?project=Are%20You%20A%20Killer%3F" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/2a7a7c0a-f11f-4a60-955a-4b841104a753.JPG') center 40% / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; position: relative">
+      <button onClick="{{ prevRecent }}" aria-label="Previous recent work" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: none; cursor: pointer; background: rgba(20,19,15,0.05); color: #57544a; transition: background 0.2s ease" style-hover="background: rgba(20,19,15,0.09)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <sc-for list="{{ recentPages }}" as="p" hint-placeholder-count="2">
+        <button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button>
+      </sc-for>
+      <button onClick="{{ nextRecent }}" aria-label="Next recent work" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: none; cursor: pointer; background: rgba(20,19,15,0.05); color: #57544a; transition: background 0.2s ease" style-hover="background: rgba(20,19,15,0.09)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+      <a href="/freelance-work" style="position: absolute; right: 8px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid oklch(0.45 0.17 262); padding-bottom: 3px">See all producing work &gt;</a>
+    </div>
+   </div>
+
+   <div style="display: flex; flex-direction: column; gap: 20px; border-radius: 24px; background: #14130f; box-shadow: 0 24px 48px rgba(20,19,15,0.18); padding: 20px; color: #f4f2ec; min-width: 0">
+    <span style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.62 0.15 262)">Upcoming Projects</span>
+    <div style="overflow: hidden; border-radius: 16px; flex: 1">
+      <div class="upcoming-grid" style="display: flex; min-width: 0; height: 100%; transform: {{ upcomingTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
+        <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="1">
+          <a href="/updates" style="flex: 0 0 100%; min-width: 0; display: flex; flex-direction: column; gap: 20px; transition: transform 0.35s ease" style-hover="transform: translateY(-4px)">
+            <div style="aspect-ratio: 4/3"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcLanding }}" shape="rect" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
+            <div style="display: flex; flex-direction: column; gap: 10px; flex: 1; justify-content: center">
+              <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.62 0.15 262)">{{ item.landingSubtitle }}</span>
+              <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(26px, 2.6vw, 34px); line-height: 1.1; color: #f4f2ec">{{ item.title }}</h3>
+              <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">{{ item.pressRole }}</span>
+            </div>
+          </a>
+        </sc-for>
+      </div>
+    </div>
+    <div style="display: flex; align-items: center; justify-content: center; gap: 8px; min-width: 0; flex-wrap: wrap">
+      <button onClick="{{ prevUpcoming }}" aria-label="Previous project" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: none; cursor: pointer; background: rgba(244,242,236,0.08); color: #b8b4a9; transition: background 0.2s ease" style-hover="background: rgba(244,242,236,0.16)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
+      <sc-for list="{{ upcomingPages }}" as="p" hint-placeholder-count="2">
+        <button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button>
+      </sc-for>
+      <button onClick="{{ nextUpcoming }}" aria-label="Next project" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: none; cursor: pointer; background: rgba(244,242,236,0.08); color: #b8b4a9; transition: background 0.2s ease" style-hover="background: rgba(244,242,236,0.16)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
+    </div>
+   </div>
+  </div>
+
+  <div class="landing-split" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 96px">
+    <a href="/union-work" class="landing-split-a cta-card cta-union" style="position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 56px 32px; border-radius: 24px; background: #14130f; color: #f4f2ec; box-shadow: 0 24px 48px rgba(20,19,15,0.2); text-align: center">
+      <div style="{{ unionBgStyle }}"></div>
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,19,15,0.85), rgba(20,19,15,0.55))"></div>
+      <span style="position: relative; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.62 0.15 262)">IATSE 411</span>
+      <span class="cta-text" style="position: relative; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.6vw, 32px)">View Union Work</span>
+    </a>
+    <a href="/freelance-work" class="cta-card cta-freelance" style="position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 56px 32px; border-radius: 24px; background: #fbfaf5; border: 1px solid rgba(20,19,15,0.08); box-shadow: 0 24px 48px rgba(20,19,15,0.1); text-align: center">
+      <div style="{{ freelanceBgStyle }}"></div>
+      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,19,15,0.85), rgba(20,19,15,0.55))"></div>
+      <span style="position: relative; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.62 0.15 262)">Independent</span>
+      <span class="cta-text cta-text-freelance" style="position: relative; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.6vw, 32px)">View Freelance</span>
+    </a>
+  </div>
+
+  <footer style="background: #14130f; color: #b8b4a9; border-top: 1px solid rgba(244,242,236,0.1)">
+   <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
+    <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100vw; text-align: center; pointer-events: none; z-index: 0">
+      <span style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+    </div>
+    <div style="position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
+      <div style="display: flex; flex-direction: column; gap: 18px">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; color: #f4f2ec">J.</span>
+        <p style="margin: 0; font-size: 13px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
+        <a href="mailto:joshuajdesouza@gmail.com" style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #f4f2ec; width: fit-content" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+        <a href="/union-work" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
+        <a href="/freelance-work" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
+        <a href="/about-me" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">About</a>
+        <a href="/updates" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+        <a href="tel:+16477724279" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
+        <a href="https://instagram.com/jsuza_" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
+        <a href="#" onClick="{{ openContact }}" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+        <div class="wh-wrap" style="align-self: flex-start; position: relative; padding-bottom: 8px; margin-bottom: -8px">
+          <button type="button" style="font-size: 13px; color: #b8b4a9; background: none; border: none; padding: 0; text-align: left; cursor: pointer; font-family: inherit" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
+          <div style="display: none; position: absolute; top: 100%; left: 0; z-index: 20; background: #f4f2ec; color: #14130f; border: 1px solid #14130f; padding: 10px; flex-direction: column; gap: 8px; min-width: 200px" class="wh-menu">
+            <a href="/resume-unionwork" target="_blank" style="font-size: 12px">Union Work History</a>
+            <a href="/resume-freelancework" target="_blank" style="font-size: 12px">Freelance Work History</a>
+          </div>
+        </div>
+        <a href="https://www.thedropspot.org/" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
+      </div>
+    </div>
+   </div>
+  </footer>
+
+<sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.72); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px">
+    <div onClick="{{ stopClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: #fbfaf5; border-radius: 24px; box-shadow: 0 40px 80px rgba(20,19,15,0.4); padding: 44px">
+      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
+      <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
+          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
+          <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Send a message</h3>
+          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+        </div>
+        <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
+          <p style="margin: 0; font-size: 12px; padding: 10px 12px; border-radius: 10px; background: oklch(0.45 0.17 262 / 0.1); border: 1px solid oklch(0.45 0.17 262 / 0.3); color: oklch(0.4 0.17 262)">{{ contactError }}</p>
+        </sc-if>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="contact-name" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
+          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="contact-email" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
+          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f">
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="contact-message" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
+          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
+        </div>
+        <button type="submit" style="font-family: inherit; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
+        <p style="margin: 0; font-size: 11px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+      </form>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { upcomingIndex: 0, recentIndex: 0, upcoming: [], contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "", unionBgIdx: 0, freelanceBgIdx: 0 };
+  UNION_BANNERS = ["uploads/SNW 5.webp", "uploads/CRE S4 Banner 2.jpg", "uploads/Overcomp banner.jpg", "uploads/Culprits banner.jpg", "uploads/KON New banner.webp"];
+  FREELANCE_BANNERS = ["uploads/Red Door FINAL FINAL-13.jpg", "uploads/2a7a7c0a-f11f-4a60-955a-4b841104a753.JPG", "https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", "https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg"];
+  componentDidMount() {
+    import('./upcoming-projects.js').then(m => this.setState({ upcoming: m.UPCOMING_PROJECTS }));
+    this.bgTimer = setInterval(() => {
+      this.setState(s => ({ unionBgIdx: (s.unionBgIdx + 1) % this.UNION_BANNERS.length, freelanceBgIdx: (s.freelanceBgIdx + 1) % this.FREELANCE_BANNERS.length }));
+    }, 5000);
+    this.startAperture();
+  }
+  componentWillUnmount() {
+    clearInterval(this.bgTimer);
+    clearTimeout(this.apertureTimer);
+    cancelAnimationFrame(this.apertureFrame);
+  }
+  bladeRef0 = React.createRef(); bladeRef1 = React.createRef(); bladeRef2 = React.createRef();
+  bladeRef3 = React.createRef(); bladeRef4 = React.createRef(); bladeRef5 = React.createRef();
+  startAperture() {
+    const bladeRefs = [this.bladeRef0, this.bladeRef1, this.bladeRef2, this.bladeRef3, this.bladeRef4, this.bladeRef5];
+    const pt = (deg, r) => ({ x: 100 + r * Math.cos(deg * Math.PI / 180), y: 100 + r * Math.sin(deg * Math.PI / 180) });
+    const hexAngle = (i) => -90 + 60 * i;
+    let current = 1, target = 1;
+    const pickTarget = () => {
+      if (Math.random() < 0.3) {
+        this.apertureTimer = setTimeout(pickTarget, 200 + Math.random() * 900);
+        return;
+      }
+      target = 0.4 + Math.random() * 1.3;
+      this.apertureTimer = setTimeout(pickTarget, 500 + Math.random() * 900);
+    };
+    pickTarget();
+    const tick = () => {
+      current += (target - current) * 0.06;
+      const rHex = 27 * current;
+      for (let i = 0; i < 6; i++) {
+        const a1 = hexAngle(i), a2 = hexAngle(i + 1);
+        const innerA = pt(a1, rHex), innerB = pt(a2, rHex);
+        const outerA = pt(a1 - 25, 95), outerB = pt(a2 - 25, 95);
+        const d = `M ${outerA.x},${outerA.y} A 95,95 0 0,1 ${outerB.x},${outerB.y} L ${innerB.x},${innerB.y} L ${innerA.x},${innerA.y} Z`;
+        const el = bladeRefs[i].current;
+        if (el) el.setAttribute('d', d);
+      }
+      this.apertureFrame = requestAnimationFrame(tick);
+    };
+    tick();
+  }
+  renderVals() {
+    const list = this.state.upcoming;
+    const total = list.length || 3, visible = 1, maxIndex = Math.max(0, total - visible);
+    const idx = Math.min(this.state.upcomingIndex, maxIndex);
+    const pageBtnStyle = (active, dark) => ({
+      width: "36px", height: "36px", borderRadius: "10px", border: "none", cursor: "pointer",
+      display: "flex", alignItems: "center", justifyContent: "center", fontSize: "12px", transition: "background 0.2s ease, box-shadow 0.2s ease",
+      background: active ? (dark ? "#f4f2ec" : "#14130f") : "transparent",
+      color: active ? (dark ? "#14130f" : "#f4f2ec") : (dark ? "#b8b4a9" : "#57544a"),
+      boxShadow: active ? "0 4px 12px rgba(20,19,15,0.25)" : "none"
+    });
+    const pages = [];
+    for (let i = 0; i <= maxIndex; i++) {
+      pages.push({ label: String(i + 1), style: pageBtnStyle(i === idx, true), onClick: (() => { const n = i; return () => this.setState({ upcomingIndex: n }); })() });
+    }
+    const recentTitles = ["Red Door PSA", "Are You A Killer?"];
+    const rIdx = this.state.recentIndex;
+    const recentPages = recentTitles.map((_, i) => ({ label: String(i + 1), style: pageBtnStyle(i === rIdx, false), onClick: (() => { const n = i; return () => this.setState({ recentIndex: n }); })() }));
+    return {
+      contactOpen: this.state.contactOpen,
+      contactSent: this.state.contactSent,
+      contactFormVisible: !this.state.contactSent,
+      contactName: this.state.contactName,
+      contactEmail: this.state.contactEmail,
+      contactMessage: this.state.contactMessage,
+      openContact: (e) => { e.preventDefault(); this.setState({ contactOpen: true, contactSent: false }); },
+      closeContact: () => this.setState({ contactOpen: false }),
+      handleModalKeyDown: (e) => { if (e.key === "Escape") this.setState({ contactOpen: false }); },
+      stopClick: (e) => e.stopPropagation(),
+      setContactName: (e) => this.setState({ contactName: e.target.value }),
+      setContactEmail: (e) => this.setState({ contactEmail: e.target.value }),
+      setContactMessage: (e) => this.setState({ contactMessage: e.target.value }),
+      contactError: this.state.contactError,
+      submitContact: (e) => {
+        e.preventDefault();
+        const last = Number(localStorage.getItem('jd-contact-last') || 0);
+        const now = Date.now();
+        const waitMs = 120000 - (now - last);
+        if (waitMs > 0) {
+          this.setState({ contactError: "Please wait " + Math.ceil(waitMs / 1000) + "s before sending another message." });
+          return;
+        }
+        const subject = "New inquiry from " + (this.state.contactName || "website visitor");
+        const body = this.state.contactMessage + "\n\n— " + this.state.contactName + " (" + this.state.contactEmail + ")";
+        localStorage.setItem('jd-contact-last', String(now));
+        window.location.href = "mailto:joshuajdesouza@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        this.setState({ contactSent: true, contactError: null });
+      },
+      upcomingList: list,
+      bladeRef0: this.bladeRef0, bladeRef1: this.bladeRef1, bladeRef2: this.bladeRef2,
+      bladeRef3: this.bladeRef3, bladeRef4: this.bladeRef4, bladeRef5: this.bladeRef5,
+      unionBgStyle: { position: "absolute", inset: -4, backgroundImage: "url('" + this.UNION_BANNERS[this.state.unionBgIdx] + "')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(3px)", transform: "scale(1.04)", transition: "background-image 0.8s ease" },
+      freelanceBgStyle: { position: "absolute", inset: -4, backgroundImage: "url('" + this.FREELANCE_BANNERS[this.state.freelanceBgIdx] + "')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(3px)", transform: "scale(1.04)", transition: "background-image 0.8s ease" },      upcomingTransform: "translateX(-" + idx + "00%)",
+      upcomingPages: pages,
+      prevUpcoming: () => this.setState(s => ({ upcomingIndex: Math.max(0, s.upcomingIndex - 1) })),
+      nextUpcoming: () => this.setState(s => ({ upcomingIndex: Math.min(maxIndex, s.upcomingIndex + 1) })),
+      recentTransform: "translateX(-" + rIdx + "00%)",
+      recentPages: recentPages,
+      prevRecent: () => this.setState(s => ({ recentIndex: Math.max(0, s.recentIndex - 1) })),
+      nextRecent: () => this.setState(s => ({ recentIndex: Math.min(recentTitles.length - 1, s.recentIndex + 1) }))
+    };
+  }
+}
+</script>
+</body>
+</html>
