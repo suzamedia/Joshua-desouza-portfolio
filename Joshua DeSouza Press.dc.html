@@ -67,7 +67,7 @@
     <div class="upcoming-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px">
       <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="3">
         <div style="display: flex; flex-direction: column; gap: 14px; position: relative">
-          <div style="aspect-ratio: 16/9"><image-slot id="{{ item.imageSlot }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
+          <div style="aspect-ratio: 16/9"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
           <div style="display: flex; flex-direction: column; gap: 8px">
             <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8b887d">{{ item.pressSubtitle }}</span>
             <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2vw, 30px); line-height: 1.05">{{ item.title }}</h2>
@@ -85,7 +85,7 @@
     <div style="display: flex; flex-direction: column; gap: 14px">
       <sc-for list="{{ newsList }}" as="item" hint-placeholder-count="4">
         <article class="news-row" onClick="{{ item.openLink }}" style="{{ item.cardStyle }}" style-hover="background: linear-gradient(135deg, rgba(244,242,236,0.12), rgba(244,242,236,0.05)); border-color: rgba(244,242,236,0.18)">
-          <div style="width: 176px; flex: none; align-self: stretch; padding: 14px 0 14px 14px"><image-slot id="{{ item.imageSlot }}" shape="rounded" radius="20px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
+          <div style="width: 176px; flex: none; align-self: stretch; padding: 14px 0 14px 14px"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="20px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
           <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 26px 28px; min-width: 0; position: relative">
             <div style="display: flex; gap: 12px; align-items: baseline">
               <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.45 0.17 262)">{{ item.tag }}</span>
@@ -245,14 +245,14 @@ class Component extends DCLogic {
         id: "hitman", tag: "Team", dateSort: "2026-09",
         dateLabel: "September 2026",
         title: "Now Creative Director and Media Producer at Hit Man Records",
-        imageSlot: "hitman-records-logo", imageFit: "contain", placeholder: "Add a photo or the Hit Man Records logo"
+        imageSlot: "hitman-records-logo", imageSrc: "uploads/slot-hitman-records-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Hit Man Records logo"
       },
       {
         id: "grant", tag: "Grant", dateSort: "2026-07",
         dateLabel: "July 2026",
         title: "S. McKenzie & J. DeSouza's \"Kill Me\" awarded TAC grant funding.",
         description: "This funding will work in tandem with the Blue Mountain Film Festival post production grant Mckenzie has already secured.",
-        imageSlot: "grant-badge", imageFit: "cover", placeholder: "Add a photo or the TAC logo"
+        imageSlot: "grant-badge", imageSrc: "uploads/slot-grant-badge.webp", imageFit: "cover", placeholder: "Add a photo or the TAC logo"
       },
       {
         id: "cbc", tag: "Interview", dateSort: "2026-07",
@@ -261,7 +261,7 @@ class Component extends DCLogic {
         description: "Statistics show that Gen Z employees work a higher number of different jobs compared to past generations. DeSouza interviews with Rubina Ahmed-Haq and CBC News to provide thoughts to why this may be.",
         linkHref: "https://www.cbc.ca/listen/live-radio/1-90-columnists-from-cbc-radio/clip/16230882-bounce-buck-how-young-workers-are-hacking-wage",
         linkLabel: "Listen on CBC",
-        imageSlot: "cbc-logo", imageFit: "contain", placeholder: "Add the CBC logo"
+        imageSlot: "cbc-logo", imageSrc: "uploads/slot-cbc-logo.webp", imageFit: "contain", placeholder: "Add the CBC logo"
       },
       {
         id: "union-house", tag: "Team", dateSort: "2026-02",
@@ -270,7 +270,7 @@ class Component extends DCLogic {
         description: "Union House Films is a collective of like minded filmmakers with complimentary specialty skills, networks and projects united in collaborative efforts and support of one another. Under Union House projects are given access to our diverse team and resources within.",
         linkHref: "https://www.unionhousefilms.com/team",
         linkLabel: "Union House Films",
-        imageSlot: "union-house-logo", imageFit: "contain", placeholder: "Add a photo or the Union House logo"
+        imageSlot: "union-house-logo", imageSrc: "uploads/slot-union-house-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Union House logo"
       },
       {
         id: "drop-spot", tag: "Non-profit", dateSort: "2026-04",
@@ -279,7 +279,7 @@ class Component extends DCLogic {
         description: "In effort to reduce the eco footprint left behind on film and TV sets, The Drop Spot aim's to reduce waste by extending the life of unwanted film resources like props, set dressings and raw materials.",
         linkHref: "https://www.thedropspot.org/",
         linkLabel: "The Drop Spot",
-        imageSlot: "drop-spot-logo", imageFit: "contain", placeholder: "Add a photo or the Drop Spot logo"
+        imageSlot: "drop-spot-logo", imageSrc: "uploads/slot-drop-spot-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Drop Spot logo"
       }
     ];
     news.sort((a, b) => b.dateSort.localeCompare(a.dateSort));

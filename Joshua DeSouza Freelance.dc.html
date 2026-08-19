@@ -243,7 +243,7 @@
           <a href="{{ detail.watchUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid #14130f; padding-bottom: 3px">Watch on YouTube ↗</a>
         </sc-if>
         <sc-if value="{{ detail.showPoster }}" hint-placeholder-val="{{ false }}">
-          <div style="aspect-ratio: 16/9; border-radius: 10px; overflow: hidden"><image-slot id="red-door-poster" shape="rect" fit="contain" placeholder="Drop the Red Door PSA poster art"></image-slot></div>
+          <div style="aspect-ratio: 16/9; border-radius: 10px; overflow: hidden"><image-slot id="red-door-poster" src="uploads/slot-red-door-poster.webp" shape="rect" fit="contain" placeholder="Drop the Red Door PSA poster art"></image-slot></div>
         </sc-if>
         <sc-if value="{{ detail.showPhoto }}" hint-placeholder-val="{{ false }}">
           <div style="{{ detail.photoStyle }}"></div>
