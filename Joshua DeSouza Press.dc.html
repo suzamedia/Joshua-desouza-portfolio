@@ -67,7 +67,7 @@
     <div class="upcoming-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px">
       <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="3">
         <div style="display: flex; flex-direction: column; gap: 14px; position: relative">
-          <div style="aspect-ratio: 16/9"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
+          <div style="aspect-ratio: 16/9"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcPress }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
           <div style="display: flex; flex-direction: column; gap: 8px">
             <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8b887d">{{ item.pressSubtitle }}</span>
             <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2vw, 30px); line-height: 1.05">{{ item.title }}</h2>
@@ -261,7 +261,7 @@ class Component extends DCLogic {
         description: "Statistics show that Gen Z employees work a higher number of different jobs compared to past generations. DeSouza interviews with Rubina Ahmed-Haq and CBC News to provide thoughts to why this may be.",
         linkHref: "https://www.cbc.ca/listen/live-radio/1-90-columnists-from-cbc-radio/clip/16230882-bounce-buck-how-young-workers-are-hacking-wage",
         linkLabel: "Listen on CBC",
-        imageSlot: "cbc-logo", imageSrc: "uploads/slot-cbc-logo.webp", imageFit: "contain", placeholder: "Add the CBC logo"
+        imageSlot: "cbc-logo", imageSrc: "uploads/slot-cbc-logo-16x9.png", imageFit: "contain", placeholder: "Add the CBC logo"
       },
       {
         id: "union-house", tag: "Team", dateSort: "2026-02",
