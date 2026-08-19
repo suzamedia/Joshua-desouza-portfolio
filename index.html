@@ -85,10 +85,10 @@
     <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 12px; padding: 4px 8px 0">
       <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Recent Work</span>
     </div>
-    <div style="overflow: hidden; border-radius: 16px">
+    <div style="overflow: hidden; border-radius: 16px; touch-action: pan-y" onTouchStart="{{ onRecentTouchStart }}" onTouchEnd="{{ onRecentTouchEnd }}">
       <div style="display: flex; transform: {{ recentTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
         <a href="/freelance-work?project=Red%20Door%20PSA" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/Red Door FINAL FINAL-13.jpg') center / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
-        <a href="/freelance-work?project=Are%20You%20A%20Killer%3F" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/2a7a7c0a-f11f-4a60-955a-4b841104a753.JPG') center 40% / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
+        <a href="/freelance-work?project=Are%20You%20A%20Killer%3F" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/killer-cropped.jpg') center 40% / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
       </div>
     </div>
     <div style="display: flex; align-items: center; justify-content: center; gap: 8px; position: relative">
@@ -97,13 +97,12 @@
         <button onClick="{{ p.onClick }}" style="{{ p.style }}">{{ p.label }}</button>
       </sc-for>
       <button onClick="{{ nextRecent }}" aria-label="Next recent work" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 10px; border: none; cursor: pointer; background: rgba(20,19,15,0.05); color: #57544a; transition: background 0.2s ease" style-hover="background: rgba(20,19,15,0.09)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg></button>
-      <a href="/freelance-work" style="position: absolute; right: 8px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; border-bottom: 1px solid oklch(0.45 0.17 262); padding-bottom: 3px">See all producing work &gt;</a>
     </div>
    </div>
 
    <div style="display: flex; flex-direction: column; gap: 20px; border-radius: 24px; background: #14130f; box-shadow: 0 24px 48px rgba(20,19,15,0.18); padding: 20px; color: #f4f2ec; min-width: 0">
     <span style="font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.62 0.15 262)">Upcoming Projects</span>
-    <div style="overflow: hidden; border-radius: 16px; flex: 1">
+    <div style="overflow: hidden; border-radius: 16px; flex: 1; touch-action: pan-y" onTouchStart="{{ onUpcomingTouchStart }}" onTouchEnd="{{ onUpcomingTouchEnd }}">
       <div class="upcoming-grid" style="display: flex; min-width: 0; height: 100%; transform: {{ upcomingTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
         <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="1">
           <a href="/updates" style="flex: 0 0 100%; min-width: 0; display: flex; flex-direction: column; gap: 20px; transition: transform 0.35s ease" style-hover="transform: translateY(-4px)">
@@ -228,7 +227,7 @@
 class Component extends DCLogic {
   state = { upcomingIndex: 0, recentIndex: 0, upcoming: [], contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "", unionBgIdx: 0, freelanceBgIdx: 0 };
   UNION_BANNERS = ["uploads/SNW 5.webp", "uploads/CRE S4 Banner 2.jpg", "uploads/Overcomp banner.jpg", "uploads/Culprits banner.jpg", "uploads/KON New banner.webp"];
-  FREELANCE_BANNERS = ["uploads/Red Door FINAL FINAL-13.jpg", "uploads/2a7a7c0a-f11f-4a60-955a-4b841104a753.JPG", "https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", "https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg"];
+  FREELANCE_BANNERS = ["uploads/Red Door FINAL FINAL-13.jpg", "uploads/killer-cropped.jpg", "https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", "https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg"];
   componentDidMount() {
     import('./upcoming-projects.js').then(m => this.setState({ upcoming: m.UPCOMING_PROJECTS }));
     this.bgTimer = setInterval(() => {
@@ -326,10 +325,14 @@ class Component extends DCLogic {
       unionBgStyle: { position: "absolute", inset: -4, backgroundImage: "url('" + this.UNION_BANNERS[this.state.unionBgIdx] + "')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(3px)", transform: "scale(1.04)", transition: "background-image 0.8s ease" },
       freelanceBgStyle: { position: "absolute", inset: -4, backgroundImage: "url('" + this.FREELANCE_BANNERS[this.state.freelanceBgIdx] + "')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(3px)", transform: "scale(1.04)", transition: "background-image 0.8s ease" },      upcomingTransform: "translateX(-" + idx + "00%)",
       upcomingPages: pages,
+      onUpcomingTouchStart: (e) => { this._upcomingTouchX = e.touches[0].clientX; },
+      onUpcomingTouchEnd: (e) => { if (this._upcomingTouchX == null) return; const dx = e.changedTouches[0].clientX - this._upcomingTouchX; this._upcomingTouchX = null; if (dx < -40) this.setState(s => ({ upcomingIndex: Math.min(maxIndex, s.upcomingIndex + 1) })); else if (dx > 40) this.setState(s => ({ upcomingIndex: Math.max(0, s.upcomingIndex - 1) })); },
       prevUpcoming: () => this.setState(s => ({ upcomingIndex: Math.max(0, s.upcomingIndex - 1) })),
       nextUpcoming: () => this.setState(s => ({ upcomingIndex: Math.min(maxIndex, s.upcomingIndex + 1) })),
       recentTransform: "translateX(-" + rIdx + "00%)",
       recentPages: recentPages,
+      onRecentTouchStart: (e) => { this._recentTouchX = e.touches[0].clientX; },
+      onRecentTouchEnd: (e) => { if (this._recentTouchX == null) return; const dx = e.changedTouches[0].clientX - this._recentTouchX; this._recentTouchX = null; if (dx < -40) this.setState(s => ({ recentIndex: Math.min(recentTitles.length - 1, s.recentIndex + 1) })); else if (dx > 40) this.setState(s => ({ recentIndex: Math.max(0, s.recentIndex - 1) })); },
       prevRecent: () => this.setState(s => ({ recentIndex: Math.max(0, s.recentIndex - 1) })),
       nextRecent: () => this.setState(s => ({ recentIndex: Math.min(recentTitles.length - 1, s.recentIndex + 1) }))
     };
