@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: oklch(0.45 0.17 262); }
+  .wh-wrap { position: relative; padding-bottom: 8px; margin-bottom: -8px; }
+  .wh-menu { display: none; position: absolute; top: 100%; left: 0; z-index: 20; background: #f4f2ec; color: #14130f; border: 1px solid #14130f; padding: 10px; flex-direction: column; gap: 8px; min-width: 200px; }
+  .wh-wrap:hover .wh-menu, .wh-wrap:focus-within .wh-menu { display: flex; }
+  .wh-trigger { border: none; background: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
+
+  @media (max-width: 900px) {
+    .hero-grid, .about-grid, .contact-grid { grid-template-columns: 1fr !important; }
+    .hero-grid { padding: 40px 24px 32px !important; }
+    .about-grid > div { max-width: none !important; }
+    .contact-grid { padding: 40px 24px 32px !important; gap: 28px !important; }
+  }
+  @media (max-width: 720px) {
+    .site-header { padding: 16px 20px !important; }
+    .site-nav { flex-wrap: wrap !important; gap: 10px 16px !important; row-gap: 8px !important; }
+  }
+</style>
+</helmet>
+
+<div data-screen-label="About" style="background: #f4f2ec; color: #14130f; min-height: 100vh">
+
+  <div class="site-header" style="position: sticky; top: 0; z-index: 50; background: #f4f2ec; color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f; isolation: isolate">
+<a href="Joshua%20DeSouza%20Landing.dc.html" style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</a>
+    <div class="site-nav" style="display: flex; gap: 26px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
+      <a href="Joshua%20DeSouza%20Landing.dc.html">Home</a>
+      <a href="Joshua%20DeSouza%20Portfolio.dc.html">Union Work</a>
+      <a href="Joshua%20DeSouza%20Freelance.dc.html">Freelance</a>
+      <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">About</span>
+      <a href="Joshua%20DeSouza%20Press.dc.html">Updates</a>
+      <a href="#" onClick="{{ openContact }}">Get in touch</a>
+    </div>
+  </div>
+
+  <div class="hero-grid" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; padding: 64px 44px 52px; align-items: end">
+    <div style="display: flex; flex-direction: column; gap: 14px">
+      <h1 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">About</h1>
+      <span style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #8b887d">PRODUCER · 1ST AD · COORDINATOR</span>
+    </div>
+    
+  </div>
+
+  <div class="about-grid" style="display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); padding: 0 44px 56px">
+    
+    <div style="{{ aboutPhotoFrameStyle }}">
+      <div style="{{ aboutPhotoStyle }}"></div>
+    </div><div style="padding: 56px 0 56px 44px; display: flex; flex-direction: column; gap: 40px">
+      <p style="margin: 0; font-size: 14px; line-height: 1.9; max-width: 46ch; color: #3a382f; font-style: italic">Wearer of many hats, with some that fit best.</p>
+      <div style="display: flex; flex-direction: column; gap: 16px">
+        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #14130f">What I do</span>
+        <div style="display: flex; flex-direction: column; gap: 12px">
+          <span style="font-size: 13px; line-height: 1.7; color: #3a382f">Producing&nbsp;— Creative packaging, budgets, crewing. Grant writing and funding applications</span>
+          <span style="font-size: 13px; line-height: 1.7; color: #3a382f">1st ADing — Shoot day scheduling and on-set leadership</span>
+          <span style="font-size: 13px; line-height: 1.7; color: #3a382f">Production Coordination — Keeping the production moving prep to wrap</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #14130f">Education</span>
+        <span style="font-size: 13px; line-height: 1.8; color: #3a382f">Toronto Metropolitan University, 2015–2020<br>BA, RTA: Media Production — Television &amp; Video certificate, Music and Culture minor</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px">
+        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #14130f">Also</span>
+        <span style="font-size: 13px; line-height: 1.7; color: #3a382f">IATSE 411 member</span>
+        <span style="font-size: 13px; line-height: 1.7; color: #3a382f">First Aid / CPR certified</span>
+      </div>
+    </div>
+  </div>
+
+  <footer id="contact" style="background: #14130f; color: #b8b4a9">
+   <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
+    <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100vw; text-align: center; pointer-events: none; z-index: 0">
+      <span style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+    </div>
+    <div style="position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; color: #f4f2ec">J.</span>
+        <p style="margin: 0; font-size: 13px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+        <a href="Joshua%20DeSouza%20Landing.dc.html" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
+        <a href="Joshua%20DeSouza%20Portfolio.dc.html" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
+        <a href="Joshua%20DeSouza%20Freelance.dc.html" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
+        <a href="Joshua%20DeSouza%20About.dc.html" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">About</a>
+        <a href="Joshua%20DeSouza%20Press.dc.html" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+        <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
+        <a href="tel:+16477724279" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
+        <a href="https://instagram.com/jsuza_" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
+        <a href="#" onClick="{{ openContact }}" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px">
+        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+        <div class="wh-wrap" style="align-self: flex-start">
+          <button type="button" class="wh-trigger" style="font-size: 13px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
+          <div class="wh-menu">
+            <a href="Joshua%20DeSouza%20Credits.dc.html" target="_blank" style="font-size: 12px">Union Work History</a>
+            <a href="Joshua%20DeSouza%20Freelance%20Credits.dc.html" target="_blank" style="font-size: 12px">Freelance Work History</a>
+          </div>
+        </div>
+        <a href="https://www.thedropspot.org/" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
+      </div>
+    </div>
+   </div>
+  </footer>
+
+</div>
+
+<sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
+  <div onClick="{{ closeContact }}" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.72); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px">
+    <div onClick="{{ stopContactClick }}" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: #fbfaf5; border-radius: 24px; box-shadow: 0 40px 80px rgba(20,19,15,0.4); padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace">
+      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
+      <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
+        <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
+          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
+          <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there.</p>
+        </div>
+      </sc-if>
+      <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
+      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Send a message</h3>
+          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+        </div>
+        <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
+          <p style="margin: 0; font-size: 12px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
+        </sc-if>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="contact-name" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
+          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="contact-email" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
+          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 6px">
+          <label for="contact-message" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
+          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
+        </div>
+        <button type="submit" style="font-family: inherit; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
+      </form>
+      </sc-if>
+    </div>
+  </div>
+</sc-if>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;aboutPhotoY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 38, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;About photo crop&quot;}, &quot;aboutPhotoX&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 50, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;About photo crop&quot;}, &quot;aboutPhotoZoom&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 125, &quot;min&quot;: 100, &quot;max&quot;: 220, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;About photo crop&quot;}}">
+class Component extends DCLogic {
+  state = { contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
+  renderVals() {
+    const y = this.props.aboutPhotoY ?? 38;
+    const x = this.props.aboutPhotoX ?? 50;
+    const zoom = this.props.aboutPhotoZoom ?? 125;
+    return {
+      contactOpen: this.state.contactOpen,
+      contactSent: this.state.contactSent,
+      contactFormVisible: !this.state.contactSent,
+      contactName: this.state.contactName,
+      contactEmail: this.state.contactEmail,
+      contactMessage: this.state.contactMessage,
+      contactError: this.state.contactError,
+      openContact: (e) => { e.preventDefault(); this.setState({ contactOpen: true, contactSent: false }); },
+      closeContact: () => this.setState({ contactOpen: false }),
+      stopContactClick: (e) => e.stopPropagation(),
+      setContactName: (e) => this.setState({ contactName: e.target.value }),
+      setContactEmail: (e) => this.setState({ contactEmail: e.target.value }),
+      setContactMessage: (e) => this.setState({ contactMessage: e.target.value }),
+      submitContact: (e) => {
+        e.preventDefault();
+        const last = Number(localStorage.getItem('jd-contact-last') || 0);
+        const now = Date.now();
+        const waitMs = 120000 - (now - last);
+        if (waitMs > 0) {
+          this.setState({ contactError: "Please wait " + Math.ceil(waitMs / 1000) + "s before sending another message." });
+          return;
+        }
+        const subject = "New inquiry from " + (this.state.contactName || "website visitor");
+        const body = this.state.contactMessage + "\n\n— " + this.state.contactName + " (" + this.state.contactEmail + ")";
+        localStorage.setItem('jd-contact-last', String(now));
+        window.location.href = "mailto:joshuajdesouza@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
+        this.setState({ contactSent: true, contactError: null });
+      },
+      aboutPhotoFrameStyle: { padding: 0, width: "100%", height: "100%", minHeight: "526px", overflow: "hidden", position: "relative", borderRadius: "24px", boxShadow: "0 24px 48px rgba(20,19,15,0.12)" },
+      aboutPhotoStyle: { position: "absolute", inset: 0, background: 'url("uploads/IMG_6113.JPG") ' + x + '% ' + y + '% / cover no-repeat', transform: "scale(" + (zoom / 100) + ")", transformOrigin: x + "% " + y + "%" }
+    };
+  }
+}
+</script>
+</body>
+</html>
