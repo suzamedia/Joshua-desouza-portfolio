@@ -92,8 +92,8 @@
     </div>
     <div style="overflow: hidden; border-radius: 16px; touch-action: pan-y" onTouchStart="{{ onRecentTouchStart }}" onTouchEnd="{{ onRecentTouchEnd }}">
       <div style="display: flex; transform: {{ recentTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
-        <a href="/freelance-work?project=Red%20Door%20PSA" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/Red Door FINAL FINAL-13.jpg') center / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
-        <a href="/freelance-work?project=Are%20You%20A%20Killer%3F" style="position: relative; flex: 0 0 100%; aspect-ratio: 16/9; display: block; background: url('uploads/killer-cropped.jpg') center 40% / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1)" style-hover="transform: scale(1.03)"></a>
+        <a href="/freelance-work?project=Red%20Door%20PSA" style="position: relative; flex: 0 0 100%; overflow: hidden; aspect-ratio: 16/9; display: block; background: url('uploads/Red Door FINAL FINAL-13.jpg') center / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; will-change: transform" style-hover="transform: scale(1.03) translateZ(0)"></a>
+        <a href="/freelance-work?project=Are%20You%20A%20Killer%3F" style="position: relative; flex: 0 0 100%; overflow: hidden; aspect-ratio: 16/9; display: block; background: url('uploads/killer-cropped.jpg') center 40% / cover no-repeat; background-color: #d8d5cb; transition: transform 0.5s cubic-bezier(0.22,0.8,0.24,1); transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; will-change: transform" style-hover="transform: scale(1.03) translateZ(0)"></a>
       </div>
     </div>
     <div class="recent-nav-row" style="display: flex; align-items: center; justify-content: center; gap: 8px; position: relative">
@@ -110,7 +110,7 @@
     <div style="overflow: hidden; border-radius: 16px; flex: 1; touch-action: pan-y" onTouchStart="{{ onUpcomingTouchStart }}" onTouchEnd="{{ onUpcomingTouchEnd }}">
       <div class="upcoming-grid" style="display: flex; min-width: 0; height: 100%; transform: {{ upcomingTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
         <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="1">
-          <a href="/updates" style="flex: 0 0 100%; min-width: 0; display: flex; flex-direction: column; gap: 20px; transition: transform 0.35s ease" style-hover="transform: translateY(-4px)">
+          <a href="/updates" style="flex: 0 0 100%; min-width: 0; overflow: hidden; display: flex; flex-direction: column; gap: 20px; transition: transform 0.35s ease; transform: translateZ(0); -webkit-backface-visibility: hidden; backface-visibility: hidden; will-change: transform" style-hover="transform: translateY(-4px) translateZ(0)">
             <div style="aspect-ratio: 4/3"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcLanding }}" shape="rect" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
             <div style="display: flex; flex-direction: column; gap: 10px; flex: 1; justify-content: center">
               <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.62 0.15 262)">{{ item.landingSubtitle }}</span>
