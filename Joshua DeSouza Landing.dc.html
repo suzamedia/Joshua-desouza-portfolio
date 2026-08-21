@@ -31,14 +31,6 @@
 
   .wh-wrap:hover .wh-menu, .wh-wrap:focus-within .wh-menu { display: flex !important; }
 
-  .cta-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
-  .cta-union:hover { transform: translateY(-6px); box-shadow: 0 32px 60px rgba(20,19,15,0.28); }
-  .cta-freelance:hover { transform: translateY(-6px); box-shadow: 0 32px 60px rgba(20,19,15,0.16); }
-  .cta-union:hover .cta-text { color: oklch(0.72 0.13 262); text-shadow: 0 0 22px oklch(0.62 0.15 262 / 0.9); }
-  .cta-freelance:hover .cta-text { color: oklch(0.72 0.13 262); text-shadow: 0 0 22px oklch(0.62 0.15 262 / 0.9); }
-  .cta-text-freelance { color: #fbfaf5; }
-  .cta-text { transition: color 0.25s ease, text-shadow 0.25s ease; }
-
   @media (max-width: 900px) {
     .landing-two-col { grid-template-columns: 1fr !important; }
   }
@@ -47,7 +39,9 @@
     .nav-burger { display: flex !important; }
     .site-nav { display: none !important; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
     .nav-toggle-cb:checked ~ .site-nav { display: flex !important; }
-    .landing-split { grid-template-columns: 1fr !important; }
+    .cta-row { grid-template-columns: 1fr !important; height: auto !important; }
+    .cta-row .cta-carousel { height: 280px !important; }
+    .cta-row > div:last-child { border-left: none !important; padding-left: 0 !important; padding-top: 16px !important; }
     .upcoming-grid > a { flex-basis: 100% !important; }
     .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px 24px !important; }
   }
@@ -84,7 +78,10 @@
       <path ref="{{ bladeRef4 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
       <path ref="{{ bladeRef5 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
     </svg>
-    <h1 class="fade-up" style="position: relative; margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: clamp(40px, 6vw, 72px); line-height: 1; letter-spacing: -0.01em">Joshua J. DeSouza</h1>
+    <div ref="{{ meshWrapRef }}" class="fade-up" style="position: relative; width: min(900px, 92vw); height: clamp(56px, 9vw, 96px)">
+      <canvas ref="{{ meshCanvasRef }}" style="display: block; width: 100%; height: 100%"></canvas>
+      <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; margin: 0">Joshua J. DeSouza</h1>
+    </div>
     
     <p class="fade-up" style="position: relative; animation-delay: 0.2s; margin: 0; font-size: 13px; letter-spacing: 0.1em; color: #b8b4a9">Producer&nbsp;·&nbsp;Coordinator&nbsp;·&nbsp;Filmmaker</p>  </div>
 
@@ -134,19 +131,27 @@
    </div>
   </div>
 
-  <div class="landing-split" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 96px">
-    <a href="/union-work" class="landing-split-a cta-card cta-union" style="position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 56px 32px; border-radius: 24px; background: #14130f; color: #f4f2ec; box-shadow: 0 24px 48px rgba(20,19,15,0.2); text-align: center">
-      <div style="{{ unionBgStyle }}"></div>
-      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,19,15,0.85), rgba(20,19,15,0.55))"></div>
-      <span style="position: relative; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.62 0.15 262)">IATSE 411</span>
-      <span class="cta-text" style="position: relative; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.6vw, 32px)">View Union Work</span>
-    </a>
-    <a href="/freelance-work" class="cta-card cta-freelance" style="position: relative; overflow: hidden; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; padding: 56px 32px; border-radius: 24px; background: #fbfaf5; border: 1px solid rgba(20,19,15,0.08); box-shadow: 0 24px 48px rgba(20,19,15,0.1); text-align: center">
-      <div style="{{ freelanceBgStyle }}"></div>
-      <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,19,15,0.85), rgba(20,19,15,0.55))"></div>
-      <span style="position: relative; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.62 0.15 262)">Independent</span>
-      <span class="cta-text cta-text-freelance" style="position: relative; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(22px, 2.6vw, 32px)">View Freelance</span>
-    </a>
+  <div class="landing-split" style="display: flex; flex-direction: column; gap: 40px; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 96px">
+    <div class="cta-row" style="display: grid; grid-template-columns: 1fr 220px; gap: 32px; align-items: center; height: 420px">
+      <div class="cta-carousel" style="position: relative; height: 100%">
+        <div ref="{{ unionMountRef }}" style="position: absolute; inset: 0"></div>
+      </div>
+      <div onClick="{{ goUnion }}" style="display: flex; flex-direction: column; gap: 10px; border-left: 1px solid rgba(20,19,15,0.15); padding-left: 28px; cursor: pointer">
+        <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b6355">IATSE 411</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(34px, 4vw, 52px); color: #14130f; line-height: 1.05">Union<br>Work</span>
+        <span style="font-size: 24px; color: #14130f">&#8594;</span>
+      </div>
+    </div>
+    <div class="cta-row" style="display: grid; grid-template-columns: 1fr 220px; gap: 32px; align-items: center; height: 420px">
+      <div class="cta-carousel" style="position: relative; height: 100%">
+        <div ref="{{ freelanceMountRef }}" style="position: absolute; inset: 0"></div>
+      </div>
+      <div onClick="{{ goFreelance }}" style="display: flex; flex-direction: column; gap: 10px; border-left: 1px solid rgba(20,19,15,0.15); padding-left: 28px; cursor: pointer">
+        <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b6355">Independent</span>
+        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(34px, 4vw, 52px); color: #14130f; line-height: 1.05">Freelance</span>
+        <span style="font-size: 24px; color: #14130f">&#8594;</span>
+      </div>
+    </div>
   </div>
 
   <footer style="background: #14130f; color: #b8b4a9; border-top: 1px solid rgba(244,242,236,0.1)">
@@ -233,20 +238,51 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { upcomingIndex: 0, recentIndex: 0, upcoming: [], contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "", unionBgIdx: 0, freelanceBgIdx: 0 };
+  state = { upcomingIndex: 0, recentIndex: 0, upcoming: [], contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
   UNION_BANNERS = ["uploads/SNW 5.webp", "uploads/CRE S4 Banner 2.jpg", "uploads/Overcomp banner.jpg", "uploads/Culprits banner.jpg", "uploads/KON New banner.webp"];
-  FREELANCE_BANNERS = ["uploads/Red Door FINAL FINAL-13.jpg", "uploads/killer-cropped.jpg", "https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", "https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg"];
+  FREELANCE_BANNERS = ["uploads/Red Door FINAL FINAL-13.jpg", "uploads/killer-cropped.jpg", "https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", "https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg", "uploads/the-suspension-compressed.jpg"];
+  meshWrapRef = React.createRef();
+  meshCanvasRef = React.createRef();
+  unionMountRef = React.createRef();
+  freelanceMountRef = React.createRef();
   componentDidMount() {
     import('./upcoming-projects.js').then(m => this.setState({ upcoming: m.UPCOMING_PROJECTS }));
-    this.bgTimer = setInterval(() => {
-      this.setState(s => ({ unionBgIdx: (s.unionBgIdx + 1) % this.UNION_BANNERS.length, freelanceBgIdx: (s.freelanceBgIdx + 1) % this.FREELANCE_BANNERS.length }));
-    }, 5000);
     this.startAperture();
+    import('./round-carousel.js').then(m => {
+      if (this.unionMountRef.current) {
+        this._unionCleanup = m.initRoundCarousel(this.unionMountRef.current, this.UNION_BANNERS, {
+          tilt: -11, perspective: 1200, cornerRadius: 20, speed: 1.6, direction: 'right', maxImageWidth: 540,
+          onClick: () => { window.location.href = '/union-work'; }
+        });
+      }
+      if (this.freelanceMountRef.current) {
+        this._freelanceCleanup = m.initRoundCarousel(this.freelanceMountRef.current, this.FREELANCE_BANNERS, {
+          tilt: -11, perspective: 1200, cornerRadius: 20, speed: 1.6, direction: 'left', maxImageWidth: 540,
+          onClick: () => { window.location.href = '/freelance-work'; }
+        });
+      }
+    });
+    import('./mesh-text.js').then(m => {
+      if (this.meshWrapRef.current && this.meshCanvasRef.current) {
+        this._meshCleanup = m.initMeshText(this.meshWrapRef.current, this.meshCanvasRef.current, {
+          text: 'Joshua J. DeSouza',
+          color: '#f4f2ec',
+          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontWeight: 400,
+          fontStyle: 'normal',
+          colorSplit: true,
+          customColors: ['oklch(0.62 0.15 262)', '#f4f2ec'],
+          force: 18
+        });
+      }
+    });
   }
   componentWillUnmount() {
-    clearInterval(this.bgTimer);
     clearTimeout(this.apertureTimer);
     cancelAnimationFrame(this.apertureFrame);
+    if (this._meshCleanup) this._meshCleanup();
+    if (this._unionCleanup) this._unionCleanup();
+    if (this._freelanceCleanup) this._freelanceCleanup();
   }
   bladeRef0 = React.createRef(); bladeRef1 = React.createRef(); bladeRef2 = React.createRef();
   bladeRef3 = React.createRef(); bladeRef4 = React.createRef(); bladeRef5 = React.createRef();
@@ -330,8 +366,10 @@ class Component extends DCLogic {
       upcomingList: list,
       bladeRef0: this.bladeRef0, bladeRef1: this.bladeRef1, bladeRef2: this.bladeRef2,
       bladeRef3: this.bladeRef3, bladeRef4: this.bladeRef4, bladeRef5: this.bladeRef5,
-      unionBgStyle: { position: "absolute", inset: -4, backgroundImage: "url('" + this.UNION_BANNERS[this.state.unionBgIdx] + "')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(3px)", transform: "scale(1.04)", transition: "background-image 0.8s ease" },
-      freelanceBgStyle: { position: "absolute", inset: -4, backgroundImage: "url('" + this.FREELANCE_BANNERS[this.state.freelanceBgIdx] + "')", backgroundSize: "cover", backgroundPosition: "center", filter: "blur(3px)", transform: "scale(1.04)", transition: "background-image 0.8s ease" },
+      meshWrapRef: this.meshWrapRef, meshCanvasRef: this.meshCanvasRef,
+      unionMountRef: this.unionMountRef, freelanceMountRef: this.freelanceMountRef,
+      goUnion: () => { window.location.href = '/union-work'; },
+      goFreelance: () => { window.location.href = '/freelance-work'; },
       upcomingTransform: "translateX(-" + idx + "00%)",
       upcomingPages: pages,
       onUpcomingTouchStart: (e) => { this._upcomingTouchX = e.touches[0].clientX; },
