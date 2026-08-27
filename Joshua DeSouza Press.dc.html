@@ -16,7 +16,9 @@
 <script src="./image-slot.js"></script>
 <script src="./page-transition.js"></script>
 <style>
-  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; scrollbar-width: none; -ms-overflow-style: none; }
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: oklch(0.45 0.17 262); }
   .wh-wrap { position: relative; padding-bottom: 8px; margin-bottom: -8px; }
@@ -26,6 +28,8 @@
   .news-row:hover image-slot { transform: scale(1.04); }
   .wh-trigger { border: none; background: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
 
+  image-slot::part(frame) { background: transparent; }
+  image-slot::part(ring) { display: none; }
   image-slot[id="hitman-records-logo"]::part(frame), image-slot[id="union-house-logo"]::part(frame) { background: #000; }
 
   @media (max-width: 900px) {
@@ -53,6 +57,10 @@
   }
   @keyframes apertureSpin { from { transform: translate(-50%, -50%) rotate(0deg); } to { transform: translate(-50%, -50%) rotate(360deg); } }
   .aperture-spin-sm { animation: apertureSpin 60s linear infinite; }
+  @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes modalPopOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
 </style>
 </helmet>
 
@@ -62,7 +70,7 @@
 
   
 
-  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(244,242,236,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
     <a href="/home" class="brand-mark" style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
@@ -126,8 +134,8 @@
 
   <footer id="press-contact" style="background: #14130f; color: #b8b4a9">
    <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
-    <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100vw; text-align: center; pointer-events: none; z-index: 0">
-      <span style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+    <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100%; text-align: center; pointer-events: none; z-index: 0">
+      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
     </div>
     <div class="footer-grid" style="position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
       <div style="display: flex; flex-direction: column; gap: 12px">
@@ -167,8 +175,8 @@
 </div>
 
 <sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.72); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px">
-    <div class="contact-modal" onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: #fbfaf5; border-radius: 24px; box-shadow: 0 40px 80px rgba(20,19,15,0.4); padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace">
+  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
+    <div class="contact-modal" onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace; animation: {{ contactModalAnim }}">
       <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
@@ -210,9 +218,17 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
-  state = { upcoming: [], activeSection: "upcoming", contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
+  state = { upcoming: [], activeSection: "upcoming", contactOpen: false, contactClosing: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
+  footerNameRef = React.createRef();
+  closeContact = () => {
+    if (this.state.contactClosing) return;
+    this.setState({ contactClosing: true });
+    clearTimeout(this._contactCloseTimer);
+    this._contactCloseTimer = setTimeout(() => this.setState({ contactOpen: false, contactClosing: false }), 320);
+  };
   componentDidMount() {
     import('./upcoming-projects.js').then(m => this.setState({ upcoming: m.UPCOMING_PROJECTS }));
+    import('./footer-name-fit.js').then(m => { this._footerFitCleanup = m.fitFooterName(this.footerNameRef.current); });
     this._onScroll = () => {
       const upcoming = document.getElementById('upcoming-section');
       const news = document.getElementById('news-section');
@@ -225,6 +241,7 @@ class Component extends DCLogic {
     this.startAperture();
   }
   componentWillUnmount() {
+    if (this._footerFitCleanup) this._footerFitCleanup();
     window.removeEventListener('scroll', this._onScroll);
     clearTimeout(this.apertureTimer);
     cancelAnimationFrame(this.apertureFrame);
@@ -325,8 +342,11 @@ class Component extends DCLogic {
       contactMessage: this.state.contactMessage,
       contactError: this.state.contactError,
       openContact: (e) => { e.preventDefault(); this.setState({ contactOpen: true, contactSent: false }); },
-      closeContact: () => this.setState({ contactOpen: false }),
-      handleModalKeyDown: (e) => { if (e.key === "Escape") this.setState({ contactOpen: false }); },
+      footerNameRef: this.footerNameRef,
+      closeContact: this.closeContact,
+      handleModalKeyDown: (e) => { if (e.key === "Escape") this.closeContact(); },
+      contactOverlayAnim: this.state.contactClosing ? "modalOverlayOut 0.32s ease both" : "modalOverlayIn 0.3s ease both",
+      contactModalAnim: this.state.contactClosing ? "modalPopOut 0.32s cubic-bezier(0.4,0,0.2,1) both" : "modalPopIn 0.5s cubic-bezier(0.16,1,0.3,1) both",
       stopContactClick: (e) => e.stopPropagation(),
       setContactName: (e) => this.setState({ contactName: e.target.value }),
       setContactEmail: (e) => this.setState({ contactEmail: e.target.value }),

@@ -17,7 +17,9 @@
 <script src="./page-transition.js"></script>
 <style>
   html { scroll-behavior: auto; }
-  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; scrollbar-width: none; -ms-overflow-style: none; }
+  html { scrollbar-width: none; }
+  html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: oklch(0.45 0.17 262); }
   .wh-wrap { position: relative; padding-bottom: 8px; margin-bottom: -8px; }
@@ -26,6 +28,8 @@
   .wh-trigger { border: none; background: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
 
   .banner-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  image-slot::part(frame) { background: transparent; }
+  image-slot::part(ring) { display: none; }
   .banner-reveal.revealed { opacity: 1; transform: translateY(0); }
   .banner-reveal .reveal-title { display: inline-block; transform: scale(0.85); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
   .banner-reveal.revealed .reveal-title { transform: scale(1); opacity: 1; }
@@ -58,6 +62,10 @@
     .footer-grid { grid-template-columns: 1fr !important; }
     .contact-modal { padding: 32px 22px !important; }
   }
+  @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
+  @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @keyframes modalPopOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
 </style>
 </helmet>
 
@@ -67,7 +75,7 @@
   <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: oklch(0.45 0.17 262); z-index: 100; transition: width 0.1s linear"></div>
 
 <sc-if value="{{ showHeader }}" hint-placeholder-val="{{ true }}">
-  <header class="site-header" style="position: sticky; top: 0; z-index: 20; background: rgba(244,242,236,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+  <header class="site-header" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
     <a href="/home" style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
@@ -154,8 +162,8 @@
 
   <footer id="contact" style="background: #14130f; color: #b8b4a9">
    <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
-    <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100vw; text-align: center; pointer-events: none; z-index: 0">
-      <span style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+    <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100%; text-align: center; pointer-events: none; z-index: 0">
+      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
     </div>
     <div class="footer-grid" style="position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
       <div style="display: flex; flex-direction: column; gap: 12px">
@@ -195,8 +203,8 @@
 </div>
 
 <sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.72); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px">
-    <div class="contact-modal" onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: #fbfaf5; border-radius: 24px; box-shadow: 0 40px 80px rgba(20,19,15,0.4); padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace">
+  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
+    <div class="contact-modal" onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace; animation: {{ contactModalAnim }}">
       <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
@@ -341,9 +349,9 @@
   </div>
 </sc-if>
 </x-dc>
-<script type="text/x-dc" data-dc-script data-props="{&quot;redDoorY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 55, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;killerY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 33, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;toughY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 21, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;jarY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 59, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;iobjectY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 17, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;fe25Y&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 39, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;suspensionY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 32, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;loveY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 36, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;fe24Y&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 24, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;creS3Y&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 30, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;fe23Y&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 39, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;konY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 42, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;culpritsY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 11, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;miaY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 43, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;barY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 29, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;sandY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 26, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}, &quot;sixLackY&quot;: {&quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 28, &quot;min&quot;: 0, &quot;max&quot;: 100, &quot;step&quot;: 1, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Banner vertical position&quot;}}">
+<script type="text/x-dc" data-dc-script data-props="{&quot;redDoorY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;killerY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;toughY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:21,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;jarY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:59,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;iobjectY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:17,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;fe25Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:39,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;suspensionY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:32,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;loveY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;fe24Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:24,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;creS3Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;fe23Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:39,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;konY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;culpritsY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:11,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;miaY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:43,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;barY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:29,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;sandY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:26,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;sixLackY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:28,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;redDoorX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner horizontal position&quot;},&quot;killerX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner horizontal position&quot;}}">
 const PROJECTS = {
-  "Red Door PSA": { client: "Red Door Family Shelter", format: "PSA", role: "Producer, Creative Director", dates: "September 2026", poster: true, bts: ["uploads/BTS Red Door Crew Shot.JPG", "uploads/Red Door - BTS Edits-55.jpg", "uploads/IMG_8315.JPG"] },
+  "Red Door PSA": { client: "Red Door Family Shelter", format: "PSA", role: "Producer, Creative Director", dates: "September 2026", id: "qcYBBh5IRTE", bts: ["uploads/BTS Red Door Crew Shot.JPG", "uploads/Red Door - BTS Edits-55.jpg", "uploads/IMG_8315.JPG"] },
   "Are You A Killer?": { client: "Sneaky Link", format: "Music Video", role: "Producer, Director", dates: "2026", photo: "uploads/killer-cropped.jpg" },
   "Tough Love": { client: "Amelia Maxwell", format: "Music Video", role: "1st Assistant Director", dates: "2026", id: "dYQqBSxUywM" },
   "Functioning": { client: "Ticket Stubbs Inc.", format: "Short Film", role: "1st Assistant Director", dates: "2026" },
@@ -368,8 +376,8 @@ function bannerBg(src, y) { return { position: "absolute", inset: 0, background:
 function bannerBgXY(src, x, y) { return { position: "absolute", inset: 0, background: 'url("' + src + '") ' + x + '% ' + y + '% / cover no-repeat' }; }
 
 const HERO_BANNER = {
-  "Red Door PSA": ["uploads/Red Door FINAL FINAL-13.jpg", "redDoorY", 55],
-  "Are You A Killer?": ["uploads/killer-cropped.jpg", "killerY", 40],
+  "Red Door PSA": ["uploads/Red Door FINAL FINAL-13.jpg", "redDoorY", 55, "redDoorX", 50],
+  "Are You A Killer?": ["uploads/killer-cropped.jpg", "killerY", 40, "killerX", 50],
   "Tough Love": ["https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", "toughY", 30],
   "How I Put My Head In A Jar": ["https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg", "jarY", 59],
   "I, Object": ["https://img.youtube.com/vi/u5ENTPq8xf0/maxresdefault.jpg", "iobjectY", 17],
@@ -427,8 +435,15 @@ function highlightText(el, term) {
 }
 
 class Component extends DCLogic {
-  state = { filter: "all", openTitle: null, search: "", heroFading: false, lightboxIndex: null, originRect: null, modalAtFinal: false, contactOpen: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
+  state = { filter: "all", openTitle: null, search: "", heroFading: false, lightboxIndex: null, originRect: null, modalAtFinal: false, contactOpen: false, contactClosing: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
   componentDidMount() {
+    this.closeContact = () => {
+      if (this.state.contactClosing) return;
+      this.setState({ contactClosing: true });
+      clearTimeout(this._contactCloseTimer);
+      this._contactCloseTimer = setTimeout(() => this.setState({ contactOpen: false, contactClosing: false }), 320);
+    };
+    import('./footer-name-fit.js').then(m => { this._footerFitCleanup = m.fitFooterName(this.footerNameRef.current); });
     this._onScroll = (e) => {
       const detailEl = document.getElementById('detail-scroll');
       const inDetail = detailEl && (e.target === detailEl || detailEl.contains(e.target));
@@ -491,7 +506,9 @@ class Component extends DCLogic {
     if (wanted && PROJECTS[wanted]) { this.setState({ openTitle: wanted, modalAtFinal: true }); }
     this.filterList();
   }
+  footerNameRef = React.createRef();
   componentWillUnmount() {
+    if (this._footerFitCleanup) this._footerFitCleanup();
     if (this._observer) this._observer.disconnect();
     window.removeEventListener("mousemove", this._onMove);
     window.removeEventListener("keydown", this._onKey);
@@ -562,7 +579,7 @@ class Component extends DCLogic {
         showPoster: !!p.poster, showPhoto: !!p.photo && !p.id,
         showPlaceholder: !p.id && !p.poster && !p.photo,
         photoStyle: p.photo ? { position: "relative", aspectRatio: "16/9", borderRadius: "10px", background: 'url("' + p.photo + '") center 40% / cover no-repeat' } : "",
-        heroContainerStyle: HERO_BANNER[this.state.openTitle] ? { position: "relative", padding: "56px 44px 40px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: 'url("' + HERO_BANNER[this.state.openTitle][0] + '") center ' + (P[HERO_BANNER[this.state.openTitle][1]] ?? HERO_BANNER[this.state.openTitle][2]) + '% / cover no-repeat' } : (HERO_SOLID[this.state.openTitle] ? { position: "relative", padding: "56px 44px " + (P.heroImageHeight ?? 40) + "px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: HERO_SOLID[this.state.openTitle] } : { position: "relative", padding: "56px 44px 40px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease" }),
+        heroContainerStyle: HERO_BANNER[this.state.openTitle] ? { position: "relative", padding: "56px 44px 40px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: 'url("' + HERO_BANNER[this.state.openTitle][0] + '") ' + (HERO_BANNER[this.state.openTitle][3] ? (P[HERO_BANNER[this.state.openTitle][3]] ?? HERO_BANNER[this.state.openTitle][4]) : 50) + '% ' + (P[HERO_BANNER[this.state.openTitle][1]] ?? HERO_BANNER[this.state.openTitle][2]) + '% / cover no-repeat' } : (HERO_SOLID[this.state.openTitle] ? { position: "relative", padding: "56px 44px " + (P.heroImageHeight ?? 40) + "px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: HERO_SOLID[this.state.openTitle] } : { position: "relative", padding: "56px 44px 40px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease" }),
         heroBg: !!HERO_BANNER[this.state.openTitle] || !!HERO_SOLID[this.state.openTitle],
         heroTextColor: "#14130f",
         heroSubColor: "#8b887d",
@@ -609,8 +626,11 @@ class Component extends DCLogic {
       contactMessage: this.state.contactMessage,
       contactError: this.state.contactError,
       openContact: (e) => { e.preventDefault(); this.setState({ contactOpen: true, contactSent: false }); },
-      closeContact: () => this.setState({ contactOpen: false }),
-      handleModalKeyDown: (e) => { if (e.key === "Escape") this.setState({ contactOpen: false }); },
+      footerNameRef: this.footerNameRef,
+      closeContact: this.closeContact,
+      handleModalKeyDown: (e) => { if (e.key === "Escape") this.closeContact(); },
+      contactOverlayAnim: this.state.contactClosing ? "modalOverlayOut 0.32s ease both" : "modalOverlayIn 0.3s ease both",
+      contactModalAnim: this.state.contactClosing ? "modalPopOut 0.32s cubic-bezier(0.4,0,0.2,1) both" : "modalPopIn 0.5s cubic-bezier(0.16,1,0.3,1) both",
       stopContactClick: (e) => e.stopPropagation(),
       setContactName: (e) => this.setState({ contactName: e.target.value }),
       setContactEmail: (e) => this.setState({ contactEmail: e.target.value }),
@@ -645,8 +665,8 @@ class Component extends DCLogic {
       search: this.state.search,
       onSearchChange: (e) => { const v = e.target.value; this.setState({ search: v }, () => this.filterList()); },
       clearSearch: () => { this.setState({ search: "" }, () => this.filterList()); },
-      redDoorThumb: bannerBg("uploads/Red Door FINAL FINAL-13.jpg", P.redDoorY ?? 55),
-      killerThumb: bannerBgXY("uploads/killer-cropped.jpg", 50, P.killerY ?? 40),
+      redDoorThumb: bannerBgXY("uploads/Red Door FINAL FINAL-13.jpg", P.redDoorX ?? 50, P.redDoorY ?? 55),
+      killerThumb: bannerBgXY("uploads/killer-cropped.jpg", P.killerX ?? 50, P.killerY ?? 40),
       toughThumb: bannerBg("https://img.youtube.com/vi/dYQqBSxUywM/maxresdefault.jpg", P.toughY ?? 30),
       jarThumb: bannerBg("https://img.youtube.com/vi/JsgG3dkJthM/maxresdefault.jpg", P.jarY ?? 59),
       iobjectThumb: bannerBgXY("https://img.youtube.com/vi/u5ENTPq8xf0/maxresdefault.jpg", 50, P.iobjectY ?? 17),
