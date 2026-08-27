@@ -24,14 +24,24 @@
   mountOverlay();
   document.addEventListener('DOMContentLoaded', mountOverlay);
 
+  function setBodyMotion(scale, opacity, transition) {
+    if (!document.body) return;
+    document.body.style.transformOrigin = '50% 40%';
+    document.body.style.transition = transition;
+    document.body.style.transform = 'scale(' + scale + ')';
+    document.body.style.opacity = String(opacity);
+  }
+
   function revealPage() {
     mountOverlay();
+    setBodyMotion(1.035, 0, 'none');
     overlay.style.transition = 'none';
     overlay.style.opacity = '1';
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        overlay.style.transition = 'opacity 0.22s cubic-bezier(0.22,0.61,0.36,1)';
+        overlay.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1)';
         overlay.style.opacity = '0';
+        setBodyMotion(1, 1, 'transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.55s cubic-bezier(0.16,1,0.3,1)');
       });
     });
   }
@@ -53,16 +63,18 @@
     mountOverlay();
     overlay.style.transition = 'none';
     overlay.style.opacity = '0';
+    setBodyMotion(1, 1, 'none');
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        overlay.style.transition = 'opacity 0.14s cubic-bezier(0.4,0,1,1)';
+        overlay.style.transition = 'opacity 0.38s cubic-bezier(0.4,0,0.2,1)';
         overlay.style.opacity = '1';
+        setBodyMotion(0.97, 0.4, 'transform 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.34s cubic-bezier(0.4,0,0.2,1)');
       });
     });
 
     if (previewMode && ROUTES[url.pathname]) {
       e.preventDefault();
-      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 150);
+      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 360);
     }
   }, true);
 })();
