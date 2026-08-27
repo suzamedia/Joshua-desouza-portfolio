@@ -22,6 +22,8 @@
   .wh-wrap { position: relative; padding-bottom: 8px; margin-bottom: -8px; }
   .wh-menu { display: none; position: absolute; top: 100%; left: 0; z-index: 20; background: #f4f2ec; color: #14130f; border: 1px solid #14130f; padding: 10px; flex-direction: column; gap: 8px; min-width: 200px; }
   .wh-wrap:hover .wh-menu, .wh-wrap:focus-within .wh-menu { display: flex; }
+  .news-row image-slot { transition: transform 0.6s cubic-bezier(0.22,0.8,0.24,1); }
+  .news-row:hover image-slot { transform: scale(1.04); }
   .wh-trigger { border: none; background: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
 
   image-slot[id="hitman-records-logo"]::part(frame), image-slot[id="union-house-logo"]::part(frame) { background: #000; }
@@ -102,7 +104,7 @@
     <span style="display: block; margin-bottom: 28px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">News</span>
     <div style="display: flex; flex-direction: column; gap: 14px">
       <sc-for list="{{ newsList }}" as="item" hint-placeholder-count="4">
-        <article class="news-row" onClick="{{ item.openLink }}" style="{{ item.cardStyle }}" style-hover="background: linear-gradient(135deg, rgba(244,242,236,0.12), rgba(244,242,236,0.05)); border-color: rgba(244,242,236,0.18)">
+        <article class="news-row" onClick="{{ item.openLink }}" style="{{ item.cardStyle }}" style-hover="background: linear-gradient(155deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); border-color: rgba(255,255,255,0.32); transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 34px 60px -18px rgba(0,0,0,0.6)">
           <div style="width: 176px; flex: none; align-self: stretch; padding: 14px 0 14px 14px"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="20px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
           <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 26px 28px; min-width: 0; position: relative">
             <div style="display: flex; gap: 12px; align-items: baseline">
@@ -306,10 +308,12 @@ class Component extends DCLogic {
       item.openLink = item.linkHref ? () => window.open(item.linkHref, "_blank", "noopener") : undefined;
       item.cardStyle = {
         display: "flex", gap: "14px", borderRadius: "28px", overflow: "hidden",
-        background: "linear-gradient(135deg, rgba(244,242,236,0.08), rgba(244,242,236,0.03))",
-        backdropFilter: "blur(6px)", border: "1px solid rgba(244,242,236,0.1)",
+        background: "linear-gradient(155deg, rgba(255,255,255,0.14), rgba(255,255,255,0.045))",
+        backdropFilter: "blur(20px) saturate(170%)", WebkitBackdropFilter: "blur(20px) saturate(170%)",
+        border: "1px solid rgba(255,255,255,0.18)",
+        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.22), 0 26px 52px -18px rgba(0,0,0,0.55)",
         cursor: item.linkHref ? "pointer" : "default",
-        transition: "background 0.25s ease, border-color 0.25s ease"
+        transition: "background 0.35s ease, border-color 0.35s ease, transform 0.45s cubic-bezier(0.22,0.8,0.24,1), box-shadow 0.45s ease"
       };
     });
     return {

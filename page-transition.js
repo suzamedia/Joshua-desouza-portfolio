@@ -16,7 +16,7 @@
   var overlay = document.createElement('div');
   overlay.id = '__page-transition-overlay';
   overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#14130f;pointer-events:none;' +
-    'transform:scaleX(1);transform-origin:right;transition:none;';
+    'opacity:1;transition:none;will-change:opacity;';
 
   function mountOverlay() {
     if (document.body && !document.body.contains(overlay)) document.body.appendChild(overlay);
@@ -26,13 +26,12 @@
 
   function revealPage() {
     mountOverlay();
-    overlay.style.transformOrigin = 'right';
     overlay.style.transition = 'none';
-    overlay.style.transform = 'scaleX(1)';
+    overlay.style.opacity = '1';
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        overlay.style.transition = 'transform 0.36s cubic-bezier(0.76,0,0.24,1)';
-        overlay.style.transform = 'scaleX(0)';
+        overlay.style.transition = 'opacity 0.22s cubic-bezier(0.22,0.61,0.36,1)';
+        overlay.style.opacity = '0';
       });
     });
   }
@@ -52,19 +51,18 @@
     if (url.href.replace(/#.*$/, '') === location.href.replace(/#.*$/, '')) return;
 
     mountOverlay();
-    overlay.style.transformOrigin = 'left';
     overlay.style.transition = 'none';
-    overlay.style.transform = 'scaleX(0)';
+    overlay.style.opacity = '0';
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        overlay.style.transition = 'transform 0.2s cubic-bezier(0.65,0,0.35,1)';
-        overlay.style.transform = 'scaleX(1)';
+        overlay.style.transition = 'opacity 0.14s cubic-bezier(0.4,0,1,1)';
+        overlay.style.opacity = '1';
       });
     });
 
     if (previewMode && ROUTES[url.pathname]) {
       e.preventDefault();
-      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 210);
+      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 150);
     }
   }, true);
 })();
