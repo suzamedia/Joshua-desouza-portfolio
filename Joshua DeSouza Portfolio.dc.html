@@ -12,10 +12,10 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
 <script src="./page-transition.js"></script>
 <style>
-  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; scrollbar-width: none; -ms-overflow-style: none; }
+  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
@@ -69,11 +69,11 @@
   
 
 <sc-if value="{{ showHeader }}" hint-placeholder-val="{{ true }}">
-  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f; isolation: isolate">
-<a href="/home" style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</a>
+  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f; isolation: isolate">
+<a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
       <a href="/home">Home</a>
       <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Union Work</span>
       <a href="/freelance-work">Freelance</a>
@@ -88,18 +88,18 @@
 
 <div class="hero-grid" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; padding: 64px 44px 52px; border-bottom: 1px solid #14130f; align-items: end">
     <div style="display: flex; flex-direction: column; gap: 14px">
-      <h1 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">Union Work</h1><span style="font-size: 11px; letter-spacing: 0.28em; text-transform: uppercase; color: #8b887d">IATSE 411</span>
+      <h1 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">Union Work</h1><span style="font-size: 14px; letter-spacing: 0.28em; text-transform: uppercase; color: #8b887d">IATSE 411</span>
       
     </div><div style="display: flex; flex-direction: column; gap: 14px">
-      <p style="margin: 0; font-size: 13px; line-height: 1.9; max-width: 46ch; color: #c9c4b8">Production work across studio scripted television and feature films.</p>
+      <p style="margin: 0; font-size: 14px; line-height: 1.9; max-width: 46ch; color: #c9c4b8">Production work across studio scripted television and feature films.</p>
       <div style="position: relative; width: 220px">
-        <input type="text" placeholder="Search projects…" value="{{ search }}" onChange="{{ onSearchChange }}" style="background: transparent; border: none; border-bottom: 1px solid #57544a; color: #f4f2ec; font-family: inherit; font-size: 12px; padding: 6px 20px 6px 2px; outline: none; width: 100%; box-sizing: border-box; transition: border-color 0.25s ease, box-shadow 0.25s ease" style-focus="border-bottom-color: #f4f2ec; box-shadow: 0 6px 14px -10px rgba(244,242,236,0.6)">
+        <input type="text" placeholder="Search projects…" value="{{ search }}" onChange="{{ onSearchChange }}" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(244,242,236,0.2); border-radius: 8px; color: #f4f2ec; font-family: inherit; font-size: 14px; padding: 10px 16px 10px 16px; outline: none; width: 100%; box-sizing: border-box; transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease" style-focus="background: rgba(255,255,255,0.12); border-color: #f4f2ec; box-shadow: 0 6px 14px -10px rgba(244,242,236,0.6)">
         <sc-if value="{{ search }}" hint-placeholder-val="{{ false }}">
-          <button type="button" onClick="{{ clearSearch }}" aria-label="Clear search" style="position: absolute; right: 0; top: 50%; transform: translateY(-50%); background: none; border: none; color: #8b887d; cursor: pointer; font-size: 14px; line-height: 1; padding: 4px" style-hover="color: #f4f2ec">×</button>
+          <button type="button" onClick="{{ clearSearch }}" aria-label="Clear search" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: #8b887d; cursor: pointer; font-size: 16px; line-height: 1; padding: 4px" style-hover="color: #f4f2ec">×</button>
         </sc-if>
       </div>
     </div>
-  </div><div class="proj-head" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; padding: 14px 44px; font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">
+  </div><div class="proj-head" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; padding: 14px 44px; font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">
     <span>Project</span><span>Role</span><span>Dates</span><span></span>
   </div>
 
@@ -111,12 +111,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Star Trek: Strange New Worlds <span style="font-style: italic">S5</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">NBC — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Star Trek: Strange New Worlds <span style="font-style: italic">S5</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">NBC — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Asst. Set Decorating Coordinator</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Sept 2025 - Jan 2026</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Asst. Set Decorating Coordinator</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">Sept 2025 - Jan 2026</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -128,12 +128,12 @@
         
       <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Star Trek: Strange New Worlds <span style="font-style: italic">S4</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">NBC — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Star Trek: Strange New Worlds <span style="font-style: italic">S4</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">NBC — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Asst. Set Decorating Coordinator</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">June 2025 - Aug 2025</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Asst. Set Decorating Coordinator</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">June 2025 - Aug 2025</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div></div>
     </article>
 
@@ -143,12 +143,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Something Very Bad Is Going to Happen</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Netflix — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Something Very Bad Is Going to Happen</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Netflix — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Oct 2024 – June 2025</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">Oct 2024 – June 2025</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -159,12 +159,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Overcompensating</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Amazon Prime / A24 — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Overcompensating</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Amazon Prime / A24 — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">On Set Sustainability</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">September 2024</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">On Set Sustainability</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">September 2024</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -175,12 +175,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S4</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S4</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Producer/Coordinator — EPK Unit</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">April – Aug 2024</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Producer/Coordinator — EPK Unit</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">April – Aug 2024</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -191,12 +191,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S3</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S3</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Producer's Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">March – Aug 2023</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Producer's Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">March – Aug 2023</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -207,12 +207,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Macy Murdoch S2</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Shaftesbury — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Macy Murdoch S2</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Shaftesbury — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Production Coordinator (Prep)</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">December 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Production Coordinator (Prep)</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">December 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -223,12 +223,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Longing</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Scythia Films — Feature Film</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Longing</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Scythia Films — Feature Film</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">1st Asst. Production Coordinator</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Sept – Nov 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">1st Asst. Production Coordinator</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">Sept – Nov 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -239,12 +239,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S2</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S2</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">On Set Health and Safety Supervisor</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">March – July 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">On Set Health and Safety Supervisor</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">March – July 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -255,12 +255,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">The Fire Inside</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">MGM — Feature Film</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">The Fire Inside</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">MGM — Feature Film</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">2nd Asst. Production Coordinator</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">June 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">2nd Asst. Production Coordinator</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">June 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -271,12 +271,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Culprits</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">STAR / Disney — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Culprits</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">STAR / Disney — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Director/Producer Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Oct – Dec 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Director/Producer Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Oct – Dec 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -287,12 +287,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Culprits</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">STAR / Disney — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Culprits</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">STAR / Disney — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Talent Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Oct – Dec 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Talent Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Oct – Dec 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -303,12 +303,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Kings of Napa</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Warner Bros. / OWN — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Kings of Napa</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Warner Bros. / OWN — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">2nd Asst. Production Coordinator</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">May – Aug 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">2nd Asst. Production Coordinator</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">May – Aug 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -319,12 +319,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">The Hot Zone: <span style="font-style: italic">Anthrax</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">DISNEY / NATIONAL GEOGRAPHIC — TV SERIES</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">The Hot Zone: <span style="font-style: italic">Anthrax</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">DISNEY / NATIONAL GEOGRAPHIC — TV SERIES</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Jan – May 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Jan – May 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -335,12 +335,12 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Sort Of… <span style="font-style: italic">S1</span></h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Sienna Films / CBC — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Sort Of… <span style="font-style: italic">S1</span></h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Sienna Films / CBC — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Sept – Dec 2020</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Sept – Dec 2020</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -350,55 +350,55 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Best Intentions</h2>
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CBS / POP TV — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Best Intentions</h2>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CBS / POP TV — TV Series</span>
           </div>
-          <span style="font-size: 12px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 12px; line-height: 1.6; color: #b8b4a9">Jan – March 2020</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
+          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Jan – March 2020</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
   </div>
 
-  <div id="empty-state" style="display: none; padding: 60px 44px; text-align: center; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #57544a">No projects match your search.</div>
+  <div id="empty-state" style="display: none; padding: 60px 44px; text-align: center; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #57544a">No projects match your search.</div>
 
   <footer id="union-contact" style="background: #14130f; color: #b8b4a9">
    <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
     <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100%; text-align: center; pointer-events: none; z-index: 0">
-      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
     </div>
     <div class="footer-grid" style="position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; color: #f4f2ec">J.</span>
-        <p style="margin: 0; font-size: 13px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
+        <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 28px; color: #f4f2ec">J.</span>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
-        <a href="/home" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
-        <a href="/union-work" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
-        <a href="/freelance-work" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
-        <a href="/about-me" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">About</a>
-        <a href="/updates" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
+        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+        <a href="/home" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
+        <a href="/union-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
+        <a href="/freelance-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
+        <a href="/about-me" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">About</a>
+        <a href="/updates" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
-        <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
-        <a href="tel:+16477724279" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
-        <a href="https://instagram.com/jsuza_" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
-        <a href="#" onClick="{{ openContact }}" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
+        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+        <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
+        <a href="tel:+16477724279" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
+        <a href="https://instagram.com/jsuza_" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
+        <a href="#" onClick="{{ openContact }}" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
         <div class="wh-wrap" style="align-self: flex-start">
-          <button type="button" class="wh-trigger" style="font-size: 13px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
+          <button type="button" class="wh-trigger" style="font-size: 14px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
           <div class="wh-menu">
-            <a href="/resume-unionwork" target="_blank" style="font-size: 12px">Union Work History</a>
-            <a href="/resume-freelancework" target="_blank" style="font-size: 12px">Freelance Work History</a>
+            <a href="/resume-unionwork" target="_blank" style="font-size: 14px">Union Work History</a>
+            <a href="/resume-freelancework" target="_blank" style="font-size: 14px">Freelance Work History</a>
           </div>
         </div>
-        <a href="https://www.thedropspot.org/" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
+        <a href="https://www.thedropspot.org/" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
       </div>
     </div>
    </div>
@@ -412,35 +412,35 @@
       <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
-          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
-          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
-          <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
+          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
         </div>
       </sc-if>
       <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
       <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
-          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Send a message</h3>
-          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Send a message</h3>
+          <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
         </div>
         <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
-          <p style="margin: 0; font-size: 12px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
+          <p style="margin: 0; font-size: 14px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
         </sc-if>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-name" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
+          <label for="contact-name" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
           <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-email" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
+          <label for="contact-email" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
           <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-message" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
+          <label for="contact-message" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
           <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
         </div>
-        <button type="submit" style="font-family: inherit; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
-        <p style="margin: 0; font-size: 11px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        <button type="submit" style="font-family: inherit; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
       </form>
       </sc-if>
     </div>
@@ -458,34 +458,34 @@
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #f4f2ec 0%, rgba(244,242,236,0.55) 55%, rgba(244,242,236,0.25) 100%)"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(244,242,236,0) 82%, #f4f2ec 100%)"></div>
       </sc-if>
-      <span style="position: relative; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">{{ detail.studio }} — {{ detail.format }}</span>
-      <h1 style="position: relative; margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5vw, 84px); line-height: 0.95; letter-spacing: -0.01em; text-wrap: pretty">{{ detail.title }}</h1>
+      <span style="position: relative; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">{{ detail.studio }} — {{ detail.format }}</span>
+      <h1 style="position: relative; margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 84px); line-height: 0.95; letter-spacing: -0.01em; text-wrap: pretty">{{ detail.title }}</h1>
     </div>
 
     <div class="detail-grid" style="display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(280px, 1fr); gap: 0; border-bottom: 1px solid #14130f">
       <div class="detail-media" style="border-right: 1px solid #14130f; padding: 40px 44px">
         <sc-if value="{{ detail.hasTrailer }}" hint-placeholder-val="{{ false }}">
           <iframe src="{{ detail.trailerSrc }}" title="Trailer" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen="{{ true }}" style="width: 100%; aspect-ratio: 16/9; border: 0; border-radius: 10px; display: block; background: #131210"></iframe>
-          <a href="{{ detail.watchUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid #14130f; padding-bottom: 3px">Watch on YouTube ↗</a>
+          <a href="{{ detail.watchUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid #14130f; padding-bottom: 3px">Watch on YouTube ↗</a>
         </sc-if>
         <sc-if value="{{ detail.showPoster }}" hint-placeholder-val="{{ false }}">
           <div style="{{ posterStyle }}"></div>
         </sc-if>
         <sc-if value="{{ detail.showPlaceholder }}" hint-placeholder-val="{{ true }}">
-          <div style="aspect-ratio: 16/9; border-radius: 10px; background: repeating-linear-gradient(135deg, #1b1a17 0 12px, #131210 12px 24px); display: flex; align-items: center; justify-content: center; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #7a776e">Trailer embed — YouTube / Vimeo</div>
+          <div style="aspect-ratio: 16/9; border-radius: 10px; background: repeating-linear-gradient(135deg, #1b1a17 0 12px, #131210 12px 24px); display: flex; align-items: center; justify-content: center; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #7a776e">Trailer embed — YouTube / Vimeo</div>
         </sc-if>
         <div class="prevnext-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-top: 1px solid #14130f; padding-top: 20px; margin-top: 20px; align-items: start">
           <a onClick="{{ goPrev }}" href="#top" style="display: flex; align-items: center; gap: 14px; cursor: pointer; opacity: 1; transition: gap 0.25s ease" style-hover="gap: 22px">
             <span style="width: 0; height: 0; border-right: 8px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; flex: none"></span>
             <span style="display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Previous</span>
-              <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 26px; line-height: 1.05">{{ prevTitle }}</span>
+              <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Previous</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 26px; line-height: 1.05">{{ prevTitle }}</span>
             </span>
           </a>
           <a onClick="{{ goNext }}" href="#top" style="display: flex; align-items: center; justify-content: flex-end; gap: 14px; cursor: pointer; text-align: right; transition: gap 0.25s ease" style-hover="gap: 22px">
             <span style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end">
-              <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Next</span>
-              <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 26px; line-height: 1.05">{{ nextTitle }}</span>
+              <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Next</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 26px; line-height: 1.05">{{ nextTitle }}</span>
             </span>
             <span style="width: 0; height: 0; border-left: 8px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; flex: none"></span>
           </a>
@@ -493,30 +493,30 @@
       </div>
       <div class="detail-info" style="padding: 40px 44px; display: flex; flex-direction: column; gap: 26px">
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Role</span>
+          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Role</span>
           <span style="font-size: 14px; line-height: 1.6">{{ detail.role }}</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Dates</span>
+          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Dates</span>
           <span style="font-size: 14px">{{ detail.dates }}</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Studio</span>
+          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Studio</span>
           <span style="font-size: 14px">{{ detail.studio }}</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 10px">
-          <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Key collaborators</span>
+          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Key collaborators</span>
           <sc-if value="{{ detail.noCrew }}" hint-placeholder-val="{{ false }}">
-            <span style="font-size: 13px; color: #8b887d; border-top: 1px solid #d8d5cb; padding-top: 8px">To come</span>
+            <span style="font-size: 14px; color: #8b887d; border-top: 1px solid #d8d5cb; padding-top: 8px">To come</span>
           </sc-if>
           <sc-for list="{{ detail.crew }}" as="person" hint-placeholder-count="4">
-            <span style="font-size: 13px; line-height: 1.7; border-top: 1px solid #d8d5cb; padding-top: 8px">{{ person }}</span>
+            <span style="font-size: 14px; line-height: 1.7; border-top: 1px solid #d8d5cb; padding-top: 8px">{{ person }}</span>
           </sc-for>
         </div>
         <sc-if value="{{ detail.hasDescription }}" hint-placeholder-val="{{ false }}">
           <div style="display: flex; flex-direction: column; gap: 6px">
-            <span style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">About</span>
-            <span style="font-size: 13px; line-height: 1.7">{{ detail.description }}</span>
+            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">About</span>
+            <span style="font-size: 14px; line-height: 1.7">{{ detail.description }}</span>
           </div>
         </sc-if>
       </div>

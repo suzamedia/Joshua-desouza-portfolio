@@ -42,6 +42,7 @@
         overlay.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1)';
         overlay.style.opacity = '0';
         setBodyMotion(1, 1, 'transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.55s cubic-bezier(0.16,1,0.3,1)');
+        setTimeout(function () { if (document.body) document.body.style.transform = ''; }, 650);
       });
     });
   }
