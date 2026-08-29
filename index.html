@@ -12,11 +12,11 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Archivo+Black&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <script src="./page-transition.js"></script>
 <style>
-  body { margin: 0; background: #14130f; font-family: "IBM Plex Mono", ui-monospace, monospace; scrollbar-width: none; -ms-overflow-style: none; }
+  body { margin: 0; background: #14130f; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
@@ -69,10 +69,10 @@
 </style>
 </helmet>
 
-<div data-screen-label="Landing" style="background: #ffffff; color: #14130f">
+<div data-screen-label="Landing" style="background: #f4f2ec; color: #14130f">
 
-  <header class="site-header" style="position: sticky; top: 0; z-index: 30; background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
-    <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</span>
+  <header class="site-header" style="position: sticky; top: 0; z-index: 30; background: rgba(244,242,236,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+    <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</span>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
     <nav class="site-nav" style="display: flex; gap: 26px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
@@ -135,7 +135,7 @@
             <div style="position: absolute; inset: 0; overflow: hidden; background: #000000"><div style="{{ item.mediaStyle }}"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcLanding }}" shape="rect" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div></div>
             <div style="position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 6px; padding: 40px 20px 62px; background: linear-gradient(180deg, rgba(20,19,15,0) 0%, rgba(20,19,15,0.72) 55%, rgba(20,19,15,0.9) 100%)">
               <span style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7)">{{ item.landingSubtitle }}</span>
-              <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 26px; line-height: 1.1"><a href="/updates" onClick="{{ guardUpcomingClick }}" style="color: #ffffff" style-hover="color: oklch(0.72 0.13 262)">{{ item.title }}</a></h3>
+              <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 26px; line-height: 1.1"><a href="/updates" onClick="{{ guardUpcomingClick }}" style="color: #ffffff" style-hover="color: oklch(0.72 0.13 262)">{{ item.title }}</a></h3>
               <span style="font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.75)">{{ item.pressRole }}</span>
             </div>
           </div>
@@ -176,11 +176,11 @@
   <footer style="background: #14130f; color: #b8b4a9; border-top: 1px solid rgba(244,242,236,0.1)">
    <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
     <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100%; text-align: center; pointer-events: none; z-index: 0">
-      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
     </div>
     <div class="footer-grid" style="position: relative; z-index: 1; display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
       <div style="display: flex; flex-direction: column; gap: 18px">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; color: #f4f2ec">J.</span>
+        <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 28px; color: #f4f2ec">J.</span>
         <p style="margin: 0; font-size: 13px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
         <a href="mailto:joshuajdesouza@gmail.com" style="display: inline-flex; align-items: center; gap: 6px; font-size: 14px; color: #f4f2ec; width: fit-content" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline></svg></a>
       </div>
@@ -219,7 +219,7 @@
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
           <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
-          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
           <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
         </div>
       </sc-if>
@@ -227,7 +227,7 @@
       <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
         <div style="display: flex; flex-direction: column; gap: 6px">
           <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
-          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Send a message</h3>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Send a message</h3>
           <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
         </div>
         <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
@@ -282,7 +282,7 @@ class Component extends DCLogic {
         this._meshCleanup = m.initMeshText(this.meshWrapRef.current, this.meshCanvasRef.current, {
           text: 'Joshua J. DeSouza',
           color: '#f4f2ec',
-          fontFamily: "'Instrument Serif', Georgia, serif",
+          fontFamily: "'Bebas Neue', Helvetica, sans-serif",
           fontWeight: 400,
           fontStyle: 'normal',
           colorSplit: true,

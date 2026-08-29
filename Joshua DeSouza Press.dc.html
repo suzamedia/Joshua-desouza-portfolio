@@ -12,11 +12,11 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <script src="./page-transition.js"></script>
 <style>
-  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Mono", ui-monospace, monospace; scrollbar-width: none; -ms-overflow-style: none; }
+  body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
@@ -70,11 +70,11 @@
 
   
 
-  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
-    <a href="/home" class="brand-mark" style="font-family: 'Instrument Serif', Georgia, serif; font-size: 32px">J.</a>
+  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+    <a href="/home" class="brand-mark" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
       <a href="/home">Home</a>
       <a href="/union-work">Union Work</a>
       <a href="/freelance-work">Freelance</a>
@@ -84,47 +84,47 @@
     </nav>
   </header><div class="press-hero" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 64px 44px 52px; border-bottom: 1px solid #14130f; max-width: 900px; overflow: hidden">
     
-    <h1 style="position: relative; margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">Updates</h1>
-    <p style="margin: 0; font-size: 13px; line-height: 1.9; max-width: 46ch; color: #c9c4b8">What's in the works, and what's been said.</p>
-    <div style="display: flex; gap: 22px; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 10px">
+    <h1 style="position: relative; margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">Updates</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 1.9; max-width: 46ch; color: #c9c4b8">What's in the works, and what's been said.</p>
+    <div style="display: flex; gap: 22px; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 10px">
       <span onClick="{{ scrollToUpcoming }}" style="{{ upcomingTabStyle }}" style-hover="color: oklch(0.45 0.17 262)">Upcoming Projects</span>
       <span onClick="{{ scrollToNews }}" style="{{ newsTabStyle }}" style-hover="color: oklch(0.45 0.17 262)">News</span>
     </div>
   </div><div id="upcoming-section" class="press-section" style="padding: 56px 44px; border-bottom: 1px solid #14130f; position: relative">
-    <span style="display: block; margin-bottom: 28px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">Upcoming Projects</span>
+    <span style="display: block; margin-bottom: 28px; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">Upcoming Projects</span>
     <div class="upcoming-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px">
       <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="3">
         <div style="display: flex; flex-direction: column; gap: 14px; position: relative">
-          <div style="aspect-ratio: 16/9"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcPress }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
+          <div style="aspect-ratio: 16/9; background: {{ item.bg }}; border-radius: 16px; overflow: hidden"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcPress }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
           <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #8b887d">{{ item.pressSubtitle }}</span>
-            <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(22px, 2vw, 30px); line-height: 1.05">{{ item.title }}</h2>
-            <span style="font-size: 12px; line-height: 1.6; color: #d8d5cb">{{ item.pressRole }}</span>
-            <span style="font-size: 11px; color: #8b887d">{{ item.pressStatus }}</span>
+            <span style="font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: #8b887d">{{ item.pressSubtitle }}</span>
+            <h2 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2vw, 30px); line-height: 1.05">{{ item.title }}</h2>
+            <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">{{ item.pressRole }}</span>
+            <span style="font-size: 14px; color: #8b887d">{{ item.pressStatus }}</span>
           </div>
-          <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #b8b4a9">{{ item.summary }}</p>
+          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #b8b4a9">{{ item.summary }}</p>
         </div>
       </sc-for>
     </div>
   </div>
 
   <div id="news-section" class="press-section" style="padding: 56px 44px; border-bottom: 1px solid #14130f; position: relative">
-    <span style="display: block; margin-bottom: 28px; font-size: 10px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">News</span>
+    <span style="display: block; margin-bottom: 28px; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">News</span>
     <div style="display: flex; flex-direction: column; gap: 14px">
       <sc-for list="{{ newsList }}" as="item" hint-placeholder-count="4">
         <article class="news-row" onClick="{{ item.openLink }}" style="{{ item.cardStyle }}" style-hover="background: linear-gradient(155deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); border-color: rgba(255,255,255,0.32); transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 34px 60px -18px rgba(0,0,0,0.6)">
-          <div style="width: 176px; flex: none; align-self: stretch; padding: 14px 0 14px 14px"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="20px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
+          <div style="width: 176px; flex: none; align-self: stretch; padding: 14px 0 14px 14px"><div style="width: 100%; height: 100%; background: #ffffff; border-radius: 20px; overflow: hidden"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="20px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div></div>
           <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 26px 28px; min-width: 0; position: relative">
             <div style="display: flex; gap: 12px; align-items: baseline">
-              <span style="font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.45 0.17 262)">{{ item.tag }}</span>
-              <span style="font-size: 10px; letter-spacing: 0.1em; color: #6f6c62">{{ item.dateLabel }}</span>
+              <span style="font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.45 0.17 262)">{{ item.tag }}</span>
+              <span style="font-size: 14px; letter-spacing: 0.1em; color: #6f6c62">{{ item.dateLabel }}</span>
             </div>
-            <h2 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: clamp(20px, 2vw, 28px); line-height: 1.12">{{ item.title }}</h2>
+            <h2 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 2vw, 28px); line-height: 1.12">{{ item.title }}</h2>
             <sc-if value="{{ item.description }}" hint-placeholder-val="{{ true }}">
-              <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #b8b4a9; max-width: 60ch">{{ item.description }}</p>
+              <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #b8b4a9; max-width: 60ch">{{ item.description }}</p>
             </sc-if>
             <sc-if value="{{ item.linkHref }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ item.linkHref }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: 8px; font-size: 11px; border: 1px solid #3a372e; border-radius: 999px; padding: 7px 14px; transition: border-color 0.2s ease" style-hover="border-color: #f4f2ec">{{ item.linkLabel }} →</a>
+              <a href="{{ item.linkHref }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: 8px; font-size: 14px; border: 1px solid #3a372e; border-radius: 999px; padding: 7px 14px; transition: border-color 0.2s ease" style-hover="border-color: #f4f2ec">{{ item.linkLabel }} →</a>
             </sc-if>
           </div>
         </article>
@@ -135,38 +135,38 @@
   <footer id="press-contact" style="background: #14130f; color: #b8b4a9">
    <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
     <div style="position: absolute; left: 50%; bottom: -0.28em; transform: translateX(-50%); width: 100%; text-align: center; pointer-events: none; z-index: 0">
-      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Instrument Serif', Georgia, serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
+      <span ref="{{ footerNameRef }}" style="display: inline-block; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 700; font-size: 15.6vw; line-height: 1; letter-spacing: 0.01em; white-space: nowrap; color: rgba(244,242,236,0.1)">Joshua J. DeSouza</span>
     </div>
     <div class="footer-grid" style="position: relative; z-index: 1; display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 32px; padding-bottom: 56px">
       <div style="display: flex; flex-direction: column; gap: 12px">
-        <span style="font-family: 'Instrument Serif', Georgia, serif; font-size: 28px; color: #f4f2ec">J.</span>
-        <p style="margin: 0; font-size: 13px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
+        <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 28px; color: #f4f2ec">J.</span>
+        <p style="margin: 0; font-size: 14px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
-        <a href="/home" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
-        <a href="/union-work" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
-        <a href="/freelance-work" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
-        <a href="/about-me" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">About</a>
-        <a href="/updates" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
+        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+        <a href="/home" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
+        <a href="/union-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
+        <a href="/freelance-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
+        <a href="/about-me" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">About</a>
+        <a href="/updates" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
-        <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
-        <a href="tel:+16477724279" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
-        <a href="https://instagram.com/jsuza_" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
-        <a href="#" onClick="{{ openContact }}" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
+        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+        <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
+        <a href="tel:+16477724279" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
+        <a href="https://instagram.com/jsuza_" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
+        <a href="#" onClick="{{ openContact }}" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
       </div>
       <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
         <div class="wh-wrap" style="align-self: flex-start">
-          <button type="button" class="wh-trigger" style="font-size: 13px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
+          <button type="button" class="wh-trigger" style="font-size: 14px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
           <div class="wh-menu">
-            <a href="/resume-unionwork" target="_blank" style="font-size: 12px">Union Work History</a>
-            <a href="/resume-freelancework" target="_blank" style="font-size: 12px">Freelance Work History</a>
+            <a href="/resume-unionwork" target="_blank" style="font-size: 14px">Union Work History</a>
+            <a href="/resume-freelancework" target="_blank" style="font-size: 14px">Freelance Work History</a>
           </div>
         </div>
-        <a href="https://www.thedropspot.org/" style="font-size: 13px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
+        <a href="https://www.thedropspot.org/" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
       </div>
     </div>
    </div>
@@ -180,35 +180,35 @@
       <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
         <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
-          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
-          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
-          <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
+          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
+          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
         </div>
       </sc-if>
       <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
       <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
-          <h3 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; font-size: 32px">Send a message</h3>
-          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Send a message</h3>
+          <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
         </div>
         <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
-          <p style="margin: 0; font-size: 12px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
+          <p style="margin: 0; font-size: 14px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
         </sc-if>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-name" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
+          <label for="contact-name" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
           <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f">
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-email" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
+          <label for="contact-email" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
           <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f">
         </div>
         <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-message" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
+          <label for="contact-message" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
           <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
         </div>
-        <button type="submit" style="font-family: inherit; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
-        <p style="margin: 0; font-size: 11px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        <button type="submit" style="font-family: inherit; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
+        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
       </form>
       </sc-if>
     </div>
@@ -366,7 +366,7 @@ class Component extends DCLogic {
         window.location.href = "mailto:joshuajdesouza@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         this.setState({ contactSent: true, contactError: null });
       },
-      upcomingList: this.state.upcoming, newsList: news, stopClick: (e) => e.stopPropagation(),
+      upcomingList: this.state.upcoming.map(item => Object.assign({}, item, { bg: item.bg || "#000000" })), newsList: news, stopClick: (e) => e.stopPropagation(),
       upcomingTabStyle: { cursor: "pointer", color: this.state.activeSection === "upcoming" ? "#f4f2ec" : "#8b887d", borderBottom: this.state.activeSection === "upcoming" ? "1px solid #f4f2ec" : "1px solid transparent", paddingBottom: "3px" },
       newsTabStyle: { cursor: "pointer", color: this.state.activeSection === "news" ? "#f4f2ec" : "#8b887d", borderBottom: this.state.activeSection === "news" ? "1px solid #f4f2ec" : "1px solid transparent", paddingBottom: "3px" },
       scrollToUpcoming: () => { const el = document.getElementById('upcoming-section'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); },
