@@ -57,8 +57,30 @@
     .footer-grid { grid-template-columns: 1fr !important; }
     .contact-modal { padding: 32px 22px !important; }
   }
-  .photo-snap { opacity: 0; animation: photoSnapIn 0.6s cubic-bezier(0.16,1,0.3,1) both; }
-  @keyframes photoSnapIn { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: scale(1); } }
+  .photo-snap { opacity: 0; animation: photoSnapIn 0.62s cubic-bezier(0.34,1.4,0.64,1) both; }
+  @keyframes photoSnapIn { from { opacity: 0; transform: scale(1.09); } to { opacity: 1; transform: scale(1); } }
+  @keyframes popIn { from { opacity: 0; transform: translateY(14px) scale(0.965); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .site-nav > * { animation: popIn 0.44s cubic-bezier(0.34,1.56,0.64,1) backwards; }
+  .site-nav > *:nth-child(1) { animation-delay: 0.02s; }
+  .site-nav > *:nth-child(2) { animation-delay: 0.06s; }
+  .site-nav > *:nth-child(3) { animation-delay: 0.1s; }
+  .site-nav > *:nth-child(4) { animation-delay: 0.14s; }
+  .site-nav > *:nth-child(5) { animation-delay: 0.18s; }
+  .site-nav > *:nth-child(6) { animation-delay: 0.22s; }
+  .press-hero > * { animation: popIn 0.52s cubic-bezier(0.34,1.5,0.64,1) backwards; }
+  .press-hero > *:nth-child(1) { animation-delay: 0.05s; }
+  .press-hero > *:nth-child(2) { animation-delay: 0.12s; }
+  .press-hero > *:nth-child(3) { animation-delay: 0.19s; }
+  .upcoming-cards > * { animation: popIn 0.56s cubic-bezier(0.34,1.5,0.64,1) backwards; }
+  .upcoming-cards > *:nth-child(1) { animation-delay: 0.2s; }
+  .upcoming-cards > *:nth-child(2) { animation-delay: 0.28s; }
+  .upcoming-cards > *:nth-child(3) { animation-delay: 0.36s; }
+  .news-row { animation: popIn 0.54s cubic-bezier(0.34,1.5,0.64,1) backwards; }
+  .news-row:nth-child(1) { animation-delay: 0.08s; }
+  .news-row:nth-child(2) { animation-delay: 0.15s; }
+  .news-row:nth-child(3) { animation-delay: 0.22s; }
+  .news-row:nth-child(4) { animation-delay: 0.29s; }
+  .news-row:nth-child(5) { animation-delay: 0.36s; }
   @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }

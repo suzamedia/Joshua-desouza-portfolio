@@ -26,6 +26,21 @@
   .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 18px; padding: 13px; margin: -13px; box-sizing: content-box; cursor: pointer; }
   .nav-burger span { display: block; height: 2px; background: currentColor; border-radius: 1px; }
   @keyframes fadeUp { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes popIn { from { opacity: 0; transform: translateY(14px) scale(0.965); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .fade-up { animation: fadeUp 0.5s cubic-bezier(0.22,1,0.36,1) backwards; }
+  .site-nav > * { animation: popIn 0.44s cubic-bezier(0.34,1.56,0.64,1) backwards; }
+  .site-nav > *:nth-child(1) { animation-delay: 0.02s; }
+  .site-nav > *:nth-child(2) { animation-delay: 0.06s; }
+  .site-nav > *:nth-child(3) { animation-delay: 0.1s; }
+  .site-nav > *:nth-child(4) { animation-delay: 0.14s; }
+  .site-nav > *:nth-child(5) { animation-delay: 0.18s; }
+  .site-nav > *:nth-child(6) { animation-delay: 0.22s; }
+  .landing-two-col > * { animation: popIn 0.56s cubic-bezier(0.34,1.5,0.64,1) backwards; }
+  .landing-two-col > *:nth-child(1) { animation-delay: 0.1s; }
+  .landing-two-col > *:nth-child(2) { animation-delay: 0.19s; }
+  .cta-buttons > * { animation: popIn 0.6s cubic-bezier(0.34,1.5,0.64,1) backwards; }
+  .cta-buttons > *:nth-child(1) { animation-delay: 0.28s; }
+  .cta-buttons > *:nth-child(2) { animation-delay: 0.37s; }
   @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }

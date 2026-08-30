@@ -12,34 +12,39 @@
     '/resume-freelancework': 'Joshua DeSouza Freelance Credits.dc.html'
   };
   var previewMode = !/(^|\.)jdesouza\.ca$/.test(location.hostname);
-  var EASE = 'cubic-bezier(0.65,0,0.35,1)';
 
   function lockOverflow(on) {
     document.documentElement.style.overflowX = on ? 'hidden' : '';
   }
 
-  function setBodyMotion(x, opacity, transition) {
+  function setBodyMotion(opacity, transition) {
     if (!document.body) return;
     document.body.style.transition = transition;
-    document.body.style.transform = x === 0 ? '' : 'translateX(' + x + '%)';
     document.body.style.opacity = String(opacity);
   }
 
   function revealPage() {
-    lockOverflow(true);
-    setBodyMotion(100, 1, 'none');
     requestAnimationFrame(function () {
-      requestAnimationFrame(function () {
-        setBodyMotion(0, 1, 'transform 0.55s ' + EASE);
-        setTimeout(function () {
-          if (document.body) document.body.style.transform = '';
-          lockOverflow(false);
-        }, 570);
-      });
+      setBodyMotion(1, 'opacity 0.18s ease-out');
+      setTimeout(function () { lockOverflow(false); }, 200);
     });
   }
-  if (document.readyState === 'complete') revealPage();
-  else window.addEventListener('load', revealPage);
+
+  // Hide immediately so the page never paints at full opacity before fading in.
+  lockOverflow(true);
+  if (document.body) setBodyMotion(0, 'none');
+  else document.addEventListener('DOMContentLoaded', function () { setBodyMotion(0, 'none'); });
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', revealPage);
+  else revealPage();
+
+  // bfcache / Back button: the DOM is restored with the faded-out inline opacity
+  // and this script does not re-run, so force the page visible again.
+  window.addEventListener('pageshow', function (e) {
+    if (!e.persisted) return;
+    lockOverflow(false);
+    setBodyMotion(1, 'none');
+  });
 
   document.addEventListener('click', function (e) {
     var a = e.target.closest && e.target.closest('a');
@@ -54,16 +59,22 @@
     if (url.href.replace(/#.*$/, '') === location.href.replace(/#.*$/, '')) return;
 
     lockOverflow(true);
-    setBodyMotion(0, 1, 'none');
+    setBodyMotion(1, 'none');
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        setBodyMotion(-100, 1, 'transform 0.42s ' + EASE);
+        setBodyMotion(0, 'opacity 0.13s ease-in');
       });
     });
 
+    // If navigation never happens (cancelled, blocked, slow), don't leave a blank page.
+    setTimeout(function () {
+      lockOverflow(false);
+      setBodyMotion(1, 'opacity 0.2s ease-out');
+    }, 1500);
+
     if (previewMode && ROUTES[url.pathname]) {
       e.preventDefault();
-      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 120);
+      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 140);
     }
-  }, true);
+  }, false);
 })();

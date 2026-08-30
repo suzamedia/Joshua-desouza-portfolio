@@ -27,11 +27,22 @@
   .wh-wrap:hover .wh-menu, .wh-wrap:focus-within .wh-menu { display: flex; }
   .wh-trigger { border: none; background: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
 
-  .banner-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .banner-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.38s cubic-bezier(0.22,1,0.36,1), transform 0.52s cubic-bezier(0.34,1.5,0.64,1); }
+  @keyframes popIn { from { opacity: 0; transform: translateY(14px) scale(0.965); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  .site-nav > * { animation: popIn 0.44s cubic-bezier(0.34,1.56,0.64,1) backwards; }
+  .site-nav > *:nth-child(1) { animation-delay: 0.02s; }
+  .site-nav > *:nth-child(2) { animation-delay: 0.06s; }
+  .site-nav > *:nth-child(3) { animation-delay: 0.1s; }
+  .site-nav > *:nth-child(4) { animation-delay: 0.14s; }
+  .site-nav > *:nth-child(5) { animation-delay: 0.18s; }
+  .site-nav > *:nth-child(6) { animation-delay: 0.22s; }
+  .hero-grid > * { animation: popIn 0.55s cubic-bezier(0.34,1.5,0.64,1) backwards; }
+  .hero-grid > *:nth-child(1) { animation-delay: 0.06s; }
+  .hero-grid > *:nth-child(2) { animation-delay: 0.14s; }
   image-slot::part(frame) { background: transparent; }
   image-slot::part(ring) { display: none; }
   .banner-reveal.revealed { opacity: 1; transform: translateY(0); }
-  .banner-reveal .reveal-title { display: inline-block; transform: scale(0.85); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .banner-reveal .reveal-title { display: inline-block; transform: scale(0.85); opacity: 0; transition: transform 0.46s cubic-bezier(0.34,1.62,0.64,1), opacity 0.3s ease; }
   .banner-reveal.revealed .reveal-title { transform: scale(1); opacity: 1; }
 
   @media (max-width: 900px) {
@@ -495,17 +506,17 @@ class Component extends DCLogic {
     window.addEventListener("mousemove", this._onMove);
     const rows = Array.from(document.querySelectorAll('.banner-reveal'));
     rows.forEach((row, i) => {
-      const delay = Math.min(i * 25, 200);
+      const delay = Math.min(i * 45, 260);
       row.style.transitionDelay = delay + 'ms';
       const title = row.querySelector('.reveal-title');
-      if (title) title.style.transitionDelay = (delay + 60) + 'ms';
+      if (title) title.style.transitionDelay = (delay + 70) + 'ms';
     });
     this._observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         entry.target.classList.toggle('revealed', entry.isIntersecting);
       });
     }, { threshold: 0.15 });
-    setTimeout(() => rows.forEach((row) => this._observer.observe(row)), 550);
+    setTimeout(() => rows.forEach((row) => this._observer.observe(row)), 150);
     const params = new URLSearchParams(window.location.search);
     const wanted = params.get("project");
     if (wanted && PROJECTS[wanted]) { this.setState({ openTitle: wanted, modalAtFinal: true }); }
@@ -548,7 +559,7 @@ class Component extends DCLogic {
       wrap.style.transition = "max-height 0.4s cubic-bezier(0.22,0.8,0.24,1), opacity 0.3s ease, transform 0.35s ease";
       if (roleMatch && searchMatch) {
         visibleCount++;
-        wrap.style.transitionDelay = Math.min(shownIdx * 25, 200) + "ms";
+        wrap.style.transitionDelay = Math.min(shownIdx * 45, 260) + "ms";
         shownIdx++;
         wrap.style.overflow = "visible";
         wrap.style.maxHeight = "300px";
