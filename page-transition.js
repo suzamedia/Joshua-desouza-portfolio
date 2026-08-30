@@ -12,37 +12,29 @@
     '/resume-freelancework': 'Joshua DeSouza Freelance Credits.dc.html'
   };
   var previewMode = !/(^|\.)jdesouza\.ca$/.test(location.hostname);
+  var EASE = 'cubic-bezier(0.65,0,0.35,1)';
 
-  var overlay = document.createElement('div');
-  overlay.id = '__page-transition-overlay';
-  overlay.style.cssText = 'position:fixed;inset:0;z-index:99999;background:#14130f;pointer-events:none;' +
-    'opacity:1;transition:none;will-change:opacity;';
-
-  function mountOverlay() {
-    if (document.body && !document.body.contains(overlay)) document.body.appendChild(overlay);
+  function lockOverflow(on) {
+    document.documentElement.style.overflowX = on ? 'hidden' : '';
   }
-  mountOverlay();
-  document.addEventListener('DOMContentLoaded', mountOverlay);
 
-  function setBodyMotion(scale, opacity, transition) {
+  function setBodyMotion(x, opacity, transition) {
     if (!document.body) return;
-    document.body.style.transformOrigin = '50% 40%';
     document.body.style.transition = transition;
-    document.body.style.transform = 'scale(' + scale + ')';
+    document.body.style.transform = x === 0 ? '' : 'translateX(' + x + '%)';
     document.body.style.opacity = String(opacity);
   }
 
   function revealPage() {
-    mountOverlay();
-    setBodyMotion(1.035, 0, 'none');
-    overlay.style.transition = 'none';
-    overlay.style.opacity = '1';
+    lockOverflow(true);
+    setBodyMotion(100, 1, 'none');
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        overlay.style.transition = 'opacity 0.5s cubic-bezier(0.16,1,0.3,1)';
-        overlay.style.opacity = '0';
-        setBodyMotion(1, 1, 'transform 0.6s cubic-bezier(0.16,1,0.3,1), opacity 0.55s cubic-bezier(0.16,1,0.3,1)');
-        setTimeout(function () { if (document.body) document.body.style.transform = ''; }, 650);
+        setBodyMotion(0, 1, 'transform 0.55s ' + EASE);
+        setTimeout(function () {
+          if (document.body) document.body.style.transform = '';
+          lockOverflow(false);
+        }, 570);
       });
     });
   }
@@ -61,21 +53,17 @@
     if (url.origin !== location.origin) return;
     if (url.href.replace(/#.*$/, '') === location.href.replace(/#.*$/, '')) return;
 
-    mountOverlay();
-    overlay.style.transition = 'none';
-    overlay.style.opacity = '0';
-    setBodyMotion(1, 1, 'none');
+    lockOverflow(true);
+    setBodyMotion(0, 1, 'none');
     requestAnimationFrame(function () {
       requestAnimationFrame(function () {
-        overlay.style.transition = 'opacity 0.38s cubic-bezier(0.4,0,0.2,1)';
-        overlay.style.opacity = '1';
-        setBodyMotion(0.97, 0.4, 'transform 0.38s cubic-bezier(0.4,0,0.2,1), opacity 0.34s cubic-bezier(0.4,0,0.2,1)');
+        setBodyMotion(-100, 1, 'transform 0.42s ' + EASE);
       });
     });
 
     if (previewMode && ROUTES[url.pathname]) {
       e.preventDefault();
-      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 360);
+      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 120);
     }
   }, true);
 })();

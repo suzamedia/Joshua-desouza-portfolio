@@ -213,7 +213,6 @@ export function initMeshText(wrapper, canvas, options) {
   const ro = new ResizeObserver(resize);
   ro.observe(wrapper);
   resize();
-  rebuildTex();
 
   const cursor = { x: 99, y: 99, px: 99, py: 99, vx: 0, vy: 0, inside: false };
   const onMove = (e) => {

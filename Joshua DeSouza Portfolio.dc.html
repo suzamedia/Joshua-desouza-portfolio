@@ -26,6 +26,8 @@
   .wh-trigger { border: none; background: none; padding: 0; margin: 0; font: inherit; color: inherit; cursor: pointer; }
 
   .banner-reveal { opacity: 0; transform: translateY(16px); transition: opacity 0.35s ease, transform 0.35s ease; }
+  .photo-snap { opacity: 0; animation: photoSnapIn 0.6s cubic-bezier(0.16,1,0.3,1) both; }
+  @keyframes photoSnapIn { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: scale(1); } }
   .banner-reveal.revealed { opacity: 1; transform: translateY(0); }
   .banner-reveal .reveal-title { display: inline-block; transform: scale(0.85); opacity: 0; transition: transform 0.3s ease, opacity 0.3s ease; }
   .banner-reveal.revealed .reveal-title { transform: scale(1); opacity: 1; }
@@ -107,7 +109,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Star Trek: Strange New Worlds S5" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ snw5Bg }}"></div>
+        <div class="photo-snap" style="{{ snw5Bg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -123,7 +125,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Star Trek: Strange New Worlds S4" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ snw4Bg }}"></div>
+        <div class="photo-snap" style="{{ snw4Bg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         
       <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
@@ -139,7 +141,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Something Very Bad Is Going to Happen" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ svbBg }}"></div>
+        <div class="photo-snap" style="{{ svbBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -155,7 +157,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Overcompensating" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ overcompBg }}"></div>
+        <div class="photo-snap" style="{{ overcompBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -171,7 +173,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Children Ruin Everything S4" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ creS4Bg }}"></div>
+        <div class="photo-snap" style="{{ creS4Bg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -187,7 +189,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Children Ruin Everything S3" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ creS3Bg }}"></div>
+        <div class="photo-snap" style="{{ creS3Bg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -203,7 +205,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Macy Murdoch" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ macyBg }}"></div>
+        <div class="photo-snap" style="{{ macyBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -219,7 +221,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Longing" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ longingBg }}"></div>
+        <div class="photo-snap" style="{{ longingBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -235,7 +237,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Children Ruin Everything S2" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ creS2Bg }}"></div>
+        <div class="photo-snap" style="{{ creS2Bg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -251,7 +253,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="The Fire Inside" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ fireBg }}"></div>
+        <div class="photo-snap" style="{{ fireBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -267,7 +269,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Culprits" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ culpritsBg }}"></div>
+        <div class="photo-snap" style="{{ culpritsBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -283,7 +285,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Culprits (Talent Assistant)" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ culpritsTaBg }}"></div>
+        <div class="photo-snap" style="{{ culpritsTaBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -299,7 +301,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Kings of Napa" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ konBg }}"></div>
+        <div class="photo-snap" style="{{ konBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -315,7 +317,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="The Hot Zone: Anthrax" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ hotzoneBg }}"></div>
+        <div class="photo-snap" style="{{ hotzoneBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -331,7 +333,7 @@
 
     <article class="banner-reveal" style="border-bottom: none">
       <div data-title="Sort Of… S1" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="{{ sortofBg }}"></div>
+        <div class="photo-snap" style="{{ sortofBg }}"></div>
         <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
@@ -632,13 +634,18 @@ class Component extends DCLogic {
     this._onMove = (e) => {
       const glow = document.getElementById('cursor-glow');
       if (glow) glow.style.background = 'radial-gradient(480px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(244,242,236,0.045), transparent 60%)';
-      const inZone = e.clientY > window.innerHeight * (15 / 16);
-      if (inZone && !this._scrollTimer) {
-        this._scrollTimer = setInterval(() => window.scrollBy(0, 12), 16);
-      } else if (!inZone && this._scrollTimer) {
+      const header = document.querySelector('.site-header');
+      const topZoneStart = header ? header.getBoundingClientRect().bottom : 0;
+      const zoneH = window.innerHeight / 16;
+      const dir = e.clientY > window.innerHeight - zoneH ? 1 : (e.clientY > topZoneStart && e.clientY < topZoneStart + zoneH ? -1 : 0);
+      if (dir !== 0 && dir !== this._scrollDir) {
+        clearInterval(this._scrollTimer);
+        this._scrollTimer = setInterval(() => window.scrollBy(0, 4 * dir), 16);
+      } else if (dir === 0 && this._scrollTimer) {
         clearInterval(this._scrollTimer);
         this._scrollTimer = null;
       }
+      this._scrollDir = dir;
     };
     window.addEventListener("mousemove", this._onMove);
     const revealRows = Array.from(document.querySelectorAll('.banner-reveal'));
@@ -647,13 +654,15 @@ class Component extends DCLogic {
       row.style.transitionDelay = delay + 'ms';
       const title = row.querySelector('.reveal-title');
       if (title) title.style.transitionDelay = (delay + 60) + 'ms';
+      const photo = row.querySelector('.photo-snap');
+      if (photo) photo.style.animationDelay = (500 + delay) + 'ms';
     });
     this._revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         entry.target.classList.toggle('revealed', entry.isIntersecting);
       });
     }, { threshold: 0.15 });
-    revealRows.forEach((row) => this._revealObserver.observe(row));
+    setTimeout(() => { revealRows.forEach((row) => this._revealObserver.observe(row)); this._entranceDone = true; }, 550);
     this._onKey = (e) => {
       if (!this.state.openTitle) return;
       if (e.key === "Escape") { this.closeModal(); return; }
@@ -690,8 +699,8 @@ class Component extends DCLogic {
         shownIdx++;
         article.style.overflow = "visible";
         article.style.maxHeight = "300px";
-        article.style.opacity = "1";
-        article.style.transform = "translateY(0)";
+        if (this._entranceDone) { article.style.opacity = "1"; article.style.transform = "translateY(0)"; }
+        else { article.style.opacity = ""; article.style.transform = ""; }
         article.style.pointerEvents = "";
       } else {
         article.style.transitionDelay = "0ms";

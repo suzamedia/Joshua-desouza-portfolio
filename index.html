@@ -75,7 +75,7 @@
     <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</span>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
       <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Home</span>
       <a href="/union-work">Union Work</a>
       <a href="/freelance-work">Freelance</a>
@@ -85,22 +85,28 @@
     </nav>
   </header>
 
-  <div style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 64px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; box-shadow: 0 32px 56px -20px rgba(20,19,15,0.4); overflow: hidden">
-    <svg class="aperture-spin" viewBox="0 0 200 200" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 480px; max-width: 80vw; height: 480px; max-height: 80vw; pointer-events: none; opacity: 0.4">
-      <circle cx="100" cy="100" r="95" fill="none" stroke="oklch(0.62 0.15 262)" stroke-width="1"></circle>
-      <path ref="{{ bladeRef0 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
-      <path ref="{{ bladeRef1 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
-      <path ref="{{ bladeRef2 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
-      <path ref="{{ bladeRef3 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
-      <path ref="{{ bladeRef4 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
-      <path ref="{{ bladeRef5 }}" fill="oklch(0.5 0.17 262 / 0.65)" stroke="oklch(0.75 0.12 262 / 0.6)" stroke-width="0.6"></path>
+  <div onMouseMove="{{ onApertureMouseMove }}" onMouseLeave="{{ onApertureMouseLeave }}" style="position: relative; display: flex; flex-direction: column; align-items: center; gap: 18px; padding: 64px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; box-shadow: 0 32px 56px -20px rgba(20,19,15,0.4); overflow: hidden">
+    <svg ref="{{ apertureSvgRef }}" viewBox="0 0 200 200" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 480px; max-width: 80vw; height: 480px; max-height: 80vw; pointer-events: none; opacity: 0.62">
+      <defs>
+        <clipPath id="iris-housing"><circle cx="100" cy="100" r="94"></circle></clipPath>
+      </defs>
+      <circle cx="100" cy="100" r="95" fill="none" stroke="oklch(0.58 0.026 250)" stroke-width="1"></circle>
+      <g clip-path="url(#iris-housing)">
+        <path ref="{{ bladeRef0 }}" fill="oklch(0.46 0.028 250)" stroke="oklch(0.76 0.024 250)" stroke-width="0.8"></path>
+        <path ref="{{ bladeRef1 }}" fill="oklch(0.46 0.028 250)" stroke="oklch(0.76 0.024 250)" stroke-width="0.8"></path>
+        <path ref="{{ bladeRef2 }}" fill="oklch(0.46 0.028 250)" stroke="oklch(0.76 0.024 250)" stroke-width="0.8"></path>
+        <path ref="{{ bladeRef3 }}" fill="oklch(0.46 0.028 250)" stroke="oklch(0.76 0.024 250)" stroke-width="0.8"></path>
+        <path ref="{{ bladeRef4 }}" fill="oklch(0.46 0.028 250)" stroke="oklch(0.76 0.024 250)" stroke-width="0.8"></path>
+        <path ref="{{ bladeRef5 }}" fill="oklch(0.46 0.028 250)" stroke="oklch(0.76 0.024 250)" stroke-width="0.8"></path>
+      </g>
     </svg>
-    <div ref="{{ meshWrapRef }}" class="fade-up" style="position: relative; width: min(900px, 92vw); height: clamp(56px, 9vw, 96px)">
+    <div ref="{{ vignetteRef }}" style="position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0; background: radial-gradient(circle at 50% 50%, rgba(20,19,15,0) 32%, rgba(20,19,15,0.72) 78%, rgba(20,19,15,0.92) 100%)"></div>
+    <div ref="{{ meshWrapRef }}" class="fade-up" style="position: relative; z-index: 2; width: min(900px, 92vw); height: clamp(56px, 9vw, 96px)">
       <canvas ref="{{ meshCanvasRef }}" style="display: block; width: 100%; height: 100%"></canvas>
       <h1 style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; margin: 0">Joshua J. DeSouza</h1>
     </div>
     
-    <p class="fade-up" style="position: relative; animation-delay: 0.2s; margin: 0; font-size: 13px; letter-spacing: 0.1em; color: #b8b4a9">Producer&nbsp;·&nbsp;Coordinator&nbsp;·&nbsp;Filmmaker</p>  </div>
+    <p ref="{{ taglineRef }}" class="fade-up" style="position: relative; z-index: 2; animation-delay: 0.2s; margin: 0; font-size: 14px; letter-spacing: 0.1em; color: #b8b4a9">Producer&nbsp;·&nbsp;Coordinator&nbsp;·&nbsp;Filmmaker</p>  </div>
 
   <div class="landing-two-col" style="display: grid; grid-template-columns: minmax(0, 1fr) 280px; gap: 24px; align-items: stretch; padding: 64px 5vw 0; max-width: 1180px; margin: 0 auto">
    <div style="position: relative; display: flex; flex-direction: column; min-width: 0; overflow: hidden; border-radius: 26px; background: linear-gradient(155deg, rgba(255,255,255,0.14), rgba(255,255,255,0.045)); backdrop-filter: blur(20px) saturate(170%); -webkit-backdrop-filter: blur(20px) saturate(170%); border: 1px solid rgba(255,255,255,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 26px 52px -18px rgba(0,0,0,0.55)">
@@ -132,11 +138,11 @@
       <div class="upcoming-grid" style="position: absolute; inset: 0; display: flex; min-width: 0; transform: {{ upcomingTransform }}; transition: transform 0.4s cubic-bezier(0.22,0.8,0.24,1)">
         <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="1">
           <div class="upcoming-slide" style="position: relative; flex: 0 0 100%; min-width: 0; overflow: hidden; display: block">
-            <div style="position: absolute; inset: 0; overflow: hidden; background: #000000"><div style="{{ item.mediaStyle }}"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcLanding }}" shape="rect" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div></div>
-            <div style="position: absolute; left: 0; right: 0; bottom: 0; display: flex; flex-direction: column; gap: 6px; padding: 40px 20px 62px; background: linear-gradient(180deg, rgba(20,19,15,0) 0%, rgba(20,19,15,0.72) 55%, rgba(20,19,15,0.9) 100%)">
-              <span style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(255,255,255,0.7)">{{ item.landingSubtitle }}</span>
-              <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 26px; line-height: 1.1"><a href="/updates" onClick="{{ guardUpcomingClick }}" style="color: #ffffff" style-hover="color: oklch(0.72 0.13 262)">{{ item.title }}</a></h3>
-              <span style="font-size: 12px; line-height: 1.5; color: rgba(255,255,255,0.75)">{{ item.pressRole }}</span>
+            <div style="{{ item.wrapStyle }}"><div style="{{ item.mediaStyle }}"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcLanding }}" shape="rect" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div></div>
+            <div style="{{ item.overlayStyle }}">
+              <span style="font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: {{ item.subtitleColor }}">{{ item.landingSubtitle }}</span>
+              <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 26px; line-height: 1.1"><a href="/updates" onClick="{{ guardUpcomingClick }}" style="color: {{ item.titleColor }}" style-hover="color: oklch(0.72 0.13 262)">{{ item.title }}</a></h3>
+              <span style="font-size: 12px; line-height: 1.5; color: {{ item.roleColor }}">{{ item.pressRole }}</span>
             </div>
           </div>
         </sc-for>
@@ -303,6 +309,9 @@ class Component extends DCLogic {
   }
   bladeRef0 = React.createRef(); bladeRef1 = React.createRef(); bladeRef2 = React.createRef();
   bladeRef3 = React.createRef(); bladeRef4 = React.createRef(); bladeRef5 = React.createRef();
+  apertureSvgRef = React.createRef();
+  taglineRef = React.createRef();
+  vignetteRef = React.createRef();
   startAperture() {
     const bladeRefs = [this.bladeRef0, this.bladeRef1, this.bladeRef2, this.bladeRef3, this.bladeRef4, this.bladeRef5];
     const pt = (deg, r) => ({ x: 100 + r * Math.cos(deg * Math.PI / 180), y: 100 + r * Math.sin(deg * Math.PI / 180) });
@@ -317,16 +326,109 @@ class Component extends DCLogic {
       this.apertureTimer = setTimeout(pickTarget, 500 + Math.random() * 900);
     };
     pickTarget();
+    const SENS = 0.55;
+    const K_OPEN = 8.7 * SENS, K_ROT = 40 * SENS, FREEZE_MS = 275;
+    let prevNX, prevNY;
     const tick = () => {
-      current += (target - current) * 0.06;
-      const rHex = 27 * current;
+      const now = performance.now();
+      if (this._apertureHover) {
+        if (prevNX !== undefined) {
+          const dx = this._apertureCurNX - prevNX, dy = this._apertureCurNY - prevNY;
+          const frameSpeed = Math.hypot(dx, dy);
+          this._apertureSpeedSm = (this._apertureSpeedSm || 0) * 0.7 + frameSpeed * 0.3;
+          if (frameSpeed > 0.0015) {
+            this._apertureDir = Math.abs(dy) >= Math.abs(dx) ? (dy < 0 ? -1 : 1) : (dx < 0 ? -1 : 1);
+            this._apertureLastMove = now;
+          }
+        }
+        prevNX = this._apertureCurNX; prevNY = this._apertureCurNY;
+      } else {
+        prevNX = undefined; prevNY = undefined; this._apertureSpeedSm = 0;
+      }
+      const recentMove = this._apertureHover && this._apertureLastMove && (now - this._apertureLastMove <= FREEZE_MS);
+      const frozen = this._apertureHover && !recentMove;
+      if (this._apertureHover) {
+        const nx = this._apertureCurNX || 0;
+        const posTarget = 0.12 + ((nx + 1) / 2) * 2.18;
+        const RAMP_MS = 1100;
+        const sinceEnter = this._apertureEnterTime ? (now - this._apertureEnterTime) : RAMP_MS;
+        const ramp = Math.min(1, sinceEnter / RAMP_MS);
+        const eased = ramp * ramp;
+        current += (posTarget - current) * (0.012 + eased * 0.068);
+      } else if (!frozen) {
+        this._autoDir = target >= current ? 1 : -1;
+        current += (target - current) * 0.06;
+      }
+      const Rp = 95, L = 60;
+      const hole = 27 * current;
+      const phi = Math.acos(Math.max(-1, Math.min(1, (L - hole) / Rp)));
+      const edges = [];
       for (let i = 0; i < 6; i++) {
-        const a1 = hexAngle(i), a2 = hexAngle(i + 1);
-        const innerA = pt(a1, rHex), innerB = pt(a2, rHex);
-        const outerA = pt(a1 - 25, 95), outerB = pt(a2 - 25, 95);
-        const d = `M ${outerA.x},${outerA.y} A 95,95 0 0,1 ${outerB.x},${outerB.y} L ${innerB.x},${innerB.y} L ${innerA.x},${innerA.y} Z`;
+        const th = (60 * i) * Math.PI / 180;
+        const px = 100 + Rp * Math.cos(th), py = 100 + Rp * Math.sin(th);
+        const ua = th + Math.PI + phi;
+        const ux = Math.cos(ua), uy = Math.sin(ua);
+        edges.push({ fx: px + L * ux, fy: py + L * uy, ux, uy });
+      }
+      const disk = [];
+      for (let k = 0; k < 72; k++) {
+        const a = (k / 72) * Math.PI * 2;
+        disk.push([100 + 94 * Math.cos(a), 100 + 94 * Math.sin(a)]);
+      }
+      const sideOf = (p, e) => (p[0] - e.fx) * e.ux + (p[1] - e.fy) * e.uy;
+      const clip = (poly, e, keepPositive) => {
+        const out = [];
+        for (let k = 0; k < poly.length; k++) {
+          const A = poly[k], B = poly[(k + 1) % poly.length];
+          let sa = sideOf(A, e), sb = sideOf(B, e);
+          if (!keepPositive) { sa = -sa; sb = -sb; }
+          if (sa >= 0) out.push(A);
+          if ((sa >= 0) !== (sb >= 0)) {
+            const t = sa / (sa - sb);
+            out.push([A[0] + (B[0] - A[0]) * t, A[1] + (B[1] - A[1]) * t]);
+          }
+        }
+        return out;
+      };
+      for (let i = 0; i < 6; i++) {
+        let poly = clip(disk, edges[i], true);
+        poly = clip(poly, edges[(i + 1) % 6], false);
         const el = bladeRefs[i].current;
-        if (el) el.setAttribute('d', d);
+        if (el) el.setAttribute('d', poly.length < 3 ? '' : 'M ' + poly.map(p => `${p[0].toFixed(2)},${p[1].toFixed(2)}`).join(' L ') + ' Z');
+      }
+      const sharpBand = 0.34;
+      const defocus = Math.min(1, Math.max(0, Math.abs(current - 1.05) - sharpBand) / (0.92 - sharpBand));
+      let extra = 0;
+      if (current < 0.3) extra = (0.3 - current) / 0.18;
+      else if (current > 1.95) extra = (current - 1.95) / 0.38;
+      extra = Math.min(1, Math.max(0, extra));
+      const blur = defocus * 1.6 + extra * extra * 5.5;
+      const zoomSign = current < 1.05 ? -1 : 1;
+      const scale = 1 + zoomSign * (defocus * 0.02 + extra * extra * 0.07);
+      const openness = Math.min(1, Math.max(0, (current - 0.12) / 2.18));
+      const exposure = 0.8 + openness * 0.4;
+      const bloom = current > 1.05 ? (defocus * 4 + extra * extra * 14) : 0;
+      const bloomCss = bloom > 0.4 ? ` drop-shadow(0 0 ${bloom.toFixed(1)}px oklch(0.86 0.03 250 / ${(0.18 + openness * 0.22).toFixed(2)}))` : '';
+      if (this.meshWrapRef.current) {
+        this.meshWrapRef.current.style.filter = `blur(${blur.toFixed(2)}px) brightness(${exposure.toFixed(3)})${bloomCss}`;
+        this.meshWrapRef.current.style.transform = `scale(${scale.toFixed(4)})`;
+      }
+      if (this.taglineRef.current) {
+        this.taglineRef.current.style.filter = `blur(${(blur * 0.55).toFixed(2)}px) brightness(${(0.85 + openness * 0.3).toFixed(3)})`;
+        this.taglineRef.current.style.transform = `scale(${(1 + zoomSign * (defocus * 0.012 + extra * extra * 0.04)).toFixed(4)})`;
+      }
+      if (this.vignetteRef.current) {
+        this.vignetteRef.current.style.opacity = ((1 - openness) * 0.6).toFixed(3);
+      }
+      const sizeChange = Math.abs(current - (this._prevCurrent === undefined ? current : this._prevCurrent));
+      this._prevCurrent = current;
+      if (!frozen && sizeChange > 0.0015) {
+        const dir = this._apertureHover ? (this._apertureDir || 1) : (this._autoDir || 1);
+        const rotSpeed = this._apertureHover ? Math.min(6, (this._apertureSpeedSm || 0) * K_ROT) : 0.1;
+        this._apertureRot = (this._apertureRot || 0) + dir * rotSpeed;
+        if (this.apertureSvgRef.current) {
+          this.apertureSvgRef.current.style.transform = `translate(-50%, -50%) rotate(${this._apertureRot}deg)`;
+        }
       }
       this.apertureFrame = requestAnimationFrame(tick);
     };
@@ -440,6 +542,17 @@ class Component extends DCLogic {
         window.location.href = "mailto:joshuajdesouza@gmail.com?subject=" + encodeURIComponent(subject) + "&body=" + encodeURIComponent(body);
         this.setState({ contactSent: true, contactError: null });
       },
+      onApertureMouseMove: (e) => {
+        const svg = this.apertureSvgRef.current;
+        if (!svg) return;
+        const rect = svg.getBoundingClientRect();
+        const fracY = 1 - Math.min(1, Math.max(0, (e.clientY - rect.top) / rect.height));
+        const fracX = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+        if (!this._apertureHover) this._apertureEnterTime = performance.now();
+        this._apertureHover = true;
+        this._apertureCurNX = fracX * 2 - 1; this._apertureCurNY = fracY * 2 - 1;
+      },
+      onApertureMouseLeave: () => { this._apertureHover = false; this._apertureEnterTime = null; },
       upcomingList: list.map(item => {
         const zoom = item.id === "ride-the-tide" ? (this.props.rideTideZoom ?? 100) : 100;
         const ox = item.id === "ride-the-tide" ? (this.props.rideTideX ?? 50) : 50;
@@ -450,12 +563,21 @@ class Component extends DCLogic {
             transform: "scale(" + (zoom / 100) + ")",
             transformOrigin: ox + "% " + oy + "%",
             transition: "transform 0.4s ease"
-          }
+          },
+          wrapStyle: { position: "absolute", inset: 0, overflow: "hidden", background: item.bg || "#000000" },
+          overlayStyle: {
+            position: "absolute", left: 0, right: 0, bottom: 0, display: "flex", flexDirection: "column", gap: "6px", padding: "40px 20px 62px",
+            background: item.bg === "#ffffff" ? "linear-gradient(180deg, rgba(244,242,236,0) 0%, rgba(244,242,236,0.75) 55%, rgba(244,242,236,0.92) 100%)" : "linear-gradient(180deg, rgba(20,19,15,0) 0%, rgba(20,19,15,0.72) 55%, rgba(20,19,15,0.9) 100%)"
+          },
+          subtitleColor: item.bg === "#ffffff" ? "rgba(20,19,15,0.65)" : "rgba(255,255,255,0.7)",
+          titleColor: item.bg === "#ffffff" ? "#14130f" : "#ffffff",
+          roleColor: item.bg === "#ffffff" ? "rgba(20,19,15,0.7)" : "rgba(255,255,255,0.75)"
         });
       }),
       bladeRef0: this.bladeRef0, bladeRef1: this.bladeRef1, bladeRef2: this.bladeRef2,
       bladeRef3: this.bladeRef3, bladeRef4: this.bladeRef4, bladeRef5: this.bladeRef5,
       meshWrapRef: this.meshWrapRef, meshCanvasRef: this.meshCanvasRef,
+      apertureSvgRef: this.apertureSvgRef, taglineRef: this.taglineRef, vignetteRef: this.vignetteRef,
       footerNameRef: this.footerNameRef,
       unionSlides: slideSet(this.UNION_BANNERS),
       freelanceSlides: slideSet(this.FREELANCE_BANNERS),

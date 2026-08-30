@@ -357,13 +357,13 @@ const PROJECTS = {
   "Functioning": { client: "Ticket Stubbs Inc.", format: "Short Film", role: "1st Assistant Director", dates: "2026" },
   "How I Put My Head In A Jar": { client: "Queen Chelsea VFX", format: "YouTube — VFX Short", role: "Producer, DOP", dates: "2025", id: "JsgG3dkJthM" },
   "I, Object": { client: "Scythia Films", format: "Feature, EPK", role: "EPK Camera Operator", dates: "2025", id: "u5ENTPq8xf0" },
-  "Fan Expo Canada 2025": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2025", id: "4vkQTw35Ou8", bts: ["uploads/IMG_0488.JPG"] },
+  "Fan Expo Canada 2025": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2025", id: "4vkQTw35Ou8" },
   "The Suspension": { client: "Independent", format: "Short Film", role: "1st Assistant Director", dates: "2025", photo: "uploads/the-suspension-compressed.jpg" },
   "My Bully Mia": { client: "Ticket Stubbs Inc.", format: "Sizzle Reel", role: "1st Assistant Director", dates: "2025", id: "ipkqvGl1tI4" },
   "The Things We Do For Love": { client: "Independent", format: "Short Film", role: "Producer, Director of Photography", dates: "2024", id: "ob41xkV9ebo" },
-  "Fan Expo Canada 2024": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2024", id: "zSMX_Xdewjo", bts: ["uploads/IMG_0488.JPG"] },
+  "Fan Expo Canada 2024": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2024", id: "zSMX_Xdewjo" },
   "Children Ruin Everything S3": { client: "CTV / New Metric Media", format: "TV Series", role: "Background Performer", dates: "2023", id: "4rtUjYBDPEk" },
-  "Fan Expo Canada 2023": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2023", id: "GomMgrU8MS4", bts: ["uploads/IMG_0488.JPG"] },
+  "Fan Expo Canada 2023": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2023", id: "GomMgrU8MS4" },
   "Kings of Napa": { client: "Warner Bros. / OWN", format: "TV Series", role: "Camera Trainee - Daily", dates: "May – Aug 2021", id: "3WUwossz3jY" },
   "Culprits": { client: "STAR / Disney", format: "TV Series", role: "Assistant Director", dates: "October – December 2021", id: "vj676s3BS04" },
   "Bar Seekers": { client: "48 Film Challenge", format: "48 Hour Film Challenge", role: "Art Director", dates: "2021", id: "zdIb3AYi-0g" },
@@ -479,13 +479,18 @@ class Component extends DCLogic {
     this._onMove = (e) => {
       const glow = document.getElementById('cursor-glow');
       if (glow) glow.style.background = 'radial-gradient(480px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(244,242,236,0.045), transparent 60%)';
-      const inZone = e.clientY > window.innerHeight * (15 / 16);
-      if (inZone && !this._scrollTimer) {
-        this._scrollTimer = setInterval(() => window.scrollBy({ top: 12, behavior: "auto" }), 16);
-      } else if (!inZone && this._scrollTimer) {
+      const header = document.querySelector('.site-header');
+      const topZoneStart = header ? header.getBoundingClientRect().bottom : 0;
+      const zoneH = window.innerHeight / 16;
+      const dir = e.clientY > window.innerHeight - zoneH ? 1 : (e.clientY > topZoneStart && e.clientY < topZoneStart + zoneH ? -1 : 0);
+      if (dir !== 0 && dir !== this._scrollDir) {
+        clearInterval(this._scrollTimer);
+        this._scrollTimer = setInterval(() => window.scrollBy({ top: 4 * dir, behavior: "auto" }), 16);
+      } else if (dir === 0 && this._scrollTimer) {
         clearInterval(this._scrollTimer);
         this._scrollTimer = null;
       }
+      this._scrollDir = dir;
     };
     window.addEventListener("mousemove", this._onMove);
     const rows = Array.from(document.querySelectorAll('.banner-reveal'));
@@ -500,7 +505,7 @@ class Component extends DCLogic {
         entry.target.classList.toggle('revealed', entry.isIntersecting);
       });
     }, { threshold: 0.15 });
-    rows.forEach((row) => this._observer.observe(row));
+    setTimeout(() => rows.forEach((row) => this._observer.observe(row)), 550);
     const params = new URLSearchParams(window.location.search);
     const wanted = params.get("project");
     if (wanted && PROJECTS[wanted]) { this.setState({ openTitle: wanted, modalAtFinal: true }); }

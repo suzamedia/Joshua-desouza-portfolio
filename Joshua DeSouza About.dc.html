@@ -48,6 +48,10 @@
     .contact-modal { padding: 32px 22px !important; }
   }
   @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
+  .photo-snap { opacity: 0; animation: photoSnapIn 0.6s cubic-bezier(0.16,1,0.3,1) both; animation-delay: 0.5s; }
+  .about-photo-zoom { transition: transform 0.6s cubic-bezier(0.22,0.8,0.24,1); }
+  .about-photo-frame:hover .about-photo-zoom { transform: scale(1.06); }
+  @keyframes photoSnapIn { from { opacity: 0; transform: scale(1.08); } to { opacity: 1; transform: scale(1); } }
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
   @keyframes modalPopOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
@@ -80,26 +84,28 @@
 
   <div class="about-grid" style="display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); padding: 0 5vw 56px">
     
-    <div style="{{ aboutPhotoFrameStyle }}">
-      <div style="{{ aboutPhotoStyle }}"></div>
+    <div class="photo-snap about-photo-frame" style="{{ aboutPhotoFrameStyle }}">
+      <div class="about-photo-zoom" style="position: absolute; inset: 0">
+        <div style="{{ aboutPhotoStyle }}"></div>
+      </div>
     </div><div class="about-copy" style="padding: 56px 0 56px 44px; display: flex; flex-direction: column; gap: 40px">
-      <p style="margin: 0; font-size: 14px; line-height: 1.9; max-width: 46ch; color: #b8b4a9; font-style: italic">Wearer of many hats, with some that fit best.</p>
+      <p style="margin: 0; font-size: 22px; line-height: 1.5; max-width: 32ch; color: #f4f2ec; font-style: italic; font-weight: 500">Wearer of many hats, with some that fit best.</p>
       <div style="display: flex; flex-direction: column; gap: 16px">
-        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #f4f2ec">What I do</span>
+        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">What I do</span>
         <div style="display: flex; flex-direction: column; gap: 12px">
-          <span style="font-size: 14px; line-height: 1.7; color: #b8b4a9">Producing&nbsp;— Creative packaging, budgets, crewing. Grant writing and funding applications</span>
-          <span style="font-size: 14px; line-height: 1.7; color: #b8b4a9">1st ADing — Shoot day scheduling and on-set leadership</span>
-          <span style="font-size: 14px; line-height: 1.7; color: #b8b4a9">Production Coordination — Keeping the production moving prep to wrap</span>
+          <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">Producing&nbsp;— Creative packaging, budgets, crewing. Grant writing and funding applications</span>
+          <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">1st ADing — Shoot day scheduling and on-set leadership</span>
+          <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">Production Coordination — Keeping the production moving prep to wrap</span>
         </div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px">
-        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #f4f2ec">Education</span>
-        <span style="font-size: 14px; line-height: 1.8; color: #b8b4a9">Toronto Metropolitan University, 2015–2020<br>BA, RTA: Media Production — Television &amp; Video certificate, Music and Culture minor</span>
+        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Education</span>
+        <span style="font-size: 16px; line-height: 1.7; color: #b8b4a9">Toronto Metropolitan University, 2015–2020<br>BA, RTA: Media Production — Television &amp; Video certificate, Music and Culture minor</span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px">
-        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.04em; color: #f4f2ec">Also</span>
-        <span style="font-size: 14px; line-height: 1.7; color: #b8b4a9">IATSE 411 member</span>
-        <span style="font-size: 14px; line-height: 1.7; color: #b8b4a9">First Aid / CPR certified</span>
+        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Also</span>
+        <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">IATSE 411 member</span>
+        <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">First Aid / CPR certified</span>
       </div>
     </div>
   </div>
