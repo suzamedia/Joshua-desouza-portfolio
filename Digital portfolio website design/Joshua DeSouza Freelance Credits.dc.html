@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Freelance Work History | Joshua DeSouza</title>
+<meta name="description" content="Full freelance and independent production credits for Joshua J. DeSouza.">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  doc-page:not(:defined) { visibility: hidden; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { color: oklch(0.45 0.17 262); }
+</style>
+<script src="./doc-page.js"></script>
+</helmet>
+<doc-page margin="0.6in">
+  <div style="font-family: 'IBM Plex Mono', ui-monospace, monospace; color: #14130f;">
+    <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 2px solid #14130f; padding-bottom: 18px; margin-bottom: 28px;">
+      <div>
+        <h1 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 44px; letter-spacing: -0.01em;">Joshua J. DeSouza</h1>
+        <div style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: #57544a; margin-top: 6px;">Freelance Work Resume</div>
+      </div>
+      <div style="text-align: right; font-size: 10px; letter-spacing: 0.1em; color: #57544a; line-height: 1.7;">
+        <div>joshuajdesouza@gmail.com</div>
+        <div><br></div>
+      </div>
+    </div>
+
+    <table style="width: 100%; border-collapse: collapse; font-size: 11px;">
+      <thead>
+        <tr style="border-bottom: 1px solid #14130f;">
+          <th style="text-align: left; padding: 0 12px 10px 0; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a; font-weight: 500;">Position</th>
+          <th style="text-align: left; padding: 0 12px 10px 0; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a; font-weight: 500;">Project</th>
+          <th style="text-align: left; padding: 0 12px 10px 0; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a; font-weight: 500;">Format</th>
+          <th style="text-align: left; padding: 0 0 10px 0; font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a; font-weight: 500;">Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <sc-for list="{{ credits }}" as="c" hint-placeholder-count="19">
+          <tr style="border-bottom: 1px solid #ddd9cc; break-inside: avoid;">
+            <td style="padding: 10px 12px 10px 0; vertical-align: top;">{{ c.role }}</td>
+            <td style="padding: 10px 12px 10px 0; vertical-align: top;">
+              <div style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 15px; line-height: 1.2;">{{ c.title }}</div>
+              <div style="font-size: 9px; letter-spacing: 0.08em; color: #57544a; margin-top: 2px;">{{ c.client }}</div>
+            </td>
+            <td style="padding: 10px 12px 10px 0; vertical-align: top; color: #57544a;">{{ c.format }}</td>
+            <td style="padding: 10px 0; vertical-align: top; color: #57544a; white-space: nowrap;">{{ c.dates }}</td>
+          </tr>
+        </sc-for>
+      </tbody>
+    </table>
+  </div>
+</doc-page>
+<template id="__bundler_thumbnail">
+  <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <rect width="100" height="100" fill="#f4f2ec"></rect>
+    <text x="15" y="55" font-family="Georgia, serif" font-size="30" fill="#14130f">JD</text>
+  </svg>
+</template>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const credits = [
+      { role: "Producer, Creative Director", title: "Red Door PSA", format: "PSA", dates: "September 2026", client: "Red Door Family Shelter" },
+      { role: "Producer, Director", title: "Are You A Killer?", format: "Music Video", dates: "2026", client: "Sneaky Link" },
+      { role: "1st Assistant Director", title: "Tough Love", format: "Music Video", dates: "2026", client: "Amelia Maxwell" },
+      { role: "1st Assistant Director", title: "Functioning", format: "Short Film", dates: "2026", client: "Ticket Stubbs Inc." },
+      { role: "Producer, DOP", title: "How I Put My Head In A Jar", format: "YouTube — VFX Short", dates: "2025", client: "Queen Chelsea VFX" },
+      { role: "EPK Camera Operator", title: "I, Object", format: "Feature, EPK", dates: "2025", client: "Scythia Films" },
+      { role: "Official Videographer", title: "Fan Expo Canada 2025", format: "Events", dates: "2025", client: "Fan Expo Canada" },
+      { role: "1st Assistant Director", title: "The Suspension", format: "Short Film", dates: "2025", client: "Independent" },
+      { role: "1st Assistant Director", title: "My Bully Mia", format: "Sizzle Reel", dates: "2025", client: "Ticket Stubbs Inc." },
+      { role: "Producer, Director of Photography", title: "The Things We Do For Love", format: "Short Film", dates: "2024", client: "Independent" },
+      { role: "Official Videographer", title: "Fan Expo Canada 2024", format: "Events", dates: "2024", client: "Fan Expo Canada" },
+      { role: "Background Performer", title: "Children Ruin Everything S3", format: "TV Series", dates: "2023", client: "CTV / New Metric Media" },
+      { role: "Official Videographer", title: "Fan Expo Canada 2023", format: "Events", dates: "2023", client: "Fan Expo Canada" },
+      { role: "Assistant Director", title: "Culprits", format: "TV Series", dates: "2021", client: "STAR / Disney" },
+      { role: "Camera Trainee - Daily", title: "Kings of Napa", format: "TV Series", dates: "2021", client: "Warner Bros. / OWN" },
+      { role: "Art Director", title: "Bar Seekers", format: "48 Hour Film Challenge", dates: "2021", client: "48 Film Challenge" },
+      { role: "Director, DOP", title: "Sandcastles", format: "Music Video", dates: "2019", client: "Twiced Bleached" },
+      { role: "Director, Creator", title: "Camp Cedar Lake", format: "Student Film", dates: "2019", client: "Toronto Metropolitan University" },
+      { role: "Director, Editor", title: "Free 6lack Tour - Toronto", format: "Events", dates: "2018", client: "Independent" }
+    ];
+    return { credits };
+  }
+}
+</script>
+</body>
+</html>
