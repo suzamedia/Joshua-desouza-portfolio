@@ -4,15 +4,15 @@ export const UPCOMING_PROJECTS = [
   {
     id: "kill-me",
     title: "Kill Me",
-    imageSlot: "kill-me-still-v2",
-    imageSrcLanding: "uploads/kill-me-landing-final.png",
-    imageSrcPress: "uploads/kill-me-recentered-16x9.jpg",
+    imageSlot: "kill-me-still-v4",
+    imageSrcLanding: "uploads/kill-me-poster-faces-v2.jpg",
+    imageSrcPress: "uploads/kill-me-poster-faces-v2.jpg",
     imageFit: "cover",
     placeholder: "Drop a still from Kill Me",
-    landingSubtitle: "TAC Funded Short — In Pre-Production",
+    landingSubtitle: "TAC Funded Short — Shooting Nov 2026",
     pressSubtitle: "TAC Funded Short",
     pressRole: "Written, Directed, and Created by Shani McKenzie \u00B7 Produced by Joshua DeSouza",
-    pressStatus: "In Pre-Production",
+    pressStatus: "Shooting Nov 2026",
     summary: ""
   },
   {
@@ -23,10 +23,10 @@ export const UPCOMING_PROJECTS = [
     imageSrcPress: "uploads/slot-ride-the-tide-still-16x9.png",
     imageFit: "cover",
     placeholder: "Drop a still from Ride The Tide",
-    landingSubtitle: "Music Video \u2014 In Pre-Production",
+    landingSubtitle: "Music Video \u2014 In Post-Production",
     pressSubtitle: "Music Video",
     pressRole: "Directed and Produced by Joshua DeSouza \u00B7 Co-Directed by Chelsea \u00B7 \u201CAre You A Killer?\u201D by Sneaky Link (Hitman Records)",
-    pressStatus: "In Pre-Production",
+    pressStatus: "In Post-Production",
     summary: ""
   },
   {
@@ -38,10 +38,16 @@ export const UPCOMING_PROJECTS = [
     imageFit: "contain",
     bg: "#ffffff",
     placeholder: "Drop the Bitsy logo",
-    landingSubtitle: "Pilot Episode — In Pre-Production",
+    landingSubtitle: "Pilot Episode — Shooting Oct 2026",
     pressSubtitle: "Pilot Episode",
     pressRole: "Created and Written by Queen Chelsea VFX \u00B7 Directed and Produced by Joshua DeSouza",
-    pressStatus: "In Pre-Production",
+    pressStatus: "Shooting Oct 2026",
     summary: ""
   }
 ];
+
+export async function loadUpcoming() {
+  const { loadContent } = await import('./site-content.js');
+  const c = await loadContent();
+  return Array.isArray(c.upcoming) ? c.upcoming : UPCOMING_PROJECTS;
+}

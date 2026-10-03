@@ -1,0 +1,91 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>Girl poses</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono&display=swap" rel="stylesheet">
+<style>body{margin:0;background:#14130f;color:#f4f2ec;font-family:'IBM Plex Mono',monospace}#root{display:flex;flex-wrap:wrap;gap:20px;padding:28px;justify-content:center}.c{display:flex;flex-direction:column;align-items:center;gap:8px}.f{width:200px;height:400px;background:#3d4a5a;border-radius:10px}span{font-size:11px;letter-spacing:.14em;text-transform:uppercase}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script></head>
+<body><div id="root"></div><script>
+const A = { girlFrontRef: React.createRef(), girlBackRef: React.createRef(),
+  gameGirl(pose, mini, back) {
+    const h = React.createElement, ink = "#14130f";
+    const hair = "#8a5a3a", hairS = "#6e452b", skin = "#ecbf9c", skinS = "#d9a582", lips = "#b8455a";
+    const coral = "oklch(0.68 0.17 32)", coralS = "oklch(0.6 0.17 32)", red = "oklch(0.6 0.22 25)";
+    const G = (p, ...k) => h("g", p || null, ...k);
+    const R = (x, y, w, hh, rx, fill, ex) => h("rect", Object.assign({ x, y, width: w, height: hh, rx, fill }, ex || {}));
+    const E = (cx, cy, rx, ry, fill, ex) => h("ellipse", Object.assign({ cx, cy, rx, ry, fill }, ex || {}));
+    const P = (d, fill, ex) => h("path", Object.assign({ d, fill }, ex || {}));
+    const T = (d, c, w) => P(d, "none", { stroke: c, strokeWidth: w, strokeLinecap: "round", strokeLinejoin: "round" });
+    const C = (cls) => mini ? null : { className: cls };
+    const ring = (x, y) => G(null, E(x, y, 2.6, 1.6, "#e4e2dc"), E(x, y - 1.6, 1.3, 1.3, "#ffffff"));
+    const cuff = (x, y, rot) => R(x - 7, y - 2.5, 14, 5, 2.5, "#fffdf6", rot ? { transform: "rotate(" + rot + " " + x + " " + y + ")" } : null);
+    const legs = G(null, G(C("jg-legL"), R(85, 266, 13, 118, 6.5, skin), E(90, 388, 11, 6, "#f4f2ec"), R(80, 390, 21, 3, 1.5, "#cfc9ba")), G(C("jg-legR"), R(102, 266, 13, 118, 6.5, skinS), E(110, 388, 11, 6, "#f4f2ec"), R(100, 390, 21, 3, 1.5, "#cfc9ba")));
+    const dress = pose === 4 ? G(null, P("M 74 142 Q 100 132 126 142 L 128 200 Q 172 240 168 276 Q 100 300 32 276 Q 28 240 72 200 Z", "oklch(0.82 0.06 240)"), P("M 116 200 Q 160 236 168 276 Q 150 284 132 288 Q 132 240 116 200 Z", "oklch(0.74 0.07 240)"), P("M 86 138 Q 100 152 114 138 Z", skin)) : G(null, P("M 74 142 Q 100 132 126 142 L 142 282 Q 100 296 58 282 Z", "oklch(0.82 0.06 240)"), P("M 108 136 Q 120 138 126 142 L 142 282 Q 128 288 116 290 Q 118 210 108 136 Z", "oklch(0.74 0.07 240)"), P("M 86 138 Q 100 152 114 138 Z", skin));
+    const armL = G(C("jg-armA"), T("M 77 150 Q 68 190 72 228", skin, 11), R(64, 216, 15, 5, 2.5, "#fffdf6"), E(72, 231, 6.5, 7.5, skin));
+    const armR = G(C("jg-armB"), T("M 123 150 Q 132 190 128 228", skin, 11), E(128, 231, 6.5, 7.5, skin), ring(126, 234));
+    const eye = (cx) => G(null, E(cx, 94, 5.2, 6.4, "#fff"), E(cx + 0.6, 95, 3.2, 4, "oklch(0.58 0.13 240)"), E(cx + 0.6, 95.4, 1.6, 2, ink), E(cx + 1.6, 93, 1.2, 1.2, "#fff"), T(cx < 100 ? "M " + (cx - 6) + " 88 L " + (cx - 8) + " 86" : "M " + (cx + 6) + " 88 L " + (cx + 8) + " 86", ink, 1.6));
+    const closed = (cx) => T("M " + (cx - 5) + " 95 Q " + cx + " 99 " + (cx + 5) + " 95", ink, 2.2);
+    let face, extraBack = null, extraFront = null, la = armL, ra = armR;
+    const brows = G(null, T("M 82 83 Q 88 80 94 82", hairS, 2), T("M 106 82 Q 112 80 118 83", hairS, 2));
+    const blush = G(null, E(80, 106, 6, 3.5, coral, { opacity: 0.35 }), E(120, 106, 6, 3.5, coral, { opacity: 0.35 }));
+    if (pose === 1) {
+      face = G(null, eye(89), closed(111), brows, blush, P("M 92 112 Q 100 121 108 112 Z", lips));
+      la = G(null, T("M 78 148 L 50 180 L 78 204", skin, 11), cuff(71, 198, 131), E(80, 205, 7, 6.5, skin));
+      ra = G(null, T("M 123 150 Q 148 126 132 100", skin, 11), E(131, 96, 7, 7, skin), ring(129, 100), R(124, 72, 4.5, 20, 2.2, skin, { transform: "rotate(-14 126 92)" }), R(132, 72, 4.5, 20, 2.2, skin, { transform: "rotate(12 134 92)" }));
+    } else if (pose === 2) {
+      face = G(null, closed(89), closed(111), brows, blush, E(100, 115, 4.5, 4, lips), E(100, 115, 1.6, 1.4, "#7a2230"));
+      ra = G(null, T("M 123 150 Q 142 138 114 120", skin, 11), E(112, 118, 6.5, 6.5, skin), ring(114, 121));
+      extraFront = mini ? null : G({ transform: "translate(126 104)" }, G(C("jg-heart"), P("M 0 6 L -7 -1 Q -10 -5 -7 -8 Q -3 -10 0 -5 Q 3 -10 7 -8 Q 10 -5 7 -1 Z", red)));
+    } else if (pose === 3) {
+      face = G(null, eye(89), G(C("jg-wink"), closed(111), T("M 104 84 Q 111 86 118 82", hairS, 2)), T("M 82 83 Q 88 79 94 81", hairS, 2), blush, P("M 92 111 Q 104 119 111 109 Q 102 113 92 111 Z", lips));
+      la = G(null, T("M 77 150 Q 58 182 76 198", skin, 11), cuff(70, 190, 40), E(78, 199, 6.5, 6.5, skin));
+      ra = G(C("jg-point"), T("M 123 150 Q 140 170 124 176", skin, 12), E(121, 176, 10, 10, skin), ring(126, 181), E(117, 172, 4.2, 4.2, skinS), E(117, 171, 2.4, 2.4, "#f6d6bd"));
+    } else if (pose === 7) {
+      face = G(null, eye(89), G(C("jg-wink"), closed(111), T("M 104 84 Q 111 86 118 82", hairS, 2)), T("M 82 83 Q 88 79 94 81", hairS, 2), blush, P("M 90 110 Q 104 122 112 108 Q 102 114 90 110 Z", lips));
+      la = G(null, T("M 77 150 L 50 168 L 34 150", skin, 11), cuff(38, 155, 138), E(32, 146, 8, 8, skin), R(10, 140, 22, 6, 3, skin), R(26, 132, 5, 10, 2.5, skin));
+      ra = G(null, T("M 123 150 L 150 168 L 166 150", skin, 11), E(168, 146, 8, 8, skin), ring(166, 150), R(168, 140, 22, 6, 3, skin), R(169, 132, 5, 10, 2.5, skin));
+    } else if (pose === 8) {
+      face = G(null, closed(89), closed(111), brows, blush, P("M 90 110 Q 100 122 110 110 Z", lips), R(93, 110, 14, 3, 1.5, "#fff"));
+      ra = G(null, T("M 123 150 Q 152 124 140 92", skin, 11), E(138, 88, 7, 7, skin), ring(136, 92), P("M 132 70 Q 166 60 182 84 Q 160 74 140 96 Z", hair), P("M 140 80 Q 168 74 178 96 Q 158 84 142 98 Z", hairS));
+    } else if (pose === 9) {
+      face = G(null, eye(89), eye(111), brows, blush, P("M 90 110 Q 100 124 110 110 Z", lips));
+      la = G(null, T("M 77 150 L 58 132 L 84 128", skin, 11));
+      ra = G(null, T("M 123 150 L 142 132 L 116 128", skin, 11), P("M 100 160 L 80 140 Q 74 128 82 122 Q 92 116 100 128 Q 108 116 118 122 Q 126 128 120 140 Z", skin), P("M 100 152 L 86 138 Q 82 131 87 128 Q 94 124 100 133 Q 106 124 113 128 Q 118 131 114 138 Z", "oklch(0.6 0.22 25)", { className: mini ? null : "jg-beat" }));
+      extraFront = mini ? null : G({ transform: "translate(130 100)" }, G(C("jg-heart"), P("M 0 6 L -7 -1 Q -10 -5 -7 -8 Q -3 -10 0 -5 Q 3 -10 7 -8 Q 10 -5 7 -1 Z", "oklch(0.6 0.22 25)")));
+    } else if (pose === 5) {
+      face = G(null, eye(89), eye(111), T("M 81 82 L 95 88", hairS, 2.6), T("M 119 82 L 105 88", hairS, 2.6), E(80, 106, 7, 4, "oklch(0.6 0.22 25)", { opacity: 0.45 }), E(120, 106, 7, 4, "oklch(0.6 0.22 25)", { opacity: 0.45 }), T("M 92 117 Q 100 110 108 117", lips, 3));
+      la = G(null, T("M 77 150 Q 84 182 122 174", skin, 11), cuff(113, 175, 0), E(123, 173, 6.5, 6.5, skin));
+      ra = G(null, T("M 123 150 Q 116 186 80 180", skinS, 11), E(79, 180, 6.5, 6.5, skin), ring(81, 183));
+    } else if (pose === 6) {
+      face = G(null, T("M 83 96 Q 89 88 95 96", ink, 2.6), T("M 105 96 Q 111 88 117 96", ink, 2.6), brows, E(80, 106, 7, 4, coral, { opacity: 0.55 }), E(120, 106, 7, 4, coral, { opacity: 0.55 }), P("M 87 108 Q 100 132 113 108 Z", lips), E(100, 120, 6, 3.5, coral));
+      la = G(null, T("M 77 150 Q 52 110 48 70", skin, 11), cuff(51, 82, -10), E(48, 66, 7, 7, skin));
+      ra = G(null, T("M 123 150 Q 148 110 152 70", skin, 11), E(152, 66, 7, 7, skin), ring(150, 69));
+      extraFront = G(null, [[40, 48], [162, 44], [30, 120], [170, 118]].map(([x, y], k) => P("M " + x + " " + (y - 8) + " L " + (x + 2.5) + " " + (y - 2.5) + " L " + (x + 8) + " " + y + " L " + (x + 2.5) + " " + (y + 2.5) + " L " + x + " " + (y + 8) + " L " + (x - 2.5) + " " + (y + 2.5) + " L " + (x - 8) + " " + y + " L " + (x - 2.5) + " " + (y - 2.5) + " Z", "oklch(0.8 0.15 80)", { key: k, className: "jg-spark", style: { animationDelay: k * 0.2 + "s" } })));
+    } else if (pose === 4) {
+      face = G(null, T("M 83 96 Q 89 89 95 96", ink, 2.6), eye(111), brows, blush, P("M 89 109 Q 101 126 112 108 Z", lips), E(101, 117, 5, 3, coral));
+      la = G(null, T("M 77 150 Q 52 146 34 132", skin, 11), cuff(42, 137, -30), E(31, 130, 7, 7, skin));
+      ra = G(null, T("M 123 150 Q 148 146 166 132", skin, 11), E(169, 130, 7, 7, skin), ring(167, 133));
+    } else {
+      face = G(null, eye(89), eye(111), brows, blush, P("M 90 110 Q 100 122 110 110 Z", lips), R(93, 110, 14, 3, 1.5, "#fff"));
+    }
+    const front = G(null,
+      P("M 66 90 Q 58 160 68 222 Q 100 236 132 222 Q 142 160 134 90 Z", hairS),
+      P("M 100 52 L 76 36 L 78 62 Z", "#fffdf6"), P("M 100 52 L 124 36 L 122 62 Z", "#fffdf6"),
+      legs, dress, R(93, 112, 14, 30, 6, skinS), pose === 1 || pose === 7 || pose === 9 ? null : la, ra === armR ? ra : null,
+      E(100, 94, 30, 36, skin), E(70, 98, 4, 7, skinS), E(130, 98, 4, 7, skinS),
+      face, T("M 98 102 Q 100 105 102 102", skinS, 1.8), h("circle", { cx: 97.6, cy: 104.4, r: 0.8, fill: "#c9c3b4" }),
+      P("M 68 100 Q 64 50 100 50 Q 138 50 133 100 Q 126 70 104 66 Q 98 78 70 92 Z", hair),
+      P("M 70 88 Q 58 140 66 196 Q 74 200 80 192 Q 74 140 80 100 Z", hair), P("M 130 88 Q 142 140 134 200 Q 126 204 120 196 Q 126 140 120 100 Z", hair),
+      ra !== armR ? ra : null, pose === 1 || pose === 7 || pose === 9 ? la : null, extraFront);
+    const backG = G(null, legs, dress, G(C("jg-armA"), T("M 77 150 Q 68 190 72 228", skin, 11), E(72, 231, 6.5, 7.5, skin), ring(74, 234)), G(C("jg-armB"), T("M 123 150 Q 132 190 128 228", skin, 11), cuff(128, 217, 0), E(128, 231, 6.5, 7.5, skin)), R(93, 112, 14, 30, 6, skinS),
+      P("M 66 96 Q 62 50 100 50 Q 138 50 134 96 Q 144 160 132 222 Q 100 236 68 222 Q 56 160 66 96 Z", hair), P("M 100 60 Q 104 140 100 220", "none", { stroke: hairS, strokeWidth: 3 }), P("M 100 72 L 78 58 L 80 86 Z", "#fffdf6"), P("M 100 72 L 122 58 L 120 86 Z", "#fffdf6"), E(100, 72, 5.5, 5.5, "#e6e0d2"));
+    if (mini === "mood") return G({ className: pose === 6 ? "jg-happy" : "jg-mad" }, front);
+    if (mini) return back ? backG : front;
+    const body = G(C(pose === 4 ? "jg-twirl" : "jg-bob"),
+      G({ ref: this.girlFrontRef }, front),
+      G({ ref: this.girlBackRef, style: { opacity: 0 } }, backG));
+    return body;
+  }
+};
+const h = React.createElement;
+const items = [[0,"Level 1 · Smile",false],[1,"Random · Peace sign",false],[2,"Random · Kiss",false],[3,"Random · Point + wink",false],[7,"Random · Finger guns",false],[8,"Random · Hair flip",false],[9,"Random · Heart hands",false],[4,"Level 5 · Twirl",false],[0,"Back view",true],[5,"End · Game over",false],[6,"End · Win",false]];
+ReactDOM.createRoot(document.getElementById('root')).render(items.map(([p,l,b],k)=>h("div",{className:"c",key:k},h("div",{className:"f"},h("svg",{viewBox:"0 20 200 390",width:200,height:400},A.gameGirl(p,true,b))),h("span",null,l))));
+</script></body></html>

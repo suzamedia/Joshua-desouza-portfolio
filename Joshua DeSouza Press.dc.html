@@ -15,7 +15,19 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <script src="./page-transition.js"></script>
+<script src="./site-cms.js" defer></script>
 <style>
+  .jdr-bob { animation: jdrBob 0.9s ease-in-out infinite alternate; }
+  .jdr-mouth { animation: jdrTalk 0.3s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 50% 50%; }
+  .jdr-blink { animation: jdrBlink 3.6s infinite; transform-box: fill-box; transform-origin: 50% 50%; }
+  .jdr-look { animation: jdrLook 2.4s ease-in-out infinite alternate; }
+  .jdr-mic { animation: jdrMic 0.9s ease-in-out infinite alternate; transform-box: fill-box; transform-origin: 30% 100%; }
+  @keyframes jdrBob { 0% { transform: translateY(0) rotate(0); } 100% { transform: translateY(-3px) rotate(0.6deg); } }
+  @keyframes jdrTalk { 0% { transform: scaleY(0.3) scaleX(0.85); } 100% { transform: scaleY(1) scaleX(1); } }
+  @keyframes jdrBlink { 0%, 92%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.1); } }
+  @keyframes jdrLook { 0% { transform: translateX(-2px); } 100% { transform: translateX(2px); } }
+  @keyframes jdrMic { 0% { transform: rotate(-3deg); } 100% { transform: rotate(3deg); } }
+  @media (prefers-reduced-motion: reduce) { .jdr-bob, .jdr-mouth, .jdr-blink, .jdr-look, .jdr-mic { animation: none; } }
   body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
@@ -85,6 +97,24 @@
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
   @keyframes modalPopOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
+
+  .foot-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+  @media (max-width: 720px) {
+    .footer-grid { grid-template-columns: 1fr !important; gap: 0 !important; padding-bottom: 32px !important; }
+    .footer-grid > div:first-child p { display: none !important; }
+    .foot-col { gap: 0 !important; }
+    .foot-head { display: flex !important; align-items: center; justify-content: space-between; min-height: 46px; cursor: pointer; border-top: 1px solid rgba(244,242,236,0.14); }
+    .foot-head::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 0.25s ease; }
+    .foot-cb:checked ~ .foot-head::after { transform: translateY(1px) rotate(225deg); }
+    .foot-cb ~ a, .foot-cb ~ .wh-wrap { display: none !important; }
+    .foot-cb:checked ~ a { display: flex !important; align-items: center; min-height: 44px; }
+    .foot-cb:checked ~ .wh-wrap { display: block !important; padding: 4px 0 !important; margin: 0 !important; }
+    .foot-cb:checked ~ *:last-child { padding-bottom: 18px !important; }
+    .wh-wrap .wh-menu { display: flex !important; position: static !important; background: none !important; border: none !important; padding: 0 !important; min-width: 0 !important; gap: 0 !important; }
+    .wh-wrap .wh-menu a { display: flex; align-items: center; min-height: 44px; color: #b8b4a9; }
+    .wh-wrap > button { pointer-events: none; min-height: 40px; display: flex; align-items: center; }
+    .foot-cb:focus-visible ~ .foot-head { outline: 2px solid currentColor; outline-offset: 2px; }
+  }
 </style>
 </helmet>
 
@@ -98,7 +128,7 @@
     <a href="/home" class="brand-mark" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.32em; text-transform: uppercase">
       <a href="/home">Home</a>
       <a href="/union-work">Union Work</a>
       <a href="/freelance-work">Freelance</a>
@@ -106,49 +136,48 @@
       <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Updates</span>
       <a href="#" onClick="{{ openContact }}">Get in touch</a>
     </nav>
-  </header><div class="press-hero" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 64px 44px 52px; border-bottom: 1px solid #14130f; max-width: 900px; overflow: hidden">
+  </header><div style="position: relative; overflow: hidden; isolation: isolate"><canvas ref="{{ auroraRef }}" aria-hidden="true" style="position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none"></canvas><div class="press-hero" style="position: relative; display: flex; flex-direction: column; gap: 14px; padding: 64px 44px 28px; border-bottom: 1px solid #14130f; max-width: 900px; overflow: hidden">
     
-    <h1 style="position: relative; margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">Updates</h1>
-    <p style="margin: 0; font-size: 14px; line-height: 1.9; max-width: 46ch; color: #c9c4b8">What's in the works, and what's been said.</p>
-    <div style="display: flex; gap: 22px; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 10px">
-      <span onClick="{{ scrollToUpcoming }}" style="{{ upcomingTabStyle }}" style-hover="color: oklch(0.45 0.17 262)">Upcoming Projects</span>
-      <span onClick="{{ scrollToNews }}" style="{{ newsTabStyle }}" style-hover="color: oklch(0.45 0.17 262)">News</span>
+    <h1 style="position: relative; margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(64px, 8vw, 128px); line-height: 0.94; letter-spacing: -0.01em">Updates</h1>
+    <div style="display: flex; flex-wrap: wrap; gap: 8px 26px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(24px, 2vw, 32px); line-height: 1; letter-spacing: 0.03em; text-transform: uppercase; margin-top: 10px">
+      <span onClick="{{ scrollToUpcoming }}" style="{{ upcomingTabStyle }}" style-hover="color: #f4f2ec">Upcoming Projects</span>
+      <span onClick="{{ scrollToNews }}" style="{{ newsTabStyle }}" style-hover="color: #f4f2ec">News</span>
     </div>
-  </div><div id="upcoming-section" class="press-section" style="padding: 56px 44px; border-bottom: 1px solid #14130f; position: relative">
-    <span style="display: block; margin-bottom: 28px; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">Upcoming Projects</span>
+  </div></div><div id="upcoming-section" class="press-section" style="padding: 28px 44px 56px; border-bottom: 1px solid #14130f; position: relative">
+    <h2 style="display: block; margin: 0 0 36px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; color: #f4f2ec">Upcoming Projects</h2>
     <div class="upcoming-cards" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px">
       <sc-for list="{{ upcomingList }}" as="item" hint-placeholder-count="3">
         <div style="display: flex; flex-direction: column; gap: 14px; position: relative">
           <div class="photo-snap upcoming-card-photo" style="aspect-ratio: 16/9; background: {{ item.bg }}; border-radius: 16px; overflow: hidden"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrcPress }}" shape="rounded" radius="16px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div>
           <div style="display: flex; flex-direction: column; gap: 8px">
-            <span style="font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: #8b887d">{{ item.pressSubtitle }}</span>
-            <h2 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2vw, 30px); line-height: 1.05">{{ item.title }}</h2>
-            <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">{{ item.pressRole }}</span>
-            <span style="font-size: 14px; color: #8b887d">{{ item.pressStatus }}</span>
+            <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; text-transform: uppercase; font-style: italic; font-size: clamp(20px, 1.6vw, 26px); line-height: 1; letter-spacing: 0.02em; color: oklch(0.62 0.15 262)">{{ item.pressSubtitle }}</span>
+            <h2 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(32px, 3vw, 46px); line-height: 0.95; letter-spacing: 0.01em">{{ item.title }}</h2>
+            <span style="font-size: 18px; line-height: 1.45; color: #fff">{{ item.pressRole }}</span>
+            <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; text-transform: uppercase; font-size: clamp(22px, 1.8vw, 28px); line-height: 1; letter-spacing: 0.04em; color: #f4f2ec">{{ item.pressStatus }}</span>
           </div>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #b8b4a9">{{ item.summary }}</p>
+          <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #f4f2ec; text-wrap: pretty">{{ item.summary }}</p>
         </div>
       </sc-for>
     </div>
   </div>
 
-  <div id="news-section" class="press-section" style="padding: 56px 44px; border-bottom: 1px solid #14130f; position: relative">
-    <span style="display: block; margin-bottom: 28px; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">News</span>
+  <div id="news-section" class="press-section" style="background: #f4f2ec; color: #14130f; padding: 96px 44px; border-bottom: 1px solid #14130f; position: relative">
+    <h2 style="display: flex; align-items: flex-end; gap: 0.18em; margin: 0 0 36px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; color: #14130f"><span>News</span><svg aria-hidden="true" viewBox="-62 -140 124 176" style="height: 0.95em; width: auto; display: block; overflow: visible; flex: none"><g class="jdr-bob"><rect x="-46" y="-44" width="92" height="96" rx="24" fill="oklch(0.55 0.17 262)"/><path d="M14 -44 H22 Q46 -44 46 -20 V52 H14 Q26 0 14 -44 Z" fill="oklch(0.47 0.17 262)"/><path d="M-30 -46 Q0 -30 30 -46 L30 -38 Q0 -22 -30 -38 Z" fill="oklch(0.47 0.17 262)"/><path d="M-8 -34 L-10 -14 M8 -34 L10 -14" fill="none" stroke="#fffdf6" stroke-width="2.4" stroke-linecap="round"/><rect x="-34" y="-122" width="68" height="80" rx="18" fill="#8a5536"/><ellipse cx="-34" cy="-84" rx="7" ry="10" fill="#8a5536"/><ellipse cx="34" cy="-84" rx="7" ry="10" fill="#8a5536"/><ellipse cx="-28" cy="-116" rx="14" ry="14" fill="#1f1a17"/><ellipse cx="-12" cy="-126" rx="15" ry="15" fill="#1f1a17"/><ellipse cx="6" cy="-128" rx="15" ry="15" fill="#1f1a17"/><ellipse cx="22" cy="-122" rx="14" ry="14" fill="#1f1a17"/><ellipse cx="34" cy="-110" rx="11" ry="11" fill="#1f1a17"/><ellipse cx="-36" cy="-102" rx="9" ry="9" fill="#1f1a17"/><ellipse cx="37" cy="-98" rx="8" ry="8" fill="#1f1a17"/><ellipse cx="-2" cy="-116" rx="12" ry="12" fill="#1f1a17"/><g class="jdr-blink" style="animation-delay:0.4s"><ellipse cx="-13" cy="-82" rx="9.5" ry="10.9" fill="#fff"/><g class="jdr-look"><ellipse cx="-13" cy="-78" rx="4.9" ry="5.7" fill="#14130f"/><circle cx="-11.2" cy="-80.2" r="1.7" fill="#fff"/></g></g><g class="jdr-blink" style="animation-delay:0.4s"><ellipse cx="13" cy="-82" rx="9.5" ry="10.9" fill="#fff"/><g class="jdr-look"><ellipse cx="13" cy="-78" rx="4.9" ry="5.7" fill="#14130f"/><circle cx="14.8" cy="-80.2" r="1.7" fill="#fff"/></g></g><rect x="-24" y="-104" width="18" height="5.5" rx="2.75" fill="#1f1a17" transform="rotate(-8 -15 -101)"/><rect x="6" y="-104" width="18" height="5.5" rx="2.75" fill="#1f1a17" transform="rotate(8 15 -101)"/><ellipse cx="0" cy="-66" rx="4" ry="5" fill="#6e3f24"/><ellipse class="jdr-mouth" cx="1" cy="-52" rx="8" ry="6" fill="#7a2230"/><ellipse cx="-22" cy="-64" rx="5" ry="3" fill="rgba(232,100,110,0.22)"/><ellipse cx="22" cy="-64" rx="5" ry="3" fill="rgba(232,100,110,0.22)"/><path d="M-30 -30 Q-44 10 -4 34" fill="none" stroke="oklch(0.55 0.17 262)" stroke-width="15" stroke-linecap="round"/><ellipse cx="-4" cy="34" rx="9.5" ry="9.5" fill="#8a5536"/><g class="jdr-mic"><path d="M32 -30 Q70 -8 46 -52" fill="none" stroke="oklch(0.47 0.17 262)" stroke-width="15" stroke-linecap="round"/><rect x="40" y="-84" width="13" height="30" rx="6" fill="#2f2e38"/><ellipse cx="46.5" cy="-88" rx="9" ry="9" fill="oklch(0.8 0.15 80)"/><ellipse cx="46" cy="-52" rx="10" ry="8" fill="#8a5536"/></g></g></svg></h2>
     <div style="display: flex; flex-direction: column; gap: 14px">
       <sc-for list="{{ newsList }}" as="item" hint-placeholder-count="4">
-        <article class="news-row" onClick="{{ item.openLink }}" style="{{ item.cardStyle }}" style-hover="background: linear-gradient(155deg, rgba(255,255,255,0.22), rgba(255,255,255,0.08)); border-color: rgba(255,255,255,0.32); transform: translateY(-3px); box-shadow: inset 0 1px 0 rgba(255,255,255,0.3), 0 34px 60px -18px rgba(0,0,0,0.6)">
+        <article class="news-row" onClick="{{ item.openLink }}" style="{{ item.cardStyle }}" style-hover="background: #ffffff; border-color: rgba(20,19,15,0.28); transform: translateY(-3px); box-shadow: 0 30px 56px -22px rgba(20,19,15,0.35)">
           <div style="width: 176px; flex: none; align-self: stretch; padding: 14px 0 14px 14px"><div class="photo-snap" style="width: 100%; height: 100%; background: #ffffff; border-radius: 20px; overflow: hidden"><image-slot id="{{ item.imageSlot }}" src="{{ item.imageSrc }}" shape="rounded" radius="20px" fit="{{ item.imageFit }}" placeholder="{{ item.placeholder }}"></image-slot></div></div>
           <div style="flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 26px 28px; min-width: 0; position: relative">
             <div style="display: flex; gap: 12px; align-items: baseline">
-              <span style="font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; color: oklch(0.45 0.17 262)">{{ item.tag }}</span>
-              <span style="font-size: 14px; letter-spacing: 0.1em; color: #6f6c62">{{ item.dateLabel }}</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; text-transform: uppercase; font-style: italic; font-size: clamp(20px, 1.6vw, 26px); line-height: 1; letter-spacing: 0.02em; color: oklch(0.45 0.17 262)">{{ item.tag }}</span>
+              <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">{{ item.dateLabel }}</span>
             </div>
-            <h2 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 2vw, 28px); line-height: 1.12">{{ item.title }}</h2>
+            <h2 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(36px, 3.4vw, 54px); line-height: 0.95; letter-spacing: 0.01em">{{ item.title }}</h2>
             <sc-if value="{{ item.description }}" hint-placeholder-val="{{ true }}">
-              <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #b8b4a9; max-width: 60ch">{{ item.description }}</p>
+              <p style="margin: 0; font-size: 18px; line-height: 1.6; color: #14130f; max-width: 34em; text-wrap: pretty">{{ item.description }}</p>
             </sc-if>
             <sc-if value="{{ item.linkHref }}" hint-placeholder-val="{{ false }}">
-              <a href="{{ item.linkHref }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: 8px; font-size: 14px; border: 1px solid #3a372e; border-radius: 999px; padding: 7px 14px; transition: border-color 0.2s ease" style-hover="border-color: #f4f2ec">{{ item.linkLabel }} →</a>
+              <a href="{{ item.linkHref }}" target="_blank" rel="noopener" onClick="{{ stopClick }}" style="display: inline-flex; align-items: center; gap: 6px; align-self: flex-start; margin-top: 8px; font-size: 14px; border: 1px solid rgba(20,19,15,0.35); border-radius: 999px; padding: 7px 14px; transition: border-color 0.2s ease" style-hover="border-color: #14130f">{{ item.linkLabel }} →</a>
             </sc-if>
           </div>
         </article>
@@ -166,23 +195,26 @@
         <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 28px; color: #f4f2ec">J.</span>
         <p style="margin: 0; font-size: 14px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-explore" class="foot-cb">
+        <label for="fc-explore" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</label>
         <a href="/home" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
         <a href="/union-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
         <a href="/freelance-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
         <a href="/about-me" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">About</a>
         <a href="/updates" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-connect" class="foot-cb">
+        <label for="fc-connect" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</label>
         <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
         <a href="tel:+16477724279" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
         <a href="https://instagram.com/jsuza_" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
         <a href="#" onClick="{{ openContact }}" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-more" class="foot-cb">
+        <label for="fc-more" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</label>
         <div class="wh-wrap" style="align-self: flex-start">
           <button type="button" class="wh-trigger" style="font-size: 14px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
           <div class="wh-menu">
@@ -193,6 +225,7 @@
         <a href="https://www.thedropspot.org/" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
       </div>
     </div>
+    <div style="position: relative; z-index: 1; padding: 0 0 40px; font-size: 13px; color: #8b887d">© <a href="/admin" aria-label="Admin" style="color: inherit" style-hover="color: #8b887d">2026</a> Joshua J. DeSouza</div>
    </div>
   </footer>
 
@@ -244,6 +277,7 @@
 class Component extends DCLogic {
   state = { upcoming: [], activeSection: "upcoming", contactOpen: false, contactClosing: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
   footerNameRef = React.createRef();
+  auroraRef = React.createRef();
   closeContact = () => {
     if (this.state.contactClosing) return;
     this.setState({ contactClosing: true });
@@ -251,7 +285,9 @@ class Component extends DCLogic {
     this._contactCloseTimer = setTimeout(() => this.setState({ contactOpen: false, contactClosing: false }), 320);
   };
   componentDidMount() {
-    import('./upcoming-projects.js').then(m => this.setState({ upcoming: m.UPCOMING_PROJECTS }));
+    import('./aurora-glow.js').then(m => { this._auroraCleanup = m.startAurora(this.auroraRef.current); });
+    import('./upcoming-projects.js').then(m => m.loadUpcoming()).then(list => this.setState({ upcoming: list }));
+    import('./news-items.js').then(m => m.loadNews()).then(list => this.setState({ news: list }));
     import('./footer-name-fit.js').then(m => { this._footerFitCleanup = m.fitFooterName(this.footerNameRef.current); });
     this._onScroll = () => {
       const upcoming = document.getElementById('upcoming-section');
@@ -264,66 +300,27 @@ class Component extends DCLogic {
     window.addEventListener('scroll', this._onScroll, { passive: true });
   }
   componentWillUnmount() {
+    if (this._auroraCleanup) this._auroraCleanup();
     if (this._footerFitCleanup) this._footerFitCleanup();
     window.removeEventListener('scroll', this._onScroll);
   }
   renderVals() {
-    const news = [
-      {
-        id: "hitman", tag: "Team", dateSort: "2026-09",
-        dateLabel: "September 2026",
-        title: "Now Creative Director and Media Producer at Hit Man Records",
-        imageSlot: "hitman-records-logo", imageSrc: "uploads/slot-hitman-records-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Hit Man Records logo"
-      },
-      {
-        id: "grant", tag: "Grant", dateSort: "2026-07",
-        dateLabel: "July 2026",
-        title: "S. McKenzie & J. DeSouza's \"Kill Me\" awarded TAC grant funding.",
-        description: "This funding will work in tandem with the Blue Mountain Film Festival post production grant Mckenzie has already secured.",
-        imageSlot: "grant-badge", imageSrc: "uploads/slot-grant-badge.webp", imageFit: "cover", placeholder: "Add a photo or the TAC logo"
-      },
-      {
-        id: "cbc", tag: "Interview", dateSort: "2026-07",
-        dateLabel: "July 2026",
-        title: "Interviewed on CBC Radio on Gen Z in the workforce",
-        description: "Statistics show that Gen Z employees work a higher number of different jobs compared to past generations. DeSouza interviews with Rubina Ahmed-Haq and CBC News to provide thoughts to why this may be.",
-        linkHref: "https://www.cbc.ca/listen/live-radio/1-90-columnists-from-cbc-radio/clip/16230882-bounce-buck-how-young-workers-are-hacking-wage",
-        linkLabel: "Listen on CBC",
-        imageSlot: "cbc-logo", imageSrc: "uploads/slot-cbc-logo-news.png", imageFit: "contain", placeholder: "Add the CBC logo"
-      },
-      {
-        id: "union-house", tag: "Team", dateSort: "2026-02",
-        dateLabel: "February 2026",
-        title: "Now part of the Union House Films team",
-        description: "Union House Films is a collective of like minded filmmakers with complimentary specialty skills, networks and projects united in collaborative efforts and support of one another. Under Union House projects are given access to our diverse team and resources within.",
-        linkHref: "https://www.unionhousefilms.com/team",
-        linkLabel: "Union House Films",
-        imageSlot: "union-house-logo", imageSrc: "uploads/slot-union-house-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Union House logo"
-      },
-      {
-        id: "drop-spot", tag: "Non-profit", dateSort: "2026-04",
-        dateLabel: "April 2026",
-        title: "Introducing The Drop Spot",
-        description: "In effort to reduce the eco footprint left behind on film and TV sets, The Drop Spot aim's to reduce waste by extending the life of unwanted film resources like props, set dressings and raw materials.",
-        linkHref: "https://www.thedropspot.org/",
-        linkLabel: "The Drop Spot",
-        imageSlot: "drop-spot-logo", imageSrc: "uploads/slot-drop-spot-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Drop Spot logo"
-      }
-    ];
+    const news = (this.state.news || []).map(x => Object.assign({}, x));
     news.sort((a, b) => b.dateSort.localeCompare(a.dateSort));
     news.forEach((item) => {
       item.openLink = item.linkHref ? () => window.open(item.linkHref, "_blank", "noopener") : undefined;
       item.cardStyle = {
         display: "flex", gap: "14px", borderRadius: "28px", overflow: "hidden",
-        background: "linear-gradient(155deg, rgba(255,255,255,0.14), rgba(255,255,255,0.045))",
+        background: "rgba(255,255,255,0.6)",
         backdropFilter: "blur(20px) saturate(170%)", WebkitBackdropFilter: "blur(20px) saturate(170%)",
-        border: "1px solid rgba(255,255,255,0.18)",
-        boxShadow: "inset 0 1px 0 rgba(255,255,255,0.22), 0 26px 52px -18px rgba(0,0,0,0.55)",
+        border: "1px solid rgba(20,19,15,0.14)",
+        boxShadow: "0 18px 40px -22px rgba(20,19,15,0.25)",
         cursor: item.linkHref ? "pointer" : "default",
         transition: "background 0.35s ease, border-color 0.35s ease, transform 0.45s cubic-bezier(0.22,0.8,0.24,1), box-shadow 0.45s ease"
       };
     });
     return {
+      auroraRef: this.auroraRef,
       contactOpen: this.state.contactOpen,
       contactSent: this.state.contactSent,
       contactFormVisible: !this.state.contactSent,
@@ -357,8 +354,8 @@ class Component extends DCLogic {
         this.setState({ contactSent: true, contactError: null });
       },
       upcomingList: this.state.upcoming.map(item => Object.assign({}, item, { bg: item.bg || "#000000" })), newsList: news, stopClick: (e) => e.stopPropagation(),
-      upcomingTabStyle: { cursor: "pointer", color: this.state.activeSection === "upcoming" ? "#f4f2ec" : "#8b887d", borderBottom: this.state.activeSection === "upcoming" ? "1px solid #f4f2ec" : "1px solid transparent", paddingBottom: "3px" },
-      newsTabStyle: { cursor: "pointer", color: this.state.activeSection === "news" ? "#f4f2ec" : "#8b887d", borderBottom: this.state.activeSection === "news" ? "1px solid #f4f2ec" : "1px solid transparent", paddingBottom: "3px" },
+      upcomingTabStyle: { cursor: "pointer", paddingBottom: "6px", transition: "color 0.2s ease, border-color 0.2s ease", color: this.state.activeSection === "upcoming" ? "#f4f2ec" : "#8b887d", borderBottom: this.state.activeSection === "upcoming" ? "3px solid oklch(0.62 0.15 262)" : "3px solid transparent" },
+      newsTabStyle: { cursor: "pointer", paddingBottom: "6px", transition: "color 0.2s ease, border-color 0.2s ease", color: this.state.activeSection === "news" ? "#f4f2ec" : "#8b887d", borderBottom: this.state.activeSection === "news" ? "3px solid oklch(0.62 0.15 262)" : "3px solid transparent" },
       scrollToUpcoming: () => { const el = document.getElementById('upcoming-section'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); },
       scrollToNews: () => { const el = document.getElementById('news-section'); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' }); },
     };
