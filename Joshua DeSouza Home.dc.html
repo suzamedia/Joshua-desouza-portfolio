@@ -62,7 +62,7 @@
   .glass-cta:active .glass-pill { box-shadow: inset 0 1px 0 rgba(255,255,255,0.5), 0 6px 18px rgba(20,19,15,0.4); }
   .glass-cta:hover .cta-img { filter: blur(1px) !important; transform: scale(1.08) !important; }
   .cta-img { transition: opacity 1.1s ease, filter 0.5s ease, transform 0.8s cubic-bezier(0.22,0.8,0.24,1) !important; }
-  @media (max-width: 720px) { .cta-buttons { grid-template-columns: 1fr !important; } }
+  @media (max-width: 720px) { .cta-buttons { grid-template-columns: 1fr !important; } .crew-anim { width: 132% !important; margin: -8px 0 0 -16% !important; } .crew-section { overflow: hidden !important; } .hero-stage { justify-content: flex-start !important; padding-top: 36px !important; } }
 
   @media (max-width: 900px) {
     .landing-two-col { grid-template-columns: 1fr !important; }
@@ -130,7 +130,7 @@
   </header>
 
   <div ref="{{ heroTrackRef }}" style="position: relative; height: calc(230vh - 78px)">
-  <div onMouseMove="{{ onApertureMouseMove }}" onMouseLeave="{{ onApertureMouseLeave }}" onTouchMove="{{ onApertureTouchMove }}" onClick="{{ onHeroClick }}" data-screen-label="Opening — Name" style="position: sticky; top: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; height: calc(100vh - 78px); min-height: 0; box-sizing: border-box; padding: 96px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; overflow: hidden">
+  <div onMouseMove="{{ onApertureMouseMove }}" onMouseLeave="{{ onApertureMouseLeave }}" onTouchMove="{{ onApertureTouchMove }}" onClick="{{ onHeroClick }}" data-screen-label="Opening — Name" class="hero-stage" style="position: sticky; top: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; height: calc(100vh - 78px); min-height: 0; box-sizing: border-box; padding: 96px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; overflow: hidden">
     <canvas ref="{{ wavesRef }}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none"></canvas>
     <div ref="{{ glassRef }}" aria-hidden="true" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: calc(min(820px, 112vw, 88vh) * 0.965); height: calc(min(820px, 112vw, 88vh) * 0.965); border-radius: 50%; pointer-events: none; backdrop-filter: blur(18px) saturate(170%); -webkit-backdrop-filter: blur(18px) saturate(170%); background: radial-gradient(circle at 30% 22%, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 55%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -18px 40px rgba(255,255,255,0.04)"></div>
     <svg ref="{{ apertureSvgRef }}" viewBox="0 0 200 200" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(820px, 112vw, 88vh); height: min(820px, 112vw, 88vh); pointer-events: none; opacity: 1; filter: drop-shadow(0 18px 40px rgba(0,0,0,0.35))">
@@ -149,7 +149,7 @@
     </svg>
     <div ref="{{ vignetteRef }}" style="position: absolute; inset: 0; pointer-events: none; z-index: 1; opacity: 0; background: radial-gradient(circle at 50% 50%, rgba(20,19,15,0) 32%, rgba(20,19,15,0.72) 78%, rgba(20,19,15,0.92) 100%)"></div>
     <div ref="{{ gameLayerRef }}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; translate: 0 70vh">{{ gameScene }}</div>
-    <div aria-hidden="true" style="{{ tipStyle }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Click to take Alex's photo</span></div>
+    <div aria-hidden="true" style="{{ tipStyle }}"><sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Click to take Alex's photo</span></sc-if><sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Tap when Alex looks sharp</span></sc-if></div>
     <div ref="{{ flashRef }}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 4; pointer-events: none; background: #fffdf6; opacity: 0"></div>
     <sc-if value="{{ gameHint }}" hint-placeholder-val="{{ true }}">
       <div style="position: absolute; z-index: 3; right: 4vw; bottom: 22px; pointer-events: none; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,242,236,0.72)">Scroll to play ↓</div>
@@ -168,10 +168,11 @@
           <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 48px; line-height: 0.9; letter-spacing: 0.01em">How to play</span>
           <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #b8b4a9">Help Josh get five sharp shots of Alex before your memory card fills up.</p>
           <div style="display: flex; flex-direction: column; gap: 14px; font-size: 14px; line-height: 1.55">
-            <div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Focus</span><span>The iris is your focus ring. Move the mouse right, left, up or down to focus.</span></div>
-            <div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Shoot</span><span>Click anywhere when she looks sharp.</span></div>
+            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Focus</span><span>The iris is your focus ring. Move the mouse right, left, up or down to focus.</span></div><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Shoot</span><span>Click anywhere when she looks sharp.</span></div></sc-if>
+            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Focus</span><span>Focus is locked. Alex walks in and out of it.</span></div><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Shoot</span><span>Tap anywhere the moment she looks sharp.</span></div></sc-if>
             <div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Misses</span><span>A blurry shot or one taken while she's turned away is a miss. Three misses and the card is full.</span></div>
-            <div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Phone</span><span>Drag to focus, tap to shoot.</span></div>
+            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Rounds</span><span>Every shot you land, she moves faster and the sharp moment gets shorter.</span></div></sc-if>
+            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Phone</span><span>Tap the moment she steps into focus.</span></div></sc-if>
           </div>
           <span style="font-size: 13px; color: #b8b4a9">Best played on a desktop or laptop.</span>
         </div>
@@ -303,7 +304,7 @@
     </div>
   </section>
 
-  <section data-screen-label="Process 03 — Crew Assembly" ref="{{ ch03Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
+  <section data-screen-label="Process 03 — Crew Assembly" ref="{{ ch03Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f; overflow-x: clip" class="crew-section">
     <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; min-height: 90vh; box-sizing: border-box">
       <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
         <span style="{{ ch03NumStyle }}">03</span>
@@ -314,7 +315,7 @@
         <p style="{{ ch03LineStyle }}">The right people make all the difference.</p>
         <p style="{{ ch03BodyStyle }}">I bring a deep network of trusted creatives, technicians, and industry professionals to projects of any scale, connecting the right people to the right project with passion at the core.&nbsp;</p>
       </div>
-      <div style="grid-column: 1 / -1; width: 100%; margin-top: 48px">{{ crewAnim }}</div>
+      <div class="crew-anim" style="grid-column: 1 / -1; width: 114%; margin: -36px 0 0 -7%">{{ crewAnim }}</div>
     </div>
   </section>
 
@@ -328,14 +329,15 @@
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Production Management</h3>
         <p style="{{ ch04LineStyle }}">Paperwork handled. Details covered.</p>
         <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 0.06em 0.32em; font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(36px, 4.4vw, 64px); line-height: 1">
-          <span style="{{ pmItems.0.style }}">Contracts.</span>
-          <span style="{{ pmItems.1.style }}">Insurance.</span>
-          <span style="{{ pmItems.2.style }}">Permits.</span>
-          <span style="{{ pmItems.3.style }}">Call sheets.</span>
+          <span style="{{ pmItems.0.style }}">Budgets.</span>
+          <span style="{{ pmItems.1.style }}">Contracts.</span>
+          <span style="{{ pmItems.2.style }}">Insurance.</span>
+          <span style="{{ pmItems.3.style }}">Permits.</span>
           <span style="{{ pmItems.4.style }}">Schedules.</span>
-          <span style="{{ pmItems.5.style }}">Budgets.</span>
-          <span style="{{ pmItems.6.style }}">Receipts.</span>
-          <span style="{{ pmItems.7.style }}">Releases.</span>
+          <span style="{{ pmItems.5.style }}">Call sheets.</span>
+          <span style="{{ pmItems.6.style }}">Releases.</span>
+          <span style="{{ pmItems.7.style }}">Receipts.</span>
+          <span style="{{ pmItems.8.style }}">Wrapped.</span>
         </p>
         
       </div>
@@ -500,6 +502,12 @@
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;rideTideZoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:30,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ride The Tide image&quot;},&quot;rideTideX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ride The Tide image&quot;},&quot;rideTideY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Ride The Tide image&quot;},&quot;heroLegibility&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;Current&quot;,&quot;Shadow halo&quot;,&quot;Dark scrim&quot;,&quot;Glass plate&quot;,&quot;Ink outline&quot;],&quot;default&quot;:&quot;Current&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Hero headline&quot;},&quot;teamPhoto1Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 1 · Red Door crew&quot;},&quot;teamPhoto1X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:44,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 1 · Red Door crew&quot;},&quot;teamPhoto1Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:37,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 1 · Red Door crew&quot;},&quot;teamPhoto1Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 1 · Red Door crew&quot;},&quot;teamPhoto2Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:2,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 2 · The Suspension&quot;},&quot;teamPhoto2X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:40,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 2 · The Suspension&quot;},&quot;teamPhoto2Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 2 · The Suspension&quot;},&quot;teamPhoto2Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 2 · The Suspension&quot;},&quot;teamPhoto3Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:1,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 3 · Couch crew&quot;},&quot;teamPhoto3X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 3 · Couch crew&quot;},&quot;teamPhoto3Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:45,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 3 · Couch crew&quot;},&quot;teamPhoto3Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 3 · Couch crew&quot;},&quot;teamPhoto4Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:4,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 4 · Night out&quot;},&quot;teamPhoto4X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 4 · Night out&quot;},&quot;teamPhoto4Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:48,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 4 · Night out&quot;},&quot;teamPhoto4Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 4 · Night out&quot;},&quot;teamPhoto5Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:5,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 5 · Holiday office&quot;},&quot;teamPhoto5X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 5 · Holiday office&quot;},&quot;teamPhoto5Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:20,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 5 · Holiday office&quot;},&quot;teamPhoto5Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 5 · Holiday office&quot;},&quot;teamPhoto6Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:6,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 6 · Group selfie&quot;},&quot;teamPhoto6X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:63,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 6 · Group selfie&quot;},&quot;teamPhoto6Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:78,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 6 · Group selfie&quot;},&quot;teamPhoto6Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 6 · Group selfie&quot;},&quot;teamPhoto7Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:7,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 7 · Starfleet&quot;},&quot;teamPhoto7X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:58,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 7 · Starfleet&quot;},&quot;teamPhoto7Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:44,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 7 · Starfleet&quot;},&quot;teamPhoto7Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 7 · Starfleet&quot;},&quot;teamPhoto8Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:8,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 8 · Campground&quot;},&quot;teamPhoto8X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:54,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 8 · Campground&quot;},&quot;teamPhoto8Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:57,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 8 · Campground&quot;},&quot;teamPhoto8Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 8 · Campground&quot;},&quot;teamPhoto9Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:9,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 9 · Fan Expo&quot;},&quot;teamPhoto9X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 9 · Fan Expo&quot;},&quot;teamPhoto9Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:33,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 9 · Fan Expo&quot;},&quot;teamPhoto9Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 9 · Fan Expo&quot;},&quot;teamPhoto10Order&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:10,&quot;min&quot;:1,&quot;max&quot;:10,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 10 · Halloween&quot;},&quot;teamPhoto10X&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:55,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 10 · Halloween&quot;},&quot;teamPhoto10Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:35,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 10 · Halloween&quot;},&quot;teamPhoto10Zoom&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:100,&quot;min&quot;:100,&quot;max&quot;:250,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Team photo 10 · Halloween&quot;}}">
 class Component extends DCLogic {
+  pv(k) {
+    if (this.props[k] != null) return this.props[k];
+    if (!this._pd) { this._pd = {}; try { const j = JSON.parse(document.querySelector("script[data-dc-script]").getAttribute("data-props") || "{}"); for (const x in j) if (j[x] && j[x].default != null) this._pd[x] = j[x].default; } catch (e) {} }
+    return this._pd[k];
+  }
+  _isMobileGame() { return (window.matchMedia && window.matchMedia("(pointer: coarse)").matches) || window.innerWidth < 700; }
   state = { upcomingIndex: 0, recentIndex: 0, ctaIndex: 0, upcoming: [], contactOpen: false, contactClosing: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
   closeContact = () => {
     if (this.state.contactClosing) return;
@@ -753,7 +761,7 @@ class Component extends DCLogic {
       const tr = this.heroTrackRef.current, mesh = this.meshWrapRef.current; if (!tr) return;
       const r = tr.getBoundingClientRect();
       const p = Math.min(1, Math.max(0, (78 - r.top) / (window.innerHeight * 0.7)));
-      this._heroP = p; this._heroVisible = r.bottom > 78;
+      this._heroP = p; this._heroVisible = r.bottom > 78; if ((p >= 0.25) !== !!this.state.gInView) this.setState({ gInView: p >= 0.25 });
       const cards = mesh && mesh.parentElement && mesh.parentElement.querySelector(".landing-two-col");
       const e = p * p * (3 - 2 * p), fade = String(Math.max(0, 1 - p * 1.6));
       [[mesh, -38], [cards, 46]].forEach(([el, off]) => { if (!el) return; if (p > 0) el.style.animation = "none"; el.style.translate = "0 " + (e * off) + "vh"; el.style.opacity = fade; el.style.pointerEvents = p > 0.4 ? "none" : ""; });
@@ -795,7 +803,7 @@ class Component extends DCLogic {
   }
   startGame() {
     cancelAnimationFrame(this._gRaf);
-    this.setState({ gameOn: true, gLives: 3, gHits: 0, gPose: 0, gShots: [], gEnded: null, gLcd: null, gRules: false }); this._gUsed = [];
+    this._mob = this._isMobileGame(); this.setState({ gameOn: true, gLives: 3, gHits: 0, gPose: 0, gShots: [], gEnded: null, gLcd: null, gRules: false }); this._gUsed = [];
     if (!this._tipDone) { this._tipDone = true; this._gClicked = false; [[2000, true], [5000, false], [10000, true], [13000, false]].forEach(([ms, v]) => setTimeout(() => this.setState({ gTip: v && !this._gClicked }), ms)); }
     this._gSeq = [0].concat([1, 2, 3, 7, 8, 9].sort(() => Math.random() - 0.5).slice(0, 3), [4]);
     this._gB = { d: 0.35, t: 0, seg: null, facing: "front", vel: 0, lastDir: -1, walking: true }; this._gLast = performance.now(); this._gCool = performance.now() + 400;
@@ -812,7 +820,7 @@ class Component extends DCLogic {
       else { B.vel = 0; B.facing = sg.facing; B.walking = false; }
       const pz = this.state.gHits || 0, wob = pz === 3 ? 0.03 * Math.sin(t * 4.2) : pz === 4 ? 0.045 * Math.sin(t * 5.5) : 0;
       const d = Math.min(1, Math.max(0, B.d + wob)), vel = B.vel || B.lastDir * 0.001;
-      const f = Math.min(1, Math.max(0, ((this._irisNow == null ? 1 : this._irisNow) - 0.4) / 2.15));
+      const f = this._mob ? 0.5 : Math.min(1, Math.max(0, ((this._irisNow == null ? 1 : this._irisNow) - 0.4) / 2.15));
       const diff = Math.abs(d - f), blur = Math.min(14, Math.max(0, (diff - 0.02) * 42));
       this._gm = { d, f, diff, vel, blur };
       const el = this.girlWrapRef.current;
@@ -841,6 +849,7 @@ class Component extends DCLogic {
     const prev = B.seg, r = Math.random(), mul = [1, 1, 1.1, 1.45, 1.7][Math.min(4, this.state.gHits || 0)];
     if (prev && prev.type === "walk" && r < 0.6) return { type: "pause", dur: (0.9 + Math.random() * 1.8) / mul, facing: Math.random() < 0.6 ? "front" : "back" };
     if (prev && prev.type === "pause" && r < 0.35) return { type: "pause", dur: (0.7 + Math.random() * 1.4) / mul, facing: prev.facing === "front" ? "back" : "front" };
+    if (this._mob && Math.random() < 0.8) { const to = B.d < 0.5 ? 0.62 + Math.random() * 0.34 : 0.04 + Math.random() * 0.34; return { type: "walk", from: B.d, to, dur: Math.max(1.2 / mul, Math.abs(to - B.d) * (5 + Math.random() * 3) / mul) }; }
     let to, n = 0; do { to = 0.04 + Math.random() * 0.92; n++; } while (Math.abs(to - B.d) < 0.18 && n < 20);
     return { type: "walk", from: B.d, to, dur: Math.max(1.2 / mul, Math.abs(to - B.d) * (5 + Math.random() * 3) / mul) };
   }
@@ -856,7 +865,7 @@ class Component extends DCLogic {
       const livesB = this.state.gLives - 1;
       this.setState({ gLives: livesB, gShots: this.state.gShots.concat([{ pose, back: true, gag: "back", blur: Math.min(4, g.blur * 0.4) }]), gLcd: { ok: false, text: "TURNED AWAY", pose, back: true, blur: Math.min(8, g.blur * 0.6), key: Math.round(now) } });
       if (livesB <= 0) setTimeout(() => this.setState({ gEnded: "lose" }), 1300);
-    } else if (g.diff < [0.055, 0.055, 0.05, 0.042, 0.038][Math.min(4, this.state.gHits || 0)]) {
+    } else if (g.diff < (this._mob ? [0.085, 0.075, 0.065, 0.055, 0.045] : [0.055, 0.055, 0.05, 0.042, 0.038])[Math.min(4, this.state.gHits || 0)]) {
       const hits = this.state.gHits + 1;
       this.setState({ gHits: hits, gShots: this.state.gShots.concat([{ pose, ok: true, blur: 0 }]), gPose: this._gSeq[Math.min(4, hits)], gLcd: { ok: true, text: "NICE SHOT!", pose, blur: 0, key: Math.round(now) } });
       if (hits >= 5) setTimeout(() => this.setState({ gEnded: "win" }), 1300);
@@ -1287,7 +1296,7 @@ class Component extends DCLogic {
         heart(920, 168, 0.5), heart(936, 160, 2.3)));
   }
   ch03Ref = React.createRef();
-  PM_ITEMS = ["Contracts.", "Insurance.", "Permits.", "Call sheets.", "Schedules.", "Budgets.", "Receipts.", "Releases."];
+  PM_ITEMS = ["Budgets.", "Contracts.", "Insurance.", "Permits.", "Schedules.", "Call sheets.", "Releases.", "Receipts.", "Wrapped."];
   buildClipAnim() {
     const h = React.createElement, reduce = this._heroReduce, LOOP = 10, B = 0.8;
     const ink = "#14130f", hairC = "#1f1a17", lip = "#7a2230", cream = "#fffdf6", edge = "#ddd6c3", pants = "#2f2e38", pants2 = "#44434e";
@@ -2064,7 +2073,7 @@ void main(){
     const c5 = !!this.state.ch05In, rv5 = (d) => ({ opacity: c5 ? 1 : 0, transform: c5 ? "translateY(0)" : "translateY(22px)", transition: `opacity 0.7s ease ${d}s, transform 0.9s ${ease} ${d}s` });
     const pp = this.state.prodP || 0;
     const open = Math.min(1, pp / 0.55), oe = 1 - Math.pow(1 - open, 3);
-    const PHOTOS = this.PROD_PHOTOS.map((p, k) => Object.assign({ n: k + 1 }, p)).sort((a, b) => ((this.props["teamPhoto" + a.n + "Order"] ?? a.n) - (this.props["teamPhoto" + b.n + "Order"] ?? b.n)) || a.n - b.n), NP = PHOTOS.length, t0 = Math.max(0, Math.min(1, pp * NP));
+    const PHOTOS = this.PROD_PHOTOS.map((p, k) => Object.assign({ n: k + 1 }, p)).sort((a, b) => ((this.pv("teamPhoto" + a.n + "Order") ?? a.n) - (this.pv("teamPhoto" + b.n + "Order") ?? b.n)) || a.n - b.n), NP = PHOTOS.length, t0 = Math.max(0, Math.min(1, pp * NP));
     const cl = (v) => Math.max(0, Math.min(1, v)), sw = cl((pp - 0.44) / 0.06), l3 = cl((pp - 0.5) / 0.06), l4 = cl((pp - 0.53) / 0.06);
     const l1 = cl((t0 - 0.2) / 0.3) * (1 - sw), l2 = cl((t0 - 0.45) / 0.3) * (1 - sw);
     const e3 = (t) => 1 - Math.pow(1 - t, 3);
@@ -2084,7 +2093,7 @@ void main(){
         const css = "@keyframes jdName{0%{opacity:0;transform:translateY(0.5em) rotateX(-70deg)}100%{opacity:1;transform:translateY(0) rotateX(0)}}@keyframes jdSub{0%{opacity:0;letter-spacing:0.7em}100%{opacity:1;letter-spacing:0.32em}}";
         return h("div", { style: { display: "flex", flexDirection: "column", alignItems: "center", gap: "14px" } },
           h("style", null, css),
-          h("span", { "aria-hidden": "true", style: { display: "flex", perspective: "900px", fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(64px, min(13vw, 20vh), 240px)", lineHeight: 0.86, letterSpacing: "0.01em", whiteSpace: "nowrap" } },
+          h("span", { "aria-hidden": "true", style: { display: "flex", perspective: "900px", fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(36px, min(12.5vw, 20vh), 240px)", lineHeight: 0.86, letterSpacing: "0.01em", whiteSpace: "nowrap" } },
             letters.map((c, i) => h("span", { key: i, style: { display: "inline-block", whiteSpace: "pre", transformOrigin: "50% 100%", animation: reduce ? "none" : "jdName 0.9s cubic-bezier(0.22,1,0.36,1) " + (0.15 + i * 0.05).toFixed(2) + "s both" } }, c))),
           h("span", { style: { fontSize: "clamp(13px, 1.5vw, 20px)", letterSpacing: "0.32em", animation: reduce ? "none" : "jdSub 1.2s cubic-bezier(0.22,1,0.36,1) 0.9s both" } }, "Independent Producer\u00a0\u00b7\u00a0Toronto ON"));
       })()),
@@ -2101,10 +2110,11 @@ void main(){
         h0("div", { ref: this.meWrapRef, style: { position: "absolute", left: "-3vw", bottom: "-9vh", height: "min(68vh, 640px)", aspectRatio: "440 / 480", transformOrigin: "30% 100%", willChange: "transform" } },
           h0("svg", { viewBox: "0 -40 440 480", width: "100%", height: "100%", style: { display: "block", overflow: "visible" } }, this.gameMe(this.state.gLcd, this.state.gLcd ? (this.state.gLcd.ok ? "good" : "bad") : null)))) : null,
       gameHint: !this.state.gameOn,
-      gameHud: !!this.state.gameOn && !this.state.gEnded,
+      gameHud: !!this.state.gameOn && !this.state.gEnded && !!this.state.gInView,
+      isMobileGame: !!this._mob, notMobileGame: !this._mob,
       gameEnded: !!this.state.gEnded,
-      tipStyle: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 3, pointerEvents: "none", fontWeight: 300, fontSize: "clamp(16px, 1.6vw, 22px)", letterSpacing: "0.08em", whiteSpace: "nowrap", color: "#f4f2ec", textShadow: "0 1px 14px rgba(20,19,15,0.6)", opacity: this.state.gTip && this.state.gameOn && !this.state.gEnded && !this.state.gRules ? 1 : 0, transition: "opacity 0.6s ease" },
-      rulesOpen: !!this.state.gRules && !!this.state.gameOn,
+      tipStyle: { position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", zIndex: 3, pointerEvents: "none", fontWeight: 300, fontSize: "clamp(16px, 1.6vw, 22px)", letterSpacing: "0.08em", whiteSpace: "nowrap", color: "#f4f2ec", textShadow: "0 1px 14px rgba(20,19,15,0.6)", opacity: this.state.gTip && this.state.gameOn && this.state.gInView && !this.state.gEnded && !this.state.gRules ? 1 : 0, transition: "opacity 0.6s ease" },
+      rulesOpen: !!this.state.gRules && !!this.state.gameOn && !!this.state.gInView,
       toggleRules: (e) => { e.stopPropagation(); this.setState({ gRules: !this.state.gRules }); },
       endColor: this.state.gEnded === "win" ? "#2FB85A" : "#DE2828",
       endTitle: this.state.gEnded === "win" ? "That's a wrap!" : "Memory full",
@@ -2151,9 +2161,9 @@ void main(){
         return { caption: p.caption || "", style: {
           position: "absolute", inset: 0, zIndex: 1, opacity: i === 0 ? 1 : Math.min(1, t / 0.1),
           backgroundImage: "linear-gradient(180deg, rgba(20,19,15,0.5), rgba(20,19,15,0.62)), url('" + p.src + "')",
-          backgroundSize: "cover", backgroundPosition: (this.props["teamPhoto" + p.n + "X"] ?? 50) + "% " + (this.props["teamPhoto" + p.n + "Y"] ?? parseFloat((p.pos || "center 40%").split(" ")[1])) + "%",
+          backgroundSize: "cover", backgroundPosition: (this.pv("teamPhoto" + p.n + "X") ?? 50) + "% " + (this.pv("teamPhoto" + p.n + "Y") ?? parseFloat((p.pos || "center 40%").split(" ")[1])) + "%",
           clipPath: `inset(${(16 * (1 - e)).toFixed(2)}% ${(20 * (1 - e)).toFixed(2)}% round ${(18 * (1 - e)).toFixed(1)}px)`,
-          transform: `scale(${((1.12 - 0.12 * e) * (this.props["teamPhoto" + p.n + "Zoom"] ?? 100) / 100).toFixed(4)})`, transformOrigin: (this.props["teamPhoto" + p.n + "X"] ?? 50) + "% " + (this.props["teamPhoto" + p.n + "Y"] ?? 50) + "%", willChange: "clip-path, transform" } };
+          transform: `scale(${((1.12 - 0.12 * e) * (this.pv("teamPhoto" + p.n + "Zoom") ?? 100) / 100).toFixed(4)})`, transformOrigin: (this.pv("teamPhoto" + p.n + "X") ?? 50) + "% " + (this.pv("teamPhoto" + p.n + "Y") ?? 50) + "%", willChange: "clip-path, transform" } };
       }),
       prodLine1Style: { display: "block", color: "#f4f2ec", opacity: l1, transform: `translateX(${(-6 * (1 - e3(l1))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
       prodLine2Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: l2, transform: `translateX(${(6 * (1 - e3(l2))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
@@ -2162,7 +2172,7 @@ void main(){
       ch04Ref: this.ch04Ref,
       clipAnim: this._clipAnim || (this._clipAnim = this.buildClipAnim()),
       pmItems: this.PM_ITEMS.map((text, i) => {
-        const on = i < pmCount, latest = i === pmCount - 1;
+        const on = i < pmCount, latest = i === pmCount - 1 || (on && i === this.PM_ITEMS.length - 1);
         return { text, style: { display: "inline-block", color: latest ? "oklch(0.45 0.17 262)" : "#14130f", opacity: on ? 1 : 0.13, transform: on ? "translateY(0)" : "translateY(10px)", transition: `opacity 0.5s ease, transform 0.6s ${ease}, color 0.6s ease` } };
       }),
       ch04NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv4(0)),
@@ -2232,9 +2242,9 @@ void main(){
       },
       onApertureMouseLeave: () => { this._apertureHover = false; this._apertureEnterTime = null; this._irisTarget = null; this._mouseHX = null; this._mouseHY = null; },
       upcomingList: list.map(item => {
-        const zoom = item.id === "ride-the-tide" ? (this.props.rideTideZoom ?? 100) : 100;
-        const ox = item.id === "ride-the-tide" ? (this.props.rideTideX ?? 50) : 50;
-        const oy = item.id === "ride-the-tide" ? (this.props.rideTideY ?? 50) : 50;
+        const zoom = item.id === "ride-the-tide" ? (this.pv("rideTideZoom") ?? 100) : 100;
+        const ox = item.id === "ride-the-tide" ? (this.pv("rideTideX") ?? 50) : 50;
+        const oy = item.id === "ride-the-tide" ? (this.pv("rideTideY") ?? 50) : 50;
         return Object.assign({}, item, {
           mediaStyle: {
             position: "absolute", inset: 0,
