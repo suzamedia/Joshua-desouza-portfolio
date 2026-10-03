@@ -1,0 +1,162 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>03 Crew Assembly</title>
+<style>html,body{margin:0;background:#fffdf6}#root{max-width:1200px;margin:0 auto;padding:40px 24px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script></head>
+<body><div id="root"></div><script>
+const A = {
+  state: new Proxy({}, { get: () => true }),
+  _heroReduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  setState() {},
+  buildCrewAnim() {
+    const h = React.createElement, reduce = this._heroReduce;
+    const ink = "#14130f", dark = "#2f2e38", dark2 = "#44434e", metal = "#55545f", hairC = "#1f1a17", cream = "#fffdf6", cream2 = "#e8e2d0", lip = "#7a2230";
+    const blue = "oklch(0.55 0.17 262)", blueS = "oklch(0.47 0.17 262)", coral = "oklch(0.68 0.17 32)", coralS = "oklch(0.6 0.17 32)";
+    const mustard = "oklch(0.8 0.15 80)", mustardS = "oklch(0.72 0.15 75)", red = "oklch(0.6 0.22 25)", redS = "oklch(0.52 0.21 25)";
+    const glowC = "oklch(0.96 0.09 95)", gold = "oklch(0.8 0.15 80)", brown = "#7a4b2a", leaf = "oklch(0.55 0.12 150)";
+    const G = (p, ...k) => h("g", p || null, ...k);
+    const R = (x, y, w, hh, rx, fill, ex) => h("rect", Object.assign({ x, y, width: w, height: hh, rx, fill }, ex || {}));
+    const E = (cx, cy, rx, ry, fill, ex) => h("ellipse", Object.assign({ cx, cy, rx, ry, fill }, ex || {}));
+    const P = (d, fill, ex) => h("path", Object.assign({ d, fill }, ex || {}));
+    const T = (d, c, w) => P(d, "none", { stroke: c, strokeWidth: w, strokeLinecap: "round", strokeLinejoin: "round" });
+    const A = (cls, delay) => reduce ? null : { className: cls, style: { animationDelay: (delay || 0) + "s" } };
+    const eye = (cx, cy, lx, ly, skin, lid, cls, delay) => G(A(cls || "jdc-blink", delay),
+      E(cx, cy, 10, 12, "#fff"), E(cx + lx, cy + ly, 5.5, 6.5, ink), E(cx + lx + 2, cy + ly - 2.5, 1.8, 1.8, "#fff"),
+      lid ? R(cx - 11, cy - 14, 22, lid + 2, 0, skin) : null,
+      lid ? T("M " + (cx - 11) + " " + (cy - 12 + lid) + " Q " + cx + " " + (cy - 9 + lid) + " " + (cx + 11) + " " + (cy - 12 + lid), ink, 2.6) : null);
+    const brow = (x, y, w, rot, c) => R(x, y, w, 6, 3, c || hairC, { transform: "rotate(" + rot + " " + (x + w / 2) + " " + (y + 3) + ")" });
+    const star = (x, y, s, d) => G({ transform: "translate(" + x + " " + y + ") scale(" + s + ")" }, G(A("jdc-spark", d), P("M 0 -9 L 2 -2 L 9 0 L 2 2 L 0 9 L -2 2 L -9 0 L -2 -2 Z", mustard)));
+    const heart = (x, y, d) => G({ transform: "translate(" + x + " " + y + ")" }, G(A("jdc-heart", d), P("M 0 7 C -13 -3 -9 -15 0 -8 C 9 -15 13 -3 0 7 Z", red)));
+    const place = (x, i, idle, ...kids) => G({ transform: "translate(" + x + " 370)" },
+      E(0, 2, 46, 7, "rgba(20,19,15,0.10)"),
+      G(A("jdc-in", 0.1 + i * 0.18), G(A(idle, 1.2 + i * 0.15), ...kids)));
+
+    const gSkin = "#c68a5e", gShade = "#a96f45";
+    const gaffer = place(62, 0, "jdc-bob",
+      R(52, -262, 6, 262, 3, metal), T("M 55 -30 L 32 -2", metal, 5), T("M 55 -30 L 78 -2", metal, 5),
+      G({ transform: "translate(58 -294) rotate(18)" }, T("M -38 0 Q -38 34 0 34 Q 38 34 38 0", metal, 4), R(-34, -24, 68, 48, 8, dark), R(-27, -17, 54, 34, 5, glowC)),
+      R(-30, -58, 22, 58, 11, "#3b3a46"), R(8, -58, 22, 58, 11, "#3b3a46"), R(-36, -12, 32, 14, 7, brown), R(6, -12, 32, 14, 7, brown),
+      R(-46, -152, 92, 100, 22, mustard), P("M 14 -152 H 24 Q 46 -152 46 -130 V -74 Q 46 -52 24 -52 H 14 Q 26 -100 14 -152 Z", mustardS),
+      R(-46, -74, 92, 13, 4, brown), R(18, -74, 20, 24, 5, "#5e3a20"), E(-26, -60, 9, 9, "#bdbab0"), E(-26, -60, 3.5, 3.5, brown),
+      T("M 40 -136 Q 60 -128 54 -160", mustardS, 15), E(54, -162, 9.5, 9.5, gSkin),
+      R(-38, -236, 76, 86, 20, gSkin), E(-38, -190, 8, 11, gSkin), E(38, -190, 8, 11, gSkin), E(-12, -224, 13, 5, "rgba(255,255,255,0.28)"),
+      P("M -38 -192 Q -40 -134 0 -126 Q 40 -134 38 -192 Q 30 -170 0 -168 Q -30 -170 -38 -192 Z", hairC),
+      P("M -13 -164 Q 0 -148 13 -164 Z", cream),
+      eye(-14, -200, 3, 0, gSkin, 0, "jdc-blink", 0.4), eye(14, -200, 3, 0, gSkin, 0, "jdc-blink", 0.4),
+      brow(-25, -220, 22, 6), brow(3, -220, 22, -6),
+      E(2, -182, 7, 6, gShade),
+      T("M -40 -136 Q -66 -150 -64 -184", mustard, 15), E(-64, -192, 10.5, 10.5, gSkin), R(-69, -212, 9, 17, 4.5, gSkin));
+
+    const bSkin = "#f2c7a5";
+    const boom = place(162, 1, "jdc-bob",
+      G(A("jdc-boom"), T("M -6 -176 L 700 -302", metal, 5),
+        G({ transform: "translate(712 -304) rotate(-10)" }, R(-42, -3, 10, 6, 3, metal), R(-34, -12, 68, 24, 12, "#85838c"),
+          E(-24, -12, 6, 6, "#8f8d96"), E(-12, -13, 6, 6, "#8f8d96"), E(0, -13, 6, 6, "#8f8d96"), E(12, -13, 6, 6, "#8f8d96"), E(24, -12, 6, 6, "#8f8d96"),
+          E(-24, 12, 6, 6, "#77757e"), E(-12, 13, 6, 6, "#77757e"), E(0, 13, 6, 6, "#77757e"), E(12, 13, 6, 6, "#77757e"), E(24, 12, 6, 6, "#77757e"))),
+      T("M -22 -164 Q -6 -188 20 -184", coralS, 13), E(20, -184, 8.5, 8.5, bSkin),
+      R(-20, -96, 16, 96, 8, "oklch(0.42 0.06 250)"), R(4, -96, 16, 96, 8, "oklch(0.42 0.06 250)"),
+      R(-28, -12, 28, 13, 6.5, cream), R(2, -12, 28, 13, 6.5, cream), R(-28, -4, 28, 4, 2, cream2), R(2, -4, 28, 4, 2, cream2),
+      R(-32, -176, 64, 88, 16, coral), P("M 8 -176 H 16 Q 32 -176 32 -160 V -104 Q 32 -88 16 -88 H 8 Q 18 -130 8 -176 Z", coralS),
+      R(-30, -252, 60, 74, 16, bSkin), R(-30, -228, 8, 16, 4, "oklch(0.68 0.16 50)"), R(22, -228, 8, 16, 4, "oklch(0.68 0.16 50)"),
+      P("M -33 -232 Q -33 -272 0 -272 Q 33 -272 33 -232 Z", blue), R(-35, -240, 70, 14, 7, blueS), E(0, -274, 9, 9, blueS),
+      T("M -36 -224 Q -38 -284 0 -284 Q 38 -284 36 -224", dark, 6), R(-43, -228, 14, 28, 7, dark), R(29, -228, 14, 28, 7, dark),
+      eye(-11, -210, 3, -3, bSkin, 0, "jdc-blink", 1.5), eye(13, -210, 3, -3, bSkin, 0, "jdc-blink", 1.5),
+      brow(-21, -230, 18, -10, "oklch(0.55 0.15 45)"), brow(5, -231, 18, -4, "oklch(0.55 0.15 45)"),
+      E(-18, -194, 1.6, 1.6, "#d9a283"), E(-14, -192, 1.6, 1.6, "#d9a283"), E(20, -194, 1.6, 1.6, "#d9a283"), E(24, -192, 1.6, 1.6, "#d9a283"),
+      E(3, -189, 5, 6, lip),
+      T("M 22 -164 Q 50 -170 59 -197", coral, 13), E(59, -197, 8.5, 8.5, bSkin));
+
+    const cSkin = "#8a5a3c", jeans = "oklch(0.5 0.1 250)";
+    const cam = place(272, 2, "jdc-bob",
+      T("M -16 -76 L -30 -10", jeans, 18), T("M 16 -76 L 30 -10", jeans, 18), R(-48, -12, 32, 13, 6.5, red), R(16, -12, 32, 13, 6.5, red),
+      T("M 30 -146 Q 54 -150 56 -168", blueS, 14), E(56, -170, 9, 9, cSkin),
+      R(-40, -160, 80, 90, 18, blue), P("M 10 -160 H 22 Q 40 -160 40 -142 V -88 Q 40 -70 22 -70 H 10 Q 22 -116 10 -160 Z", blueS),
+      R(-30, -166, 60, 14, 7, blueS), T("M -8 -152 L -8 -134", cream, 2.5), T("M 8 -152 L 8 -134", cream, 2.5),
+      R(-34, -238, 68, 78, 16, cSkin), E(-34, -198, 7, 10, cSkin),
+      P("M -36 -216 Q -36 -252 0 -252 Q 36 -252 36 -216 Z", red), R(-64, -222, 32, 9, 4.5, redS),
+      eye(-12, -202, 3, 0, cSkin, 0, "jdc-blink", 2.2), brow(-23, -222, 20, -12),
+      E(-8, -174, 7, 5, lip), E(-3, -171, 4, 3, "#e87a8a"),
+      R(22, -228, 44, 11, 5.5, dark), R(0, -208, 16, 22, 6, dark2), R(10, -218, 86, 48, 10, dark), R(26, -208, 30, 24, 4, dark2),
+      R(96, -212, 30, 36, 6, dark2), E(127, -194, 5, 15, "oklch(0.72 0.1 240)"),
+      G(A("jdc-rec"), E(84, -224, 4.5, 4.5, "#e5484d")),
+      T("M -32 -146 Q -14 -128 24 -164", blue, 14), E(26, -166, 9, 9, cSkin));
+
+    const aSkin = "#f0b896", auburn = "oklch(0.42 0.14 30)", auburnL = "oklch(0.52 0.15 35)";
+    const actress = place(800, 3, "jdc-sway",
+      E(-32, -238, 34, 34, auburn), E(30, -240, 32, 32, auburn), E(-42, -198, 28, 28, auburn), E(40, -196, 26, 26, auburn),
+      E(0, -262, 30, 30, auburn), E(-40, -166, 20, 20, auburn), E(38, -166, 18, 18, auburn),
+      T("M -10 -84 L -14 -10", aSkin, 14), T("M 12 -84 Q 28 -46 12 -10", aSkin, 14),
+      R(-28, -12, 24, 10, 5, red), R(-4, -12, 24, 10, 5, red), R(-27, -4, 5, 8, 2, redS), R(1, -4, 5, 8, 2, redS),
+      T("M 26 -170 Q 54 -200 26 -238", aSkin, 12),
+      R(-8, -186, 16, 14, 4, aSkin), R(-30, -182, 60, 14, 7, aSkin),
+      P("M -30 -176 Q -34 -150 -20 -128 Q -38 -104 -32 -76 L 32 -76 Q 38 -104 20 -128 Q 34 -150 30 -176 Z", red),
+      P("M 12 -176 L 30 -176 Q 34 -150 20 -128 Q 38 -104 32 -76 L 16 -76 Q 22 -104 10 -128 Q 18 -150 12 -176 Z", redS),
+      T("M -28 -170 Q -54 -144 -24 -122", aSkin, 12), E(-24, -122, 8, 8, aSkin),
+      R(-28, -252, 56, 70, 18, aSkin),
+      E(-18, -200, 6, 3.5, "rgba(232,100,110,0.35)"), E(18, -200, 6, 3.5, "rgba(232,100,110,0.35)"),
+      eye(-12, -216, -3, 1, aSkin, 8, "jdc-blink", 0.9), eye(12, -216, -3, 1, aSkin, 8, "jdc-wink", 0),
+      T("M -22 -209 L -27 -213", ink, 2.2), T("M -22 -206 L -28 -207", ink, 2.2), T("M 22 -209 L 27 -213", ink, 2.2), T("M 22 -206 L 28 -207", ink, 2.2),
+      T("M -22 -230 Q -12 -236 -3 -231", ink, 3), T("M 3 -231 Q 12 -236 22 -230", ink, 3),
+      P("M -9 -194 Q -4 -199 0 -195 Q 4 -199 9 -194 Q 0 -185 -9 -194 Z", red), E(15, -198, 1.8, 1.8, ink),
+      E(-28, -204, 5, 5, "none", { stroke: gold, strokeWidth: 2.5 }),
+      P("M 30 -246 Q 4 -276 -32 -240 Q -30 -224 -16 -230 Q 6 -246 30 -230 Z", auburn), T("M 18 -252 Q 0 -262 -18 -246", auburnL, 3));
+
+    const mSkin = "#a86a45", trousers = "#2b2a33";
+    const actor = place(960, 4, "jdc-sway",
+      T("M -12 -88 L -18 -10", trousers, 17), T("M 12 -88 L 22 -10", trousers, 17), R(-36, -12, 30, 13, 6.5, "#5e3a20"), R(10, -12, 30, 13, 6.5, "#5e3a20"),
+      T("M 36 -162 Q 60 -130 36 -104", cream2, 14), E(36, -104, 9, 9, mSkin),
+      R(-38, -174, 76, 92, 18, cream), P("M 12 -174 H 20 Q 38 -174 38 -156 V -100 Q 38 -82 20 -82 H 12 Q 24 -128 12 -174 Z", cream2),
+      P("M -15 -174 L 0 -126 L 15 -174 Z", mSkin), T("M -6 -152 q 2 -3 4 0 q 2 3 4 0", hairC, 1.8), T("M -4 -142 q 2 -3 4 0", hairC, 1.8),
+      T("M -11 -170 Q 0 -146 11 -170", gold, 2.5),
+      P("M -15 -174 L -28 -166 L -9 -152 Z", cream2), P("M 15 -174 L 28 -166 L 9 -152 Z", cream2),
+      R(-38, -92, 76, 10, 3, "#5e3a20"), R(-6, -92, 12, 10, 2, gold),
+      T("M -36 -162 Q -60 -130 -36 -104", cream, 14), E(-36, -104, 9, 9, mSkin),
+      R(-32, -250, 64, 76, 18, mSkin), E(32, -208, 7, 10, mSkin),
+      P("M -34 -226 Q -40 -272 0 -272 Q 40 -274 36 -226 Q 30 -248 0 -246 Q -24 -246 -34 -226 Z", hairC), T("M -14 -262 Q 4 -268 20 -260", "#4a4440", 3),
+      T("M -6 -246 q -10 6 -4 14 q 6 4 8 -2", hairC, 3.5),
+      eye(-14, -214, -3, 1, mSkin, 7, "jdc-blink", 2.8), eye(10, -214, -3, 1, mSkin, 7, "jdc-blink", 2.8),
+      G(A("jdc-brow"), brow(-26, -233, 22, 10), brow(0, -233, 22, -10)),
+      P("M -16 -190 Q -8 -197 0 -191 Q 8 -197 14 -190 Q 0 -186 -16 -190 Z", hairC),
+      R(-12, -187, 22, 9, 4, cream), T("M -1 -186 L -1 -179", cream2, 1.5),
+      G(A("jdc-rose"), T("M -8 -182 L -58 -176", leaf, 3.5), E(-32, -184, 9, 4, leaf, { transform: "rotate(-25 -32 -184)" }),
+        E(-64, -177, 10, 10, red), E(-60, -180, 6.5, 6.5, redS), T("M -66 -180 q 4 -4 7 0", "oklch(0.72 0.18 20)", 1.8)));
+
+    const css = reduce ? "" : [
+      ".jdc[data-in='0'] *{animation-play-state:paused!important}",
+      ".jdc-in{animation:jdcIn .9s cubic-bezier(.3,1.45,.5,1) both}",
+      "@keyframes jdcIn{0%{transform:translateY(400px)}100%{transform:translateY(0)}}",
+      ".jdc-bob{animation:jdcBob 6s ease-in-out infinite both}",
+      "@keyframes jdcBob{0%,40%,72%,84%,92%,100%{transform:translateY(0)}20%,60%{transform:translateY(-4px)}78%{transform:translateY(-22px)}88%{transform:translateY(-4px)}}",
+      ".jdc-sway{transform-box:fill-box;transform-origin:50% 100%;animation:jdcSway 3s ease-in-out infinite alternate both}",
+      "@keyframes jdcSway{0%{transform:rotate(-2.5deg)}100%{transform:rotate(2.5deg)}}",
+      ".jdc-blink{transform-box:fill-box;transform-origin:center;animation:jdcBlink 3.8s infinite}",
+      "@keyframes jdcBlink{0%,91%,97%,100%{transform:scaleY(1)}94%{transform:scaleY(.1)}}",
+      ".jdc-wink{transform-box:fill-box;transform-origin:center;animation:jdcWink 4.4s infinite}",
+      "@keyframes jdcWink{0%,58%,72%,100%{transform:scaleY(1)}62%,68%{transform:scaleY(.08)}}",
+      ".jdc-brow{animation:jdcBrow 3.2s ease-in-out infinite}",
+      "@keyframes jdcBrow{0%,30%,100%{transform:translateY(0)}6%,18%{transform:translateY(-7px)}12%,24%{transform:translateY(0)}}",
+      ".jdc-rose{transform-box:fill-box;transform-origin:100% 50%;animation:jdcRose 1.6s ease-in-out infinite alternate}",
+      "@keyframes jdcRose{0%{transform:rotate(-5deg)}100%{transform:rotate(5deg)}}",
+      ".jdc-boom{transform-box:fill-box;transform-origin:0% 100%;animation:jdcBoom 3.4s ease-in-out infinite alternate}",
+      "@keyframes jdcBoom{0%{transform:rotate(-1.2deg)}100%{transform:rotate(1.2deg)}}",
+      ".jdc-heart{opacity:0;animation:jdcHeart 3.6s ease-out infinite}",
+      "@keyframes jdcHeart{0%{opacity:0;transform:translate(0,0) scale(.5)}15%{opacity:1;transform:translate(-4px,-14px) scale(1.1)}100%{opacity:0;transform:translate(-26px,-90px) scale(.9)}}",
+      ".jdc-spark{transform-box:fill-box;transform-origin:center;animation:jdcSpark 2.2s ease-in-out infinite}",
+      "@keyframes jdcSpark{0%,100%{transform:scale(0) rotate(0)}50%{transform:scale(1) rotate(45deg)}}",
+      ".jdc-rec{animation:jdcRec 1s steps(1,end) infinite}",
+      "@keyframes jdcRec{0%{opacity:1}50%{opacity:.15}}",
+      ".jdc-glow{animation:jdcGlow 2.6s ease-in-out infinite alternate}",
+      "@keyframes jdcGlow{0%{opacity:.14}100%{opacity:.3}}"
+    ].join("");
+    return h("div", { className: "jdc", "data-in": reduce ? "1" : "0", ref: (el) => { this._crewWrap = el; if (el && this.state.ch03In) el.setAttribute("data-in", "1"); }, role: "img", "aria-label": "A boom operator, camera operator and gaffer filming a glamorous actress and an actor with a rose in his mouth", style: { position: "relative", width: "100%", aspectRatio: "1200 / 412" } },
+      h("style", null, css),
+      h("svg", { viewBox: "-24 0 1200 412", width: "100%", height: "100%", style: { display: "block", overflow: "hidden" } },
+        h("defs", null, h("linearGradient", { id: "jdcCone", x1: "0", y1: "0", x2: "1", y2: "0" }, h("stop", { offset: "0", stopColor: glowC, stopOpacity: 1 }), h("stop", { offset: "0.75", stopColor: glowC, stopOpacity: 0.7 }), h("stop", { offset: "1", stopColor: glowC, stopOpacity: 0 }))),
+        h("polygon", Object.assign({ points: "136,62 134,100 1176,390 1176,40", fill: "url(#jdcCone)" }, reduce ? { opacity: 0.22 } : { className: "jdc-glow" })),
+        gaffer, boom, cam, actress, actor,
+        star(722, 160, 1, 0.3), star(864, 112, 0.8, 1.1), star(747, 262, 0.7, 1.7),
+        heart(920, 168, 0.5), heart(936, 160, 2.3)));
+  },
+};
+ReactDOM.createRoot(document.getElementById('root')).render(A.buildCrewAnim());
+setTimeout(() => document.querySelectorAll('[data-in]').forEach(e => e.setAttribute('data-in','1')), 300);
+</script></body></html>

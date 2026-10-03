@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
 <script src="./page-transition.js"></script>
+<script src="./site-cms.js" defer></script>
 <style>
   body { margin: 0; background: #14130f; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; }
@@ -69,6 +70,24 @@
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
   @keyframes modalPopOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
+
+  .foot-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+  @media (max-width: 720px) {
+    .footer-grid { grid-template-columns: 1fr !important; gap: 0 !important; padding-bottom: 32px !important; }
+    .footer-grid > div:first-child p { display: none !important; }
+    .foot-col { gap: 0 !important; }
+    .foot-head { display: flex !important; align-items: center; justify-content: space-between; min-height: 46px; cursor: pointer; border-top: 1px solid rgba(244,242,236,0.14); }
+    .foot-head::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 0.25s ease; }
+    .foot-cb:checked ~ .foot-head::after { transform: translateY(1px) rotate(225deg); }
+    .foot-cb ~ a, .foot-cb ~ .wh-wrap { display: none !important; }
+    .foot-cb:checked ~ a { display: flex !important; align-items: center; min-height: 44px; }
+    .foot-cb:checked ~ .wh-wrap { display: block !important; padding: 4px 0 !important; margin: 0 !important; }
+    .foot-cb:checked ~ *:last-child { padding-bottom: 18px !important; }
+    .wh-wrap .wh-menu { display: flex !important; position: static !important; background: none !important; border: none !important; padding: 0 !important; min-width: 0 !important; gap: 0 !important; }
+    .wh-wrap .wh-menu a { display: flex; align-items: center; min-height: 44px; color: #b8b4a9; }
+    .wh-wrap > button { pointer-events: none; min-height: 40px; display: flex; align-items: center; }
+    .foot-cb:focus-visible ~ .foot-head { outline: 2px solid currentColor; outline-offset: 2px; }
+  }
 </style>
 </helmet>
 
@@ -78,7 +97,7 @@
 <a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.32em; text-transform: uppercase">
       <a href="/home">Home</a>
       <a href="/union-work">Union Work</a>
       <a href="/freelance-work">Freelance</a>
@@ -88,12 +107,15 @@
     </nav>
   </header>
 
+  <div style="position: relative; overflow: hidden; isolation: isolate">
+  <canvas ref="{{ auroraRef }}" aria-hidden="true" style="position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none"></canvas>
   <div class="hero-grid" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; padding: 64px 5vw 52px; align-items: end">
     <div style="display: flex; flex-direction: column; gap: 14px">
-      <h1 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">About</h1>
-      <span style="font-size: 14px; letter-spacing: 0.28em; text-transform: uppercase; color: #8b887d">PRODUCER · 1ST AD · COORDINATOR</span>
+      <h1 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(64px, 8vw, 128px); line-height: 0.94; letter-spacing: -0.01em">About</h1>
+      
     </div>
     
+  </div>
   </div>
 
   <div class="about-grid" style="display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(320px, 1fr); padding: 0 5vw 56px">
@@ -103,26 +125,33 @@
         <div style="{{ aboutPhotoStyle }}"></div>
       </div>
     </div><div class="about-copy" style="padding: 56px 0 56px 44px; display: flex; flex-direction: column; gap: 40px">
-      <p style="margin: 0; font-size: 22px; line-height: 1.5; max-width: 32ch; color: #f4f2ec; font-style: italic; font-weight: 500">Wearer of many hats, with some that fit best.</p>
+      <p style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; text-transform: uppercase; font-style: italic; font-size: clamp(44px, 4.8vw, 84px); line-height: 0.92; letter-spacing: 0.01em; max-width: 12em; color: oklch(0.62 0.15 262); text-wrap: balance">Wearer of many hats, with some that fit best.</p>
       <div style="display: flex; flex-direction: column; gap: 16px">
-        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">What I do</span>
-        <div style="display: flex; flex-direction: column; gap: 12px">
-          <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">Producing&nbsp;— Creative packaging, budgets, crewing. Grant writing and funding applications</span>
-          <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">1st ADing — Shoot day scheduling and on-set leadership</span>
-          <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">Production Coordination — Keeping the production moving prep to wrap</span>
+        <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(44px, 4.8vw, 72px); line-height: 0.9; letter-spacing: 0.01em; color: #f4f2ec">What I do</h3>
+        <div style="display: flex; flex-direction: column; gap: 14px">
+          <div style="display: flex; flex-direction: column; gap: 18px; padding: 28px 0 8px; border-top: 3px solid oklch(0.62 0.15 262)">
+            <div style="display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap">
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(64px, 7.4vw, 124px); line-height: 0.85; letter-spacing: 0.01em; color: #f4f2ec">Producing</span>
+              
+            </div>
+            <ul style="margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); column-gap: 32px"><li style="list-style: none; padding: 12px 0; border-top: 1px solid rgba(244,242,236,0.18); font-size: 21px; line-height: 1.3; color: #fff; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span>Creative packaging</li><li style="list-style: none; padding: 12px 0; border-top: 1px solid rgba(244,242,236,0.18); font-size: 21px; line-height: 1.3; color: #fff; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span>Budgets</li><li style="list-style: none; padding: 12px 0; border-top: 1px solid rgba(244,242,236,0.18); font-size: 21px; line-height: 1.3; color: #fff; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span>Crewing</li><li style="list-style: none; padding: 12px 0; border-top: 1px solid rgba(244,242,236,0.18); font-size: 21px; line-height: 1.3; color: #fff; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span>Production management</li><li style="list-style: none; padding: 12px 0; border-top: 1px solid rgba(244,242,236,0.18); font-size: 21px; line-height: 1.3; color: #fff; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span>Grant writing and funding applications</li><li style="list-style: none; padding: 12px 0; border-top: 1px solid rgba(244,242,236,0.18); font-size: 21px; line-height: 1.3; color: #fff; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span>Distribution and release support</li></ul>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px 32px; padding-top: 22px; margin-top: 8px; border-top: 1px solid rgba(244,242,236,0.18)"><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(30px, 2.8vw, 44px); line-height: 0.95; letter-spacing: 0.02em; color: #fff">1st ADing</span><span style="font-size: 18px; line-height: 1.45; font-weight: 400; color: #fff; text-wrap: pretty; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span><span>Shoot day scheduling and on-set leadership</span></span></div><div style="display: flex; flex-direction: column; gap: 6px"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(30px, 2.8vw, 44px); line-height: 0.95; letter-spacing: 0.02em; color: #fff">Production Coordination</span><span style="font-size: 18px; line-height: 1.45; font-weight: 400; color: #fff; text-wrap: pretty; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span><span>Keeping the production moving prep to wrap</span></span></div></div>
         </div>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 10px">
-        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Education</span>
-        <span style="font-size: 16px; line-height: 1.7; color: #b8b4a9">Toronto Metropolitan University, 2015–2020<br>BA, RTA: Media Production — Television &amp; Video certificate, Music and Culture minor</span>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding-top: 28px; border-top: 3px solid oklch(0.62 0.15 262)">
+        <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(44px, 4.8vw, 72px); line-height: 0.9; letter-spacing: 0.01em; color: #f4f2ec">Education</h3>
+        <span style="font-size: 21px; line-height: 1.6; font-weight: 400; color: #fff; max-width: 34em; text-wrap: pretty; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span><span>Toronto Metropolitan University, 2015–2020<br>BA, RTA: Media Production — Television &amp; Video certificate, Music and Culture minor</span></span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 10px">
-        <span style="font-size: 14px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Also</span>
-        <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">IATSE 411 member</span>
-        <span style="font-size: 16px; line-height: 1.6; color: #b8b4a9">First Aid / CPR certified</span>
+        <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(44px, 4.8vw, 72px); line-height: 0.9; letter-spacing: 0.01em; color: #f4f2ec">Also</h3>
+        <span style="font-size: 21px; line-height: 1.6; font-weight: 400; color: #fff; max-width: 34em; text-wrap: pretty; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span><span>IATSE 411 member</span></span>
+        <span style="font-size: 21px; line-height: 1.6; font-weight: 400; color: #fff; max-width: 34em; text-wrap: pretty; display: flex; gap: 12px; align-items: baseline"><span style="width: 8px; height: 8px; flex: none; background: oklch(0.62 0.15 262); transform: translateY(-2px)"></span><span>First Aid / CPR certified</span></span>
       </div>
     </div>
   </div>
+
+  <dc-import name="Process Sections" hint-size="100%,6000px"></dc-import>
 
   <footer id="contact" style="background: #14130f; color: #b8b4a9">
    <div style="position: relative; max-width: 1180px; margin: 0 auto; padding: 64px 5vw 0; overflow: hidden">
@@ -134,23 +163,26 @@
         <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 28px; color: #f4f2ec">J.</span>
         <p style="margin: 0; font-size: 14px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-explore" class="foot-cb">
+        <label for="fc-explore" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</label>
         <a href="/home" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
         <a href="/union-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
         <a href="/freelance-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
         <a href="/about-me" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">About</a>
         <a href="/updates" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-connect" class="foot-cb">
+        <label for="fc-connect" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</label>
         <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
         <a href="tel:+16477724279" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
         <a href="https://instagram.com/jsuza_" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
         <a href="#" onClick="{{ openContact }}" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-more" class="foot-cb">
+        <label for="fc-more" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</label>
         <div class="wh-wrap" style="align-self: flex-start">
           <button type="button" class="wh-trigger" style="font-size: 14px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
           <div class="wh-menu">
@@ -161,6 +193,7 @@
         <a href="https://www.thedropspot.org/" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
       </div>
     </div>
+    <div style="position: relative; z-index: 1; padding: 0 0 40px; font-size: 13px; color: #8b887d">© <a href="/admin" aria-label="Admin" style="color: inherit" style-hover="color: #8b887d">2026</a> Joshua J. DeSouza</div>
    </div>
   </footer>
 
@@ -212,10 +245,13 @@
 class Component extends DCLogic {
   state = { contactOpen: false, contactClosing: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
   footerNameRef = React.createRef();
+  auroraRef = React.createRef();
   componentDidMount() {
+    import('./aurora-glow.js').then(m => { this._auroraCleanup = m.startAurora(this.auroraRef.current); });
     import('./footer-name-fit.js').then(m => { this._footerFitCleanup = m.fitFooterName(this.footerNameRef.current); });
   }
   componentWillUnmount() {
+    if (this._auroraCleanup) this._auroraCleanup();
     if (this._footerFitCleanup) this._footerFitCleanup();
   }
   closeContact = () => {
@@ -229,6 +265,7 @@ class Component extends DCLogic {
     const x = this.props.aboutPhotoX ?? 50;
     const zoom = this.props.aboutPhotoZoom ?? 125;
     return {
+      auroraRef: this.auroraRef,
       contactOpen: this.state.contactOpen,
       contactSent: this.state.contactSent,
       contactFormVisible: !this.state.contactSent,

@@ -3,7 +3,7 @@
   window.__pageTransitionInit = true;
 
   var ROUTES = {
-    '/home': 'index.html',
+    '/home': 'Joshua DeSouza Home.dc.html',
     '/union-work': 'Joshua DeSouza Portfolio.dc.html',
     '/freelance-work': 'Joshua DeSouza Freelance.dc.html',
     '/about-me': 'Joshua DeSouza About.dc.html',

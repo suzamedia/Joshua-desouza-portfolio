@@ -1,0 +1,123 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><title>01 Creative Collaboration</title>
+<style>html,body{margin:0;background:#fffdf6}#root{max-width:1200px;margin:0 auto;padding:40px 24px}</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js"></script></head>
+<body><div id="root"></div><script>
+const A = {
+  state: new Proxy({}, { get: () => true }),
+  _heroReduce: window.matchMedia('(prefers-reduced-motion: reduce)').matches,
+  setState() {},
+  buildScriptAnim() {
+    const h = React.createElement, reduce = this._heroReduce;
+    const ink = "#14130f", hairC = "#1f1a17", cream = "#fffdf6", cream2 = "#e8e2d0", lip = "#7a2230";
+    const blue = "oklch(0.55 0.17 262)", blueS = "oklch(0.47 0.17 262)", coral = "oklch(0.68 0.17 32)", coralS = "oklch(0.6 0.17 32)";
+    const mustard = "oklch(0.8 0.15 80)", mustardS = "oklch(0.72 0.15 75)", red = "oklch(0.6 0.22 25)", redS = "oklch(0.52 0.21 25)";
+    const glowC = "oklch(0.96 0.09 95)", sweat = "oklch(0.82 0.08 230)";
+    const G = (p, ...k) => h("g", p || null, ...k);
+    const R = (x, y, w, hh, rx, fill, ex) => h("rect", Object.assign({ x, y, width: w, height: hh, rx, fill }, ex || {}));
+    const E = (cx, cy, rx, ry, fill, ex) => h("ellipse", Object.assign({ cx, cy, rx, ry, fill }, ex || {}));
+    const P = (d, fill, ex) => h("path", Object.assign({ d, fill }, ex || {}));
+    const T = (d, c, w, ex) => P(d, "none", Object.assign({ stroke: c, strokeWidth: w, strokeLinecap: "round", strokeLinejoin: "round" }, ex || {}));
+    const A = (cls, delay) => reduce ? null : { className: cls, style: { animationDelay: (delay || 0) + "s" } };
+    const eye = (cx, cy, lx, ly, r, delay) => G(A("jdb-blink", delay), E(cx, cy, r, r * 1.15, "#fff"), E(cx + lx, cy + ly, r * 0.52, r * 0.6, ink), E(cx + lx + 1.8, cy + ly - 2.2, 1.7, 1.7, "#fff"));
+    const brow = (x, y, w, rot, c) => R(x, y, w, 5.5, 2.75, c || hairC, { transform: "rotate(" + rot + " " + (x + w / 2) + " " + (y + 3) + ")" });
+    const pencil = (rot) => G({ transform: "rotate(" + rot + ")" }, R(-3.5, -40, 7, 34, 2, mustard), R(-3.5, -46, 7, 7, 2, "oklch(0.78 0.1 10)"), R(-3.5, -40, 7, 3, 0, "#bdbab0"), P("M -3.5 -6 L 3.5 -6 L 0 4 Z", "#e9c79b"), P("M -1.2 -0.6 L 1.2 -0.6 L 0 4 Z", ink));
+    const drop = (x, y, d) => G({ transform: "translate(" + x + " " + y + ")" }, G(A("jdb-drop", d), P("M 0 -8 Q 6 0 0 5 Q -6 0 0 -8 Z", sweat)));
+    const halfPages = [
+      P("M 220 318 Q 140 300 44 306 L 46 296 Q 140 290 220 308 Z", redS),
+      P("M 220 308 Q 140 290 50 296 L 52 288 Q 140 282 220 300 Z", cream2),
+      P("M 220 300 Q 140 282 52 288 L 62 214 Q 150 204 220 226 Z", cream)
+    ];
+    const lines = (side, d0) => [0, 1, 2, 3, 4].map(k => {
+      const y = 232 + k * 13, x1 = 80 - k * 1.5, x2 = 202;
+      const d = "M " + x1 + " " + (y - 8 + k * 0.4) + " Q " + ((x1 + x2) / 2) + " " + (y - 12) + " " + x2 + " " + (y + 2);
+      return T(d, "#9a968a", 2.4, Object.assign({ pathLength: 1, strokeDasharray: "1", strokeDashoffset: reduce ? 0 : 1 }, A("jdb-write", d0 + k * 0.32) || {}));
+    });
+    const flip = (d) => G(Object.assign({}, A("jdb-flip", d) || {}, reduce ? { opacity: 0 } : {}), P("M 220 300 Q 300 282 388 288 L 378 214 Q 290 204 220 226 Z", cream), T("M 236 238 Q 300 226 356 230", "#d6d0bf", 2), T("M 236 252 Q 300 240 358 244", "#d6d0bf", 2));
+
+    const gSkin = "#9b6440", gShade = "#7e4e30";
+    const girlBody = G({ transform: "translate(138 232)" },
+      E(-30, -128, 21, 21, hairC), E(30, -128, 21, 21, hairC), E(-36, -136, 6, 6, "#3a332e"), E(24, -138, 6, 6, "#3a332e"),
+      R(-46, -44, 92, 96, 24, mustard), P("M 14 -44 H 22 Q 46 -44 46 -20 V 52 H 14 Q 26 0 14 -44 Z", mustardS), R(-20, -48, 40, 12, 6, mustardS),
+      R(-34, -122, 68, 80, 18, gSkin), E(-34, -84, 7, 10, gSkin), E(34, -84, 7, 10, gSkin), E(-34, -76, 3, 3, mustard),
+      P("M -36 -94 Q -38 -130 0 -130 Q 38 -130 36 -94 Q 20 -108 0 -106 Q -20 -108 -36 -94 Z", hairC), R(-37, -114, 74, 10, 5, coral),
+      R(-34, -122, 68, 80, 18, "url(#jdbFace)", A("jdb-faceglow", 0)),
+      eye(-12, -82, 0, 4, 10.5, 0.7), eye(13, -82, 0, 4, 10.5, 0.7),
+      brow(-23, -100, 18, 14), brow(5, -100, 18, -14),
+      E(1, -66, 4, 5, gShade),
+      P("M -9 -55 Q 1 -47 11 -55 Q 1 -52 -9 -55 Z", lip), G(A("jdb-tongue"), E(9, -51, 5, 4.5, "oklch(0.72 0.14 10)")),
+      E(-20, -64, 5, 3, "rgba(232,100,110,0.3)"), E(22, -64, 5, 3, "rgba(232,100,110,0.3)"));
+    const bSkin = "#f0c09c", bShade = "#d9a07c", bHair = "oklch(0.4 0.08 50)";
+    const boyBody = G({ transform: "translate(302 232)" },
+      R(-46, -44, 92, 96, 24, blue), P("M 14 -44 H 22 Q 46 -44 46 -20 V 52 H 14 Q 26 0 14 -44 Z", blueS),
+      P("M -30 -46 Q 0 -30 30 -46 L 30 -38 Q 0 -22 -30 -38 Z", blueS), T("M -8 -34 L -10 -14", cream, 2.4), T("M 8 -34 L 10 -14", cream, 2.4),
+      R(-34, -122, 68, 80, 18, bSkin), E(-34, -84, 7, 10, bSkin), E(34, -84, 7, 10, bSkin),
+      P("M -38 -94 L -36 -122 L -26 -134 L -18 -124 L -8 -140 L 2 -126 L 12 -142 L 18 -126 L 30 -136 L 36 -116 L 38 -94 Q 24 -112 0 -108 Q -22 -112 -38 -94 Z", bHair),
+      R(-34, -122, 68, 80, 18, "url(#jdbFace)", A("jdb-faceglow", 0.6)),
+      eye(-13, -82, 0, 4, 9.5, 2.1), eye(13, -82, 0, 4, 9.5, 2.1),
+      E(-13, -82, 13, 13, "none", { stroke: "#2f2e38", strokeWidth: 3.2 }), E(13, -82, 13, 13, "none", { stroke: "#2f2e38", strokeWidth: 3.2 }), T("M -1 -84 L 1 -84", "#2f2e38", 3.2),
+      brow(-24, -104, 18, -8, bHair), brow(6, -104, 18, 8, bHair),
+      E(0, -66, 4, 5, bShade),
+      R(-11, -58, 22, 10, 4, cream), T("M -11 -53 L 11 -53", "#c9c3b2", 1.4), T("M -4 -58 L -4 -48", "#c9c3b2", 1.2), T("M 4 -58 L 4 -48", "#c9c3b2", 1.2),
+      E(-5, -62, 1.4, 1.4, bShade), E(-1, -60, 1.4, 1.4, bShade), E(5, -62, 1.4, 1.4, bShade));
+
+    const girlArms = G({ transform: "translate(138 232)" },
+      T("M -32 -30 Q -56 10 -44 34", mustardS, 15), E(-44, 36, 10, 8, gSkin),
+      G(A("jdb-scribble", 0), T("M 30 -30 Q 44 10 4 34", mustard, 15), E(4, 34, 9.5, 9.5, gSkin), G({ transform: "translate(6 34)" }, pencil(28))));
+    const boyArms = G({ transform: "translate(302 232)" },
+      G(A("jdb-turn", 0), T("M 32 -30 Q 58 6 54 30", blueS, 15), E(56, 32, 10, 8, bSkin)),
+      G(A("jdb-scribble", 0.12), T("M -30 -30 Q -44 10 -4 34", blue, 15), E(-4, 34, 9.5, 9.5, bSkin), G({ transform: "translate(-2 34)" }, pencil(-24))));
+
+    const kids = G(A("jdb-pop", 0.1), G(A("jdb-bob", 1), girlBody), G(A("jdb-bob", 1.2), boyBody));
+    const book = G(null, E(220, 318, 200, 10, "rgba(20,19,15,0.12)"), halfPages, G({ transform: "translate(440 0) scale(-1 1)" }, halfPages),
+      T("M 220 228 L 220 304", "#d6d0bf", 2), lines(0, 0.2), G({ transform: "translate(440 0) scale(-1 1)" }, lines(1, 1.1)),
+      flip(0), flip(1.4));
+    const bits = [[150, 196, 0.2, -1], [286, 192, 1.5, 1], [214, 188, 2.6, 0]].map(([x, y, d, s], i) => G({ key: "b" + i, transform: "translate(" + x + " " + y + ")" },
+      G(Object.assign({ style: { "--dx": (s * 26) + "px", animationDelay: d + "s" } }, reduce ? { opacity: 0 } : { className: "jdb-bit" }), R(-9, -11, 18, 22, 2, cream, { stroke: cream2, strokeWidth: 1.5 }), T("M -5 -4 L 5 -4", "#bdbab0", 1.5), T("M -5 2 L 4 2", "#bdbab0", 1.5))));
+    const css = reduce ? "" : [
+      ".jdb[data-in='0'] *{animation-play-state:paused!important}",
+      ".jdb-pop{animation:jdbPop .9s cubic-bezier(.3,1.5,.5,1) both}",
+      "@keyframes jdbPop{0%{transform:translateY(150px)}100%{transform:translateY(0)}}",
+      ".jdb-arms{animation:jdbArms .5s ease-out .7s both}",
+      "@keyframes jdbArms{0%{opacity:0;transform:translateY(16px)}100%{opacity:1;transform:translateY(0)}}",
+      ".jdb-bob{animation:jdbBob .9s ease-in-out infinite alternate both}",
+      "@keyframes jdbBob{0%{transform:translateY(0) rotate(0)}100%{transform:translateY(-3px) rotate(.6deg)}}",
+      ".jdb-scribble{animation:jdbScrib .16s linear infinite alternate}",
+      "@keyframes jdbScrib{0%{transform:translate(-4px,0) rotate(-1.5deg)}50%{transform:translate(3px,-2px)}100%{transform:translate(5px,1px) rotate(1.5deg)}}",
+      ".jdb-turn{animation:jdbTurn 1.4s ease-in-out infinite}",
+      "@keyframes jdbTurn{0%,55%,100%{transform:translate(0,0)}20%{transform:translate(-16px,-12px)}35%{transform:translate(-30px,-4px)}}",
+      ".jdb-flip{transform-box:fill-box;transform-origin:0% 50%;opacity:0;animation:jdbFlip 2.8s cubic-bezier(.5,0,.3,1) infinite}",
+      "@keyframes jdbFlip{0%{opacity:1;transform:translateY(0) scaleX(1)}25%{transform:translateY(-16px) scaleX(0)}48%{opacity:1;transform:translateY(0) scaleX(-1)}52%,100%{opacity:0;transform:scaleX(-1)}}",
+      ".jdb-write{animation:jdbWrite 2.8s ease-out infinite}",
+      "@keyframes jdbWrite{0%{stroke-dashoffset:1;opacity:1}40%,85%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:0;opacity:0}}",
+      ".jdb-glow{animation:jdbGlow 1.8s ease-in-out infinite alternate}",
+      "@keyframes jdbGlow{0%{opacity:.75}100%{opacity:1}}",
+      ".jdb-faceglow{animation:jdbFG 1.8s ease-in-out infinite alternate}",
+      "@keyframes jdbFG{0%{opacity:.7}100%{opacity:1}}",
+      ".jdb-blink{transform-box:fill-box;transform-origin:center;animation:jdbBlink 3.2s infinite}",
+      "@keyframes jdbBlink{0%,92%,97%,100%{transform:scaleY(1)}94.5%{transform:scaleY(.1)}}",
+      ".jdb-tongue{animation:jdbTongue 1.2s ease-in-out infinite alternate}",
+      "@keyframes jdbTongue{0%{transform:translateX(0)}100%{transform:translateX(-5px)}}",
+      ".jdb-drop{opacity:0;animation:jdbDrop 1.6s ease-in infinite}",
+      "@keyframes jdbDrop{0%{opacity:0;transform:translate(0,0) scale(.6)}15%{opacity:1;transform:translate(0,0) scale(1)}100%{opacity:0;transform:translate(10px,26px) scale(.8)}}",
+      ".jdb-bit{opacity:0;animation:jdbBit 3.2s ease-out infinite}",
+      "@keyframes jdbBit{0%{opacity:0;transform:translate(0,30px) rotate(0)}15%{opacity:1}100%{opacity:0;transform:translate(var(--dx),-120px) rotate(160deg)}}"
+    ].join("");
+    return h("div", { className: "jdb", "data-in": reduce ? "1" : "0", ref: (el) => { this._bookWrap = el; if (el && this.state.ch01In) el.setAttribute("data-in", "1"); }, role: "img", "aria-label": "Two writers behind a big glowing book, scribbling and turning pages", style: { position: "relative", width: "100%", aspectRatio: "440 / 340" } },
+      h("style", null, css),
+      h("svg", { viewBox: "0 0 440 340", width: "100%", height: "100%", style: { display: "block", overflow: "hidden" } },
+        h("defs", null,
+          h("radialGradient", { id: "jdbGlow", cx: "0.5", cy: "0.62", r: "0.5" }, h("stop", { offset: "0", stopColor: glowC, stopOpacity: 1 }), h("stop", { offset: "0.55", stopColor: glowC, stopOpacity: 0.45 }), h("stop", { offset: "1", stopColor: glowC, stopOpacity: 0 })),
+          h("linearGradient", { id: "jdbFace", x1: "0", y1: "1", x2: "0", y2: "0" }, h("stop", { offset: "0", stopColor: glowC, stopOpacity: 0.55 }), h("stop", { offset: "0.6", stopColor: glowC, stopOpacity: 0.12 }), h("stop", { offset: "1", stopColor: glowC, stopOpacity: 0 })),
+          h("clipPath", { id: "jdbClip" }, h("rect", { x: 0, y: 0, width: 440, height: 290 }))),
+        h("ellipse", Object.assign({ cx: 220, cy: 210, rx: 230, ry: 170, fill: "url(#jdbGlow)" }, A("jdb-glow", 0) || {})),
+        G({ clipPath: "url(#jdbClip)" }, kids),
+        book,
+        G(A("jdb-arms", 0), girlArms, boyArms),
+        bits,
+        drop(184, 120, 0.3), drop(346, 116, 1.1), drop(92, 128, 0.9)));
+  },
+};
+ReactDOM.createRoot(document.getElementById('root')).render(A.buildScriptAnim());
+setTimeout(() => document.querySelectorAll('[data-in]').forEach(e => e.setAttribute('data-in','1')), 300);
+</script></body></html>

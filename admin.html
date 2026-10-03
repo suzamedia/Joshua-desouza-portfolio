@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  body{margin:0;background:#14130f;color:#f4f2ec;font-family:"IBM Plex Sans",Helvetica,sans-serif;min-height:100vh}
+  a{color:inherit;text-decoration:none}
+  h1,h2,h3{font-family:"Bebas Neue",Helvetica,sans-serif;font-weight:400;margin:0;letter-spacing:.01em}
+  .wrap{max-width:980px;margin:0 auto;padding:40px 5vw 120px}
+  .top{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:36px}
+  .top h1{font-size:clamp(48px,7vw,88px);line-height:.9}
+  .mono{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8b887d}
+  .btn{font:500 12px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.1em;text-transform:uppercase;color:#f4f2ec;background:rgba(255,255,255,.1);border:0;border-radius:999px;padding:12px 18px;cursor:pointer}
+  .btn:hover{background:rgba(255,255,255,.2)}
+  .btn.pri{background:oklch(0.55 0.17 262)}.btn.pri:hover{background:oklch(0.6 0.17 262)}
+  .btn.del{color:oklch(0.75 0.15 25)}
+  .row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .tabs{display:flex;gap:26px;border-bottom:1px solid rgba(244,242,236,.15);margin-bottom:28px}
+  .tab{background:none;border:0;color:#8b887d;font:500 13px/1 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.16em;text-transform:uppercase;padding:0 0 14px;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px}
+  .tab.on{color:#f4f2ec;border-color:#f4f2ec}
+  .card{display:flex;gap:16px;align-items:center;padding:14px;border-radius:20px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);margin-bottom:12px}
+  .thumb{width:112px;aspect-ratio:16/10;border-radius:12px;background:#fff center/contain no-repeat;flex:none}
+  .card .t{flex:1;min-width:0}.card .t h3{font-size:28px;line-height:1}
+  .card .t p{margin:4px 0 0;font-size:13px;color:#b8b4a9;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  form.f{display:grid;gap:16px;padding:24px;border-radius:24px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);margin-bottom:24px}
+  label.l{display:grid;gap:6px;font-size:12px}
+  label.l span{font-family:"IBM Plex Mono",ui-monospace,monospace;letter-spacing:.14em;text-transform:uppercase;color:#b8b4a9}
+  input[type=text],input[type=email],input[type=password],input[type=month],input[type=url],textarea,select{width:100%;font:16px "IBM Plex Sans",sans-serif;color:#f4f2ec;background:rgba(255,255,255,.08);border:1px solid rgba(244,242,236,.2);border-radius:12px;padding:12px 14px;outline:none}
+  input:focus,textarea:focus,select:focus{border-color:oklch(0.7 0.14 262)}
+  textarea{min-height:110px;resize:vertical;line-height:1.5}
+  .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  @media(max-width:640px){.g2{grid-template-columns:1fr}.card{flex-wrap:wrap}}
+  .login{max-width:420px;margin:12vh auto 0;padding:0 5vw}
+  .login h1{font-size:72px;line-height:.9;margin-bottom:28px}
+  .err{color:oklch(0.78 0.15 25);font-size:14px;min-height:20px}
+  .toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:#f4f2ec;color:#14130f;border-radius:999px;padding:12px 20px;font:500 13px "IBM Plex Mono",monospace;letter-spacing:.08em;opacity:0;pointer-events:none;transition:opacity .25s}
+  .toast.on{opacity:1}
+  .imgrow{display:flex;gap:16px;align-items:center}
+  .imgrow .thumb{width:160px}
+  .hint{font-size:13px;color:#8b887d;line-height:1.5}
+</style>
+</head>
+<body data-cms-admin>
+<div id="app"></div>
+<div class="toast" id="toast"></div>
+<script src="./site-cms.js"></script>
+<script type="module">
+const C = window.JDCMS, app = document.getElementById('app'), $ = (s, r = document) => r.querySelector(s);
+const esc = (s) => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+let content = {}, news = [], upcoming = [], tab = 'news', editing = null;
+const toast = (m) => { const t = $('#toast'); t.textContent = m; t.classList.add('on'); clearTimeout(toast._t); toast._t = setTimeout(() => t.classList.remove('on'), 2400); };
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 5);
+const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+const monthLabel = (ym) => { const [y, m] = ym.split('-'); return MONTHS[+m - 1] + ' ' + y; };
+
+function login(err) {
+  app.innerHTML = `<div class="login"><h1>Admin</h1><form id="lf" class="f" style="padding:24px">
+    <label class="l"><span>Email</span><input type="email" id="em" autocomplete="username" required></label>
+    <label class="l"><span>Password</span><input type="password" id="pw" autocomplete="current-password" required></label>
+    <div class="err" id="er">${esc(err || '')}</div><button class="btn pri" type="submit">Log in</button></form>
+    <a href="/home" class="mono">← Back to site</a></div>`;
+  $('#lf').onsubmit = async (e) => {
+    e.preventDefault(); $('#er').textContent = '';
+    try {
+      const d = await fetch('/api/login', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ email: $('#em').value, password: $('#pw').value }) });
+      const j = await d.json().catch(() => ({}));
+      if (!d.ok) throw new Error(j.error || 'Could not log in. The server may not be set up yet.');
+      localStorage.setItem(C.TK, j.token); boot();
+    } catch (er) { $('#er').textContent = er.message; }
+  };
+}
+
+async function boot() {
+  if (!C.token()) return login();
+  app.innerHTML = '<div class="wrap"><p class="mono">Loading…</p></div>';
+  try { content = await C.api('/api/content?fresh=1'); } catch (e) { content = {}; }
+  const [n, u] = await Promise.all([import('./news-items.js'), import('./upcoming-projects.js')]);
+  news = Array.isArray(content.news) ? content.news : JSON.parse(JSON.stringify(n.NEWS_ITEMS));
+  upcoming = Array.isArray(content.upcoming) ? content.upcoming : JSON.parse(JSON.stringify(u.UPCOMING_PROJECTS));
+  render();
+}
+
+async function persist(key) {
+  try { await C.api('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ [key]: key === 'news' ? news : upcoming }) }); toast('Published ✓'); return true; }
+  catch (e) { toast(e.message); if (!C.token()) login('Session expired. Log in again.'); return false; }
+}
+
+function render() {
+  const list = tab === 'news' ? [...news].sort((a, b) => (b.dateSort || '').localeCompare(a.dateSort || '')) : upcoming;
+  app.innerHTML = `<div class="wrap">
+    <div class="top"><div><div class="mono" style="margin-bottom:10px">Site manager</div><h1>Updates</h1></div>
+      <div class="row"><a class="btn pri" id="ed" href="/home">Edit site text &amp; images</a><a class="btn" href="/updates">View Updates</a><button class="btn" id="lo">Log out</button></div></div>
+    <div class="tabs"><button class="tab ${tab === 'news' ? 'on' : ''}" data-t="news">News</button><button class="tab ${tab === 'upcoming' ? 'on' : ''}" data-t="upcoming">Upcoming projects</button></div>
+    <div id="form"></div>
+    ${editing === null ? `<div class="row" style="margin-bottom:20px"><button class="btn pri" id="add">+ Add ${tab === 'news' ? 'news item' : 'upcoming project'}</button></div>` : ''}
+    <div id="list">${list.map((it, i) => `<div class="card"><div class="thumb" style="background-image:url('${esc(tab === 'news' ? it.imageSrc : it.imageSrcPress)}')"></div>
+      <div class="t"><div class="mono" style="font-size:11px">${esc(tab === 'news' ? (it.tag + ' · ' + it.dateLabel) : (it.pressSubtitle + ' · ' + it.pressStatus))}</div><h3>${esc(it.title)}</h3><p>${esc(tab === 'news' ? it.description : it.pressRole)}</p></div>
+      <div class="row">${tab === 'upcoming' ? `<button class="btn" data-up="${i}" ${i === 0 ? 'disabled style="opacity:.3"' : ''}>↑</button><button class="btn" data-dn="${i}" ${i === list.length - 1 ? 'disabled style="opacity:.3"' : ''}>↓</button>` : ''}<button class="btn" data-ed="${esc(it.id)}">Edit</button><button class="btn del" data-del="${esc(it.id)}">Delete</button></div></div>`).join('') || '<p class="hint">Nothing here yet.</p>'}</div></div>`;
+  $('#lo').onclick = () => { localStorage.removeItem(C.TK); sessionStorage.removeItem(C.EK); login(); };
+  $('#ed').onclick = () => sessionStorage.setItem(C.EK, '1');
+  app.querySelectorAll('.tab').forEach(b => b.onclick = () => { tab = b.dataset.t; editing = null; render(); });
+  const add = $('#add'); if (add) add.onclick = () => { editing = 'new'; render(); form(); };
+  app.querySelectorAll('[data-ed]').forEach(b => b.onclick = () => { editing = b.dataset.ed; render(); form(); scrollTo(0, 0); });
+  app.querySelectorAll('[data-del]').forEach(b => b.onclick = async () => {
+    if (!confirm('Delete this item from the site?')) return;
+    const arr = tab === 'news' ? news : upcoming, i = arr.findIndex(x => x.id === b.dataset.del); arr.splice(i, 1);
+    await persist(tab); render();
+  });
+  app.querySelectorAll('[data-up]').forEach(b => b.onclick = async () => { const i = +b.dataset.up; [upcoming[i - 1], upcoming[i]] = [upcoming[i], upcoming[i - 1]]; await persist('upcoming'); render(); });
+  app.querySelectorAll('[data-dn]').forEach(b => b.onclick = async () => { const i = +b.dataset.dn; [upcoming[i + 1], upcoming[i]] = [upcoming[i], upcoming[i + 1]]; await persist('upcoming'); render(); });
+  if (editing !== null) form();
+}
+
+function imageField(src) {
+  return `<div class="l"><span class="mono" style="color:#b8b4a9">Image</span><div class="imgrow"><div class="thumb" id="pv" style="background-image:url('${esc(src || '')}')"></div>
+    <div><input type="file" id="fi" accept="image/*" style="display:none"><button class="btn" type="button" id="fb">Upload image</button><p class="hint" id="fh" style="margin:8px 0 0">Resized automatically. Logos with transparency are fine.</p></div></div></div>`;
+}
+function form() {
+  const isNew = editing === 'new', arr = tab === 'news' ? news : upcoming;
+  const it = isNew ? {} : arr.find(x => x.id === editing) || {};
+  let img = tab === 'news' ? it.imageSrc : it.imageSrcPress, uploaded = false;
+  const now = new Date(), ym = it.dateSort || (now.getFullYear() + '-' + String(now.getMonth() + 1).padStart(2, '0'));
+  const fields = tab === 'news'
+    ? `<div class="g2"><label class="l"><span>Tag</span><input type="text" name="tag" value="${esc(it.tag)}" placeholder="Team, Grant, Interview…" required></label>
+       <label class="l"><span>Month</span><input type="month" name="ym" value="${esc(ym)}" required></label></div>
+       <label class="l"><span>Headline</span><input type="text" name="title" value="${esc(it.title)}" required></label>
+       <label class="l"><span>Description (optional)</span><textarea name="description">${esc(it.description)}</textarea></label>
+       <div class="g2"><label class="l"><span>Link URL (optional)</span><input type="url" name="linkHref" value="${esc(it.linkHref)}" placeholder="https://"></label>
+       <label class="l"><span>Link label</span><input type="text" name="linkLabel" value="${esc(it.linkLabel)}" placeholder="Read more"></label></div>`
+    : `<label class="l"><span>Title</span><input type="text" name="title" value="${esc(it.title)}" required></label>
+       <div class="g2"><label class="l"><span>Type</span><input type="text" name="pressSubtitle" value="${esc(it.pressSubtitle)}" placeholder="Short Film, Music Video…" required></label>
+       <label class="l"><span>Status</span><input type="text" name="pressStatus" value="${esc(it.pressStatus)}" placeholder="In Pre-Production" required></label></div>
+       <label class="l"><span>Credits</span><input type="text" name="pressRole" value="${esc(it.pressRole)}" placeholder="Directed by … · Produced by …"></label>
+       <label class="l"><span>Summary (optional)</span><textarea name="summary">${esc(it.summary)}</textarea></label>`;
+  $('#form').innerHTML = `<form class="f" id="ff"><h2 style="font-size:40px">${isNew ? 'New ' + (tab === 'news' ? 'news item' : 'project') : 'Edit'}</h2>${fields}
+    ${imageField(img)}
+    <div class="g2"><label class="l"><span>Image fit</span><select name="fit"><option value="cover">Fill the frame (photo)</option><option value="contain" ${it.imageFit === 'contain' ? 'selected' : ''}>Fit inside (logo)</option></select></label>
+    ${tab === 'upcoming' ? `<label class="l"><span>Logo background</span><select name="bg"><option value="">Black</option><option value="#ffffff" ${it.bg === '#ffffff' ? 'selected' : ''}>White</option></select></label>` : '<div></div>'}</div>
+    <div class="row"><button class="btn pri" type="submit">Publish</button><button class="btn" type="button" id="cx">Cancel</button></div></form>`;
+  $('#fb').onclick = () => $('#fi').click();
+  $('#fi').onchange = async (e) => {
+    const f = e.target.files[0]; if (!f) return; $('#fh').textContent = 'Uploading…';
+    try { img = await C.upload(f); uploaded = true; $('#pv').style.backgroundImage = `url('${img}')`; $('#fh').textContent = 'Uploaded ✓'; }
+    catch (er) { $('#fh').textContent = er.message; }
+  };
+  $('#cx').onclick = () => { editing = null; render(); };
+  $('#ff').onsubmit = async (e) => {
+    e.preventDefault(); const v = Object.fromEntries(new FormData(e.target).entries()); delete v[''];
+    if (tab === 'news') {
+      const id = it.id || 'n' + uid();
+      const o = Object.assign({}, it, { id, tag: v.tag, dateSort: v.ym, dateLabel: monthLabel(v.ym), title: v.title, description: v.description || '', linkHref: v.linkHref || '', linkLabel: v.linkHref ? (v.linkLabel || 'Read more') : '', imageSlot: it.imageSlot || 'news-' + id, imageSrc: img || '', imageFit: v.fit, placeholder: it.placeholder || 'Add a photo' });
+      if (isNew) news.push(o); else news[news.findIndex(x => x.id === it.id)] = o;
+    } else {
+      const id = it.id || 'p' + uid(), st = v.pressStatus;
+      const o = Object.assign({}, it, { id, title: v.title, pressSubtitle: v.pressSubtitle, pressStatus: st, pressRole: v.pressRole || '', summary: v.summary || '', landingSubtitle: v.pressSubtitle + ' \u2014 ' + st, imageSlot: it.imageSlot || 'up-' + id, imageFit: v.fit, placeholder: it.placeholder || 'Add an image' });
+      if (v.bg) o.bg = v.bg; else delete o.bg;
+      if (uploaded || isNew) { o.imageSrcPress = img || ''; o.imageSrcLanding = img || ''; }
+      if (isNew) upcoming.push(o); else upcoming[upcoming.findIndex(x => x.id === it.id)] = o;
+    }
+    if (await persist(tab)) { editing = null; render(); }
+  };
+}
+boot();
+</script>
+</body>
+</html>

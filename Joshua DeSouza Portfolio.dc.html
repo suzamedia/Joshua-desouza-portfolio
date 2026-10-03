@@ -14,6 +14,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
 <script src="./page-transition.js"></script>
+<script src="./site-cms.js" defer></script>
 <style>
   body { margin: 0; background: #f4f2ec; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; }
@@ -37,8 +38,6 @@
   .hero-grid > * { animation: popIn 0.55s cubic-bezier(0.34,1.5,0.64,1) backwards; }
   .hero-grid > *:nth-child(1) { animation-delay: 0.06s; }
   .hero-grid > *:nth-child(2) { animation-delay: 0.14s; }
-  .photo-snap { opacity: 0; animation: photoSnapIn 0.62s cubic-bezier(0.34,1.4,0.64,1) both; }
-  @keyframes photoSnapIn { from { opacity: 0; transform: scale(1.09); } to { opacity: 1; transform: scale(1); } }
   .banner-reveal.revealed { opacity: 1; transform: translateY(0); }
   .banner-reveal .reveal-title { display: inline-block; transform: scale(0.85); opacity: 0; transition: transform 0.46s cubic-bezier(0.34,1.62,0.64,1), opacity 0.3s ease; }
   .banner-reveal.revealed .reveal-title { transform: scale(1); opacity: 1; }
@@ -71,6 +70,24 @@
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
   @keyframes modalPopOut { from { opacity: 1; transform: translateY(0) scale(1); } to { opacity: 0; transform: translateY(20px) scale(0.95); } }
+
+  .foot-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+  @media (max-width: 720px) {
+    .footer-grid { grid-template-columns: 1fr !important; gap: 0 !important; padding-bottom: 32px !important; }
+    .footer-grid > div:first-child p { display: none !important; }
+    .foot-col { gap: 0 !important; }
+    .foot-head { display: flex !important; align-items: center; justify-content: space-between; min-height: 46px; cursor: pointer; border-top: 1px solid rgba(244,242,236,0.14); }
+    .foot-head::after { content: ""; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 0.25s ease; }
+    .foot-cb:checked ~ .foot-head::after { transform: translateY(1px) rotate(225deg); }
+    .foot-cb ~ a, .foot-cb ~ .wh-wrap { display: none !important; }
+    .foot-cb:checked ~ a { display: flex !important; align-items: center; min-height: 44px; }
+    .foot-cb:checked ~ .wh-wrap { display: block !important; padding: 4px 0 !important; margin: 0 !important; }
+    .foot-cb:checked ~ *:last-child { padding-bottom: 18px !important; }
+    .wh-wrap .wh-menu { display: flex !important; position: static !important; background: none !important; border: none !important; padding: 0 !important; min-width: 0 !important; gap: 0 !important; }
+    .wh-wrap .wh-menu a { display: flex; align-items: center; min-height: 44px; color: #b8b4a9; }
+    .wh-wrap > button { pointer-events: none; min-height: 40px; display: flex; align-items: center; }
+    .foot-cb:focus-visible ~ .foot-head { outline: 2px solid currentColor; outline-offset: 2px; }
+  }
 </style>
 </helmet>
 
@@ -86,7 +103,7 @@
 <a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 26px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.32em; text-transform: uppercase">
       <a href="/home">Home</a>
       <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Union Work</span>
       <a href="/freelance-work">Freelance</a>
@@ -99,12 +116,12 @@
 
   
 
-<div class="hero-grid" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; padding: 64px 44px 52px; border-bottom: 1px solid #14130f; align-items: end">
+<div style="position: relative; overflow: hidden; isolation: isolate"><canvas ref="{{ auroraRef }}" aria-hidden="true" style="position: absolute; z-index: -1; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none"></canvas><div class="hero-grid" style="display: grid; grid-template-columns: 1.35fr 1fr; gap: 48px; padding: 64px 44px 52px; border-bottom: 1px solid #14130f; align-items: end">
     <div style="display: flex; flex-direction: column; gap: 14px">
-      <h1 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 76px); line-height: 0.94; letter-spacing: -0.01em">Union Work</h1><span style="font-size: 14px; letter-spacing: 0.28em; text-transform: uppercase; color: #8b887d">IATSE 411</span>
+      <h1 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(64px, 8vw, 128px); line-height: 0.94; letter-spacing: -0.01em">Union Work</h1><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; text-transform: uppercase; font-style: italic; font-size: clamp(36px, 3.6vw, 60px); line-height: 0.92; letter-spacing: 0.01em; color: oklch(0.62 0.15 262)">IATSE 411</span>
       
     </div><div style="display: flex; flex-direction: column; gap: 14px">
-      <p style="margin: 0; font-size: 14px; line-height: 1.9; max-width: 46ch; color: #c9c4b8">Production work across studio scripted television and feature films.</p>
+      <p style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; text-transform: uppercase; font-style: italic; font-size: clamp(30px, 2.8vw, 46px); line-height: 0.95; letter-spacing: 0.01em; max-width: 16em; color: #f4f2ec; text-wrap: balance">Production work across studio scripted television and feature films.</p>
       <div style="position: relative; width: 220px">
         <input type="text" placeholder="Search projects…" value="{{ search }}" onChange="{{ onSearchChange }}" style="background: rgba(255,255,255,0.08); border: 1px solid rgba(244,242,236,0.2); border-radius: 8px; color: #f4f2ec; font-family: inherit; font-size: 14px; padding: 10px 16px 10px 16px; outline: none; width: 100%; box-sizing: border-box; transition: border-color 0.25s ease, background 0.25s ease, box-shadow 0.25s ease" style-focus="background: rgba(255,255,255,0.12); border-color: #f4f2ec; box-shadow: 0 6px 14px -10px rgba(244,242,236,0.6)">
         <sc-if value="{{ search }}" hint-placeholder-val="{{ false }}">
@@ -112,263 +129,263 @@
         </sc-if>
       </div>
     </div>
-  </div><div class="proj-head" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; padding: 14px 44px; font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">
+  </div></div><div class="proj-head" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; padding: 18px 44px 14px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 1.8vw, 28px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase; color: #f4f2ec">
     <span>Project</span><span>Role</span><span>Dates</span><span></span>
   </div>
 
   <div style="display: flex; flex-direction: column">
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Star Trek: Strange New Worlds S5" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Star Trek: Strange New Worlds S5" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ snw5Bg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Star Trek: Strange New Worlds <span style="font-style: italic">S5</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">NBC — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Star Trek: Strange New Worlds <span style="font-style: italic">S5</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">NBC — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Asst. Set Decorating Coordinator</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">Sept 2025 - Jan 2026</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Asst. Set Decorating Coordinator</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Sept 2025 - Jan 2026</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Star Trek: Strange New Worlds S4" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Star Trek: Strange New Worlds S4" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ snw4Bg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         
       <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Star Trek: Strange New Worlds <span style="font-style: italic">S4</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">NBC — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Star Trek: Strange New Worlds <span style="font-style: italic">S4</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">NBC — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Asst. Set Decorating Coordinator</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">June 2025 - Aug 2025</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Asst. Set Decorating Coordinator</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">June 2025 - Aug 2025</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div></div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Something Very Bad Is Going to Happen" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Something Very Bad Is Going to Happen" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ svbBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Something Very Bad Is Going to Happen</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Netflix — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Something Very Bad Is Going to Happen</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Netflix — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">Oct 2024 – June 2025</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Production Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Oct 2024 – June 2025</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Overcompensating" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Overcompensating" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ overcompBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Overcompensating</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Amazon Prime / A24 — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Overcompensating</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Amazon Prime / A24 — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">On Set Sustainability</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">September 2024</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">On Set Sustainability</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">September 2024</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Children Ruin Everything S4" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Children Ruin Everything S4" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ creS4Bg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S4</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Children Ruin Everything <span style="font-style: italic">S4</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">CTV / New Metric Media — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Producer/Coordinator — EPK Unit</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">April – Aug 2024</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Producer/Coordinator — EPK Unit</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">April – Aug 2024</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Children Ruin Everything S3" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Children Ruin Everything S3" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ creS3Bg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S3</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Children Ruin Everything <span style="font-style: italic">S3</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">CTV / New Metric Media — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Producer's Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">March – Aug 2023</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Producer's Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">March – Aug 2023</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Macy Murdoch" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Macy Murdoch" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ macyBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Macy Murdoch S2</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Shaftesbury — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Macy Murdoch S2</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Shaftesbury — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Production Coordinator (Prep)</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">December 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Production Coordinator (Prep)</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">December 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Longing" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Longing" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ longingBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Longing</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Scythia Films — Feature Film</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Longing</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Scythia Films — Feature Film</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">1st Asst. Production Coordinator</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #d8d5cb">Sept – Nov 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">1st Asst. Production Coordinator</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Sept – Nov 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Children Ruin Everything S2" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Children Ruin Everything S2" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ creS2Bg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Children Ruin Everything <span style="font-style: italic">S2</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CTV / New Metric Media — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Children Ruin Everything <span style="font-style: italic">S2</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">CTV / New Metric Media — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">On Set Health and Safety Supervisor</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">March – July 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">On Set Health and Safety Supervisor</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">March – July 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="The Fire Inside" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="The Fire Inside" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ fireBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">The Fire Inside</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">MGM — Feature Film</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">The Fire Inside</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">MGM — Feature Film</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">2nd Asst. Production Coordinator</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">June 2022</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">2nd Asst. Production Coordinator</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">June 2022</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Culprits" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Culprits" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ culpritsBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Culprits</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">STAR / Disney — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Culprits</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">STAR / Disney — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Director/Producer Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Oct – Dec 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Director/Producer Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Oct – Dec 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Culprits (Talent Assistant)" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Culprits (Talent Assistant)" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ culpritsTaBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Culprits</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">STAR / Disney — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Culprits</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">STAR / Disney — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Talent Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Oct – Dec 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Talent Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Oct – Dec 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Kings of Napa" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Kings of Napa" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ konBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Kings of Napa</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Warner Bros. / OWN — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Kings of Napa</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Warner Bros. / OWN — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">2nd Asst. Production Coordinator</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">May – Aug 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">2nd Asst. Production Coordinator</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">May – Aug 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="The Hot Zone: Anthrax" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="The Hot Zone: Anthrax" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ hotzoneBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">The Hot Zone: <span style="font-style: italic">Anthrax</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">DISNEY / NATIONAL GEOGRAPHIC — TV SERIES</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">The Hot Zone: <span style="font-style: italic">Anthrax</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">DISNEY / NATIONAL GEOGRAPHIC — TV SERIES</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Jan – May 2021</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Production Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Jan – May 2021</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Sort Of… S1" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+      <div data-title="Sort Of… S1" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #131210; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
         <div class="photo-snap" style="{{ sortofBg }}"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Sort Of… <span style="font-style: italic">S1</span></h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">Sienna Films / CBC — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Sort Of… <span style="font-style: italic">S1</span></h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Sienna Films / CBC — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Sept – Dec 2020</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Production Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Sept – Dec 2020</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
 
     <article class="banner-reveal" style="border-bottom: none">
-      <div data-title="Best Intentions" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #e0b100; transform: scale(1); transform-origin: center; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="transform: scale(1.015); min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.95) 0%, rgba(15,14,12,0.8) 62%, rgba(15,14,12,0.66) 100%)"></div>
+      <div data-title="Best Intentions" onClick="{{ openProject }}" style="position: relative; min-height: 138px; overflow: hidden; cursor: pointer; background: #e0b100; filter: brightness(1.07); transition: transform 0.6s cubic-bezier(0.32,1.15,0.38,1), min-height 0.6s cubic-bezier(0.32,1.15,0.38,1), filter 0.6s cubic-bezier(0.32,1.15,0.38,1), box-shadow 0.6s cubic-bezier(0.32,1.15,0.38,1); will-change: transform" style-hover="min-height: 186px; filter: brightness(1.12); box-shadow: 0 18px 44px rgba(15,14,12,0.28); z-index: 2">
+        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(15,14,12,0.9) 0%, rgba(15,14,12,0.6) 62%, rgba(15,14,12,0.4) 100%)"></div>
         <div class="proj-row" style="position: relative; box-sizing: border-box; min-height: 138px; padding: 22px 44px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(120px, 200px) minmax(96px, 170px) 84px; gap: 24px; align-items: start; color: #f4f2ec">
           <div style="display: flex; flex-direction: column; gap: 9px">
-            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(22px, 2.1vw, 40px); line-height: 1.02">Best Intentions</h2>
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #b8b4a9">CBS / POP TV — TV Series</span>
+            <h2 class="reveal-title" style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(30px, 3vw, 52px); line-height: 0.95; letter-spacing: 0.01em">Best Intentions</h2>
+            <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">CBS / POP TV — TV Series</span>
           </div>
-          <span style="font-size: 14px; line-height: 1.6">Production Assistant</span>
-          <span style="font-size: 14px; line-height: 1.6; color: #b8b4a9">Jan – March 2020</span>
-          <span style="display: flex; align-items: center; gap: 8px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Production Assistant</span>
+          <span style="font-size: clamp(13px, 1.2vw, 16px); line-height: 1.5; letter-spacing: 0.32em; text-transform: uppercase; color: #f4f2ec">Jan – March 2020</span>
+          <span style="display: flex; align-items: center; gap: 8px; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(20px, 1.6vw, 24px); line-height: 1; letter-spacing: 0.04em; text-transform: uppercase"><span style="width: 0; height: 0; border-left: 7px solid currentColor; border-top: 5px solid transparent; border-bottom: 5px solid transparent"></span>Open</span>
         </div>
       </div>
     </article>
@@ -387,23 +404,26 @@
         <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 28px; color: #f4f2ec">J.</span>
         <p style="margin: 0; font-size: 14px; line-height: 1.7; max-width: 280px; color: #8b887d">Toronto-based producer and coordinator working across union and independent film and television.</p>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-explore" class="foot-cb">
+        <label for="fc-explore" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Explore</label>
         <a href="/home" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Home</a>
         <a href="/union-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Union Work</a>
         <a href="/freelance-work" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Freelance</a>
         <a href="/about-me" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">About</a>
         <a href="/updates" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Updates</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-connect" class="foot-cb">
+        <label for="fc-connect" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">Connect</label>
         <a href="mailto:joshuajdesouza@gmail.com" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">joshuajdesouza@gmail.com</a>
         <a href="tel:+16477724279" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">647-772-4279</a>
         <a href="https://instagram.com/jsuza_" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">@jsuza_</a>
         <a href="#" onClick="{{ openContact }}" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">Get in touch</a>
       </div>
-      <div style="display: flex; flex-direction: column; gap: 14px">
-        <span style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</span>
+      <div class="foot-col" style="display: flex; flex-direction: column; gap: 14px">
+        <input type="checkbox" id="fc-more" class="foot-cb">
+        <label for="fc-more" class="foot-head" style="font-size: 14px; letter-spacing: 0.14em; text-transform: uppercase; color: #f4f2ec">More</label>
         <div class="wh-wrap" style="align-self: flex-start">
           <button type="button" class="wh-trigger" style="font-size: 14px; color: #b8b4a9; padding: 0; text-align: left" style-hover="color: oklch(0.62 0.15 262)">Download Work History</button>
           <div class="wh-menu">
@@ -414,6 +434,7 @@
         <a href="https://www.thedropspot.org/" style="font-size: 14px" style-hover="color: oklch(0.62 0.15 262)">The Drop Spot — non-profit</a>
       </div>
     </div>
+    <div style="position: relative; z-index: 1; padding: 0 0 40px; font-size: 13px; color: #8b887d">© <a href="/admin" aria-label="Admin" style="color: inherit" style-hover="color: #8b887d">2026</a> Joshua J. DeSouza</div>
    </div>
   </footer>
 
@@ -620,6 +641,7 @@ function highlightText(el, term) {
 class Component extends DCLogic {
   state = { openTitle: null, search: "", heroFading: false, originRect: null, modalAtFinal: false, contactOpen: false, contactClosing: false, contactSent: false, contactError: null, contactName: "", contactEmail: "", contactMessage: "" };
   componentDidMount() {
+    import('./aurora-glow.js').then(m => { this._auroraCleanup = m.startAurora(this.auroraRef.current); });
     this.closeContact = () => {
       if (this.state.contactClosing) return;
       this.setState({ contactClosing: true });
@@ -726,7 +748,9 @@ class Component extends DCLogic {
     if (empty) empty.style.display = visibleCount === 0 ? "" : "none";
   }
   footerNameRef = React.createRef();
+  auroraRef = React.createRef();
   componentWillUnmount() {
+    if (this._auroraCleanup) this._auroraCleanup();
     if (this._footerFitCleanup) this._footerFitCleanup();
     if (this._revealObserver) this._revealObserver.disconnect();
     window.removeEventListener("mousemove", this._onMove);
@@ -773,6 +797,7 @@ class Component extends DCLogic {
     const detailScrollStyle = { overflowY: "auto", height: "100%", opacity: modalAtFinal ? 1 : 0, transition: "opacity 0.3s ease " + (modalAtFinal ? "0.2s" : "0s") };
     const backdropStyle = { position: "fixed", inset: 0, zIndex: 60, background: "rgba(20,19,15," + (modalAtFinal ? 0.72 : 0) + ")", transition: "background 0.35s ease" };
     return {
+      auroraRef: this.auroraRef,
       contactOpen: this.state.contactOpen,
       contactSent: this.state.contactSent,
       contactFormVisible: !this.state.contactSent,
