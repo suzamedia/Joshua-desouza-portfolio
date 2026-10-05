@@ -20,7 +20,7 @@ export const NEWS_ITEMS = [
     dateLabel: "October 2026",
     title: "J. Knox's short film awarded CAC grant funding.",
     description: "J. DeSouza is credited as Consulting Development Producer.",
-    imageSlot: "cac-grant-badge", imageSrc: "", imageFit: "cover", placeholder: "Add a photo or the CAC logo"
+    imageSlot: "cac-grant-badge", imageSrc: "uploads/slot-cac-grant-badge.png", imageFit: "contain", placeholder: "Add a photo or the CAC logo"
   },
   {
     id: "hitman", tag: "Team", dateSort: "2026-09",
