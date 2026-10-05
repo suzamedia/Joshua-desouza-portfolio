@@ -11,27 +11,31 @@
 <x-dc>
 <helmet><style>
   .chapter-grid{} @media (max-width: 860px) { .chapter-grid { grid-template-columns: 1fr !important; row-gap: 28px !important; } .chapter-grid > .chapter-num { position: static !important; } }
-  @media (max-width: 720px) { .hero-line { grid-template-columns: 1fr !important; row-gap: 0.04em !important; justify-items: center; } .hero-line > * { justify-self: center !important; } .hero-line { font-size: clamp(52px, 16vw, 96px) !important; } }
+  @media (max-width: 720px) { .crew-anim { width: 132% !important; margin: -8px 0 0 -16% !important; } .crew-section { overflow: hidden !important; } .hero-line { grid-template-columns: 1fr !important; row-gap: 0.04em !important; justify-items: center; } .hero-line > * { justify-self: center !important; } .hero-line { font-size: clamp(52px, 16vw, 96px) !important; } }
 </style></helmet>
-  <section data-screen-label="Comes to life" style="background: #f4f2ec; color: #14130f; padding: clamp(96px, 16vh, 180px) 5vw clamp(72px, 10vh, 120px); overflow: hidden; border-bottom: 1px solid #14130f; display: flex; flex-direction: column; align-items: center; gap: 36px">
-    <h2 class="hero-line" aria-label="{{ heroAria }}" style="margin: 0 auto; max-width: 1180px; display: grid; grid-template-columns: auto auto auto; justify-content: center; align-items: baseline; column-gap: 0.26em; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 6.6vw, 124px); line-height: 0.92; letter-spacing: 0.01em; text-align: center; color: #14130f">
-      <span style="justify-self: end; white-space: nowrap">How your</span>
+  <div aria-hidden="true" style="{{ stripStyle }}"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(18px, 2.2vw, 30px); line-height: 1.05; letter-spacing: 0.02em; text-align: center; text-wrap: balance"><span>My six steps to take your first idea to finished film</span></span></div>
+  <div style="background: #f4f2ec">
+  <section data-screen-label="Comes to life" ref="{{ comesRef }}" style="position: sticky; top: 0; z-index: 2; background: oklch(0.5 0.17 262); color: #f4f2ec; padding: clamp(96px, 16vh, 180px) 5vw clamp(72px, 10vh, 120px); overflow: hidden; border-bottom: 1px solid #14130f; display: flex; flex-direction: column; align-items: center; gap: 36px">
+    <h2 class="hero-line" aria-label="{{ heroAria }}" style="position: relative; z-index: 2; margin: 0 auto; max-width: 1180px; display: grid; grid-template-columns: auto auto auto; justify-content: center; align-items: baseline; column-gap: 0.26em; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 6.6vw, 124px); line-height: 0.92; letter-spacing: 0.01em; text-align: center; color: #f4f2ec">
+      <span style="justify-self: end; white-space: nowrap; position: relative"><span aria-hidden="true" style="position: absolute; z-index: 3; left: -0.04em; bottom: 1.22em; font-family: 'Pacifico', cursive; font-weight: 400; font-size: 0.62em; line-height: 1; letter-spacing: 0; text-transform: none; color: #f4f2ec; transform: rotate(-7deg); transform-origin: left bottom; text-shadow: 0 2px 10px rgba(20,19,15,0.28); pointer-events: none">How I</span>Bring your</span>
       <span aria-hidden="true" ref="{{ heroMidRef }}" style="{{ heroMidStyle }}">
         <span style="{{ heroWords.0.style }}">Film</span>
         <span style="{{ heroWords.1.style }}">Commercial</span>
         <span style="{{ heroWords.2.style }}">PSA</span>
         <span style="{{ heroWords.3.style }}">Music Video</span>
       </span>
-      <span style="justify-self: start; white-space: nowrap">Comes to life</span>
+      <span style="justify-self: start; white-space: nowrap">To life</span>
     </h2>
-    <p style="margin: 0; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: clamp(12px, 1.1vw, 15px); letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.5 0.17 262); text-align: center">Six steps from first idea to finished film</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: clamp(12px, 1.1vw, 15px); letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec; text-align: center; position: relative; z-index: 2">My six steps to take your first idea to finished film</p>
   </section>
+  <div aria-hidden="true" style="height: 32vh; scroll-snap-align: end"></div>
+  </div>
 
-  <section data-screen-label="Process 01 — Creative Collaboration" ref="{{ ch01Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
-      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+  <section data-screen-label="Process 01 — Creative Collaboration" ref="{{ ch01Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: stretch; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-top: 24px">
         <span style="{{ ch01NumStyle }}">01</span>
-        <div style="width: 110%">{{ scriptAnim }}</div>
+        <div style="width: 100%; margin: auto auto 0">{{ scriptAnim }}</div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Creative Collaboration</h3>
@@ -45,11 +49,11 @@
     </div>
   </section>
 
-  <section data-screen-label="Process 02 — Grants &amp; Funding" ref="{{ ch02Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
-      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+  <section data-screen-label="Process 02 — Grants &amp; Funding" ref="{{ ch02Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: stretch; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-top: 24px">
         <span style="{{ ch02NumStyle }}">02</span>
-        <div style="width: 100%">{{ grantAnim }}</div>
+        <div style="width: 100%; margin: auto auto 0">{{ grantAnim }}</div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Grants &amp; Funding</h3>
@@ -61,49 +65,50 @@
     </div>
   </section>
 
-  <section data-screen-label="Process 03 — Crew Assembly" ref="{{ ch03Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; min-height: 90vh; box-sizing: border-box">
-      <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
+  <section data-screen-label="Process 03 — Crew Assembly" ref="{{ ch03Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw; overflow-x: clip" class="crew-section">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 96px 0 40px; min-height: calc(100svh - 48px); box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 14px">
         <span style="{{ ch03NumStyle }}">03</span>
         
       </div>
-      <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+      <div style="display: flex; flex-direction: column; gap: 28px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Crew Assembly</h3>
         <p style="{{ ch03LineStyle }}">The right people make all the difference.</p>
         <p style="{{ ch03BodyStyle }}">I bring a deep network of trusted creatives, technicians, and industry professionals to projects of any scale, connecting the right people to the right project with passion at the core.&nbsp;</p>
       </div>
-      <div style="grid-column: 1 / -1; width: 100%; margin-top: 48px">{{ crewAnim }}</div>
+      <div class="crew-anim" style="grid-column: 1 / -1; width: 100%; max-width: max(420px, calc((100svh - 548px) * 1.955)); margin: 24px auto 0">{{ crewAnim }}</div>
     </div>
   </section>
 
-  <section data-screen-label="Process 04 — Production Management" ref="{{ ch04Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f; overflow: hidden">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
-      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+  <section data-screen-label="Process 04 — Production Management" ref="{{ ch04Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw; overflow: hidden">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: stretch; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-top: 24px">
         <span style="{{ ch04NumStyle }}">04</span>
-        <div style="width: 100%; position: relative; z-index: 0; pointer-events: none">{{ clipAnim }}</div>
+        <div style="width: 78%; margin: auto auto 0; position: relative; z-index: 0; pointer-events: none">{{ clipAnim }}</div>
       </div>
       <div style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Production Management</h3>
         <p style="{{ ch04LineStyle }}">Paperwork handled. Details covered.</p>
         <p style="margin: 0; display: flex; flex-wrap: wrap; gap: 0.06em 0.32em; font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(36px, 4.4vw, 64px); line-height: 1">
-          <span style="{{ pmItems.0.style }}">Contracts.</span>
-          <span style="{{ pmItems.1.style }}">Insurance.</span>
-          <span style="{{ pmItems.2.style }}">Permits.</span>
-          <span style="{{ pmItems.3.style }}">Call sheets.</span>
+          <span style="{{ pmItems.0.style }}">Budgets.</span>
+          <span style="{{ pmItems.1.style }}">Contracts.</span>
+          <span style="{{ pmItems.2.style }}">Insurance.</span>
+          <span style="{{ pmItems.3.style }}">Permits.</span>
           <span style="{{ pmItems.4.style }}">Schedules.</span>
-          <span style="{{ pmItems.5.style }}">Budgets.</span>
-          <span style="{{ pmItems.6.style }}">Receipts.</span>
-          <span style="{{ pmItems.7.style }}">Releases.</span>
+          <span style="{{ pmItems.5.style }}">Call sheets.</span>
+          <span style="{{ pmItems.6.style }}">Releases.</span>
+          <span style="{{ pmItems.7.style }}">Receipts.</span>
+          <span style="{{ pmItems.8.style }}">Wrapped.</span>
         </p>
         
       </div>
     </div>
   </section>
 
-  <section data-screen-label="Process 05 — Production" ref="{{ ch05Ref }}" style="background: #14130f; color: #f4f2ec">
+  <section data-screen-label="Process 05 — Production" ref="{{ ch05Ref }}" style="min-height: calc(100svh - 48px); box-sizing: border-box; scroll-snap-align: start; scroll-margin-top: 48px; background: #14130f; color: #f4f2ec">
     <div style="padding: 0 5vw">
-      <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 0; box-sizing: border-box">
-        <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
+      <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 96px 0 0; box-sizing: border-box">
+        <div class="chapter-num" style="display: flex; flex-direction: column; gap: 14px">
           <span style="{{ ch05NumStyle }}">05</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
@@ -112,13 +117,13 @@
           <p style="{{ ch05BodyStyle }}">I keep the production moving, solve problems as they come, and make sure the team has what they need to execute the vision.&nbsp;</p>
         </div>
       </div>
-      <div style="max-width: 1180px; margin: 48px auto 0; padding-bottom: 120px"><div style="width: 100%; border-radius: 14px; overflow: hidden">{{ setAnim }}</div></div>
+      <div style="max-width: min(1180px, max(420px, calc((100svh - 548px) * 2.91))); margin: 24px auto 0; padding-bottom: 40px"><div style="width: 100%; border-radius: 14px; overflow: hidden">{{ setAnim }}</div></div>
     </div>
   </section>
 
-  <section data-screen-label="Process 06 — Post, Festivals &amp; Distribution" ref="{{ ch06Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
+  <section data-screen-label="Process 06 — Post, Festivals &amp; Distribution" ref="{{ ch06Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw">
     <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 0; box-sizing: border-box">
-      <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
+      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 14px">
         <span style="{{ ch06NumStyle }}">06</span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
@@ -131,7 +136,7 @@
   </section>
 
   <section data-screen-label="A great team" style="background: #14130f; color: #f4f2ec">
-    <div ref="{{ prodRef }}" style="{{ prodTrackStyle }}">
+    <div ref="{{ prodRef }}" style="position: relative; height: 100vh; scroll-snap-align: start">
       <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center">
         <sc-for list="{{ prodPhotos }}" as="ph" hint-placeholder-count="1"><div style="{{ ph.style }}"><span style="position: absolute; right: 4vw; bottom: 4vh; max-width: 80vw; text-align: right; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #f4f2ec; text-shadow: 0 1px 12px rgba(20,19,15,0.7)">{{ ph.caption }}</span></div></sc-for>
         <h3 aria-label="A great team makes a great film. Let's team up on your next project." style="position: relative; z-index: 2; margin: 0; display: grid; padding: 0 5vw; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(60px, 10.5vw, 196px); line-height: 0.88; letter-spacing: 0.005em; text-align: center">
@@ -685,7 +690,7 @@ class Component extends DCLogic {
         heart(920, 168, 0.5), heart(936, 160, 2.3)));
   }
   ch03Ref = React.createRef();
-  PM_ITEMS = ["Contracts.", "Insurance.", "Permits.", "Call sheets.", "Schedules.", "Budgets.", "Receipts.", "Releases."];
+  PM_ITEMS = ["Budgets.", "Contracts.", "Insurance.", "Permits.", "Schedules.", "Call sheets.", "Releases.", "Receipts.", "Wrapped."];
   buildClipAnim() {
     const h = React.createElement, reduce = this._heroReduce, LOOP = 10, B = 0.8;
     const ink = "#14130f", hairC = "#1f1a17", lip = "#7a2230", cream = "#fffdf6", edge = "#ddd6c3", pants = "#2f2e38", pants2 = "#44434e";
@@ -784,33 +789,25 @@ class Component extends DCLogic {
   }
   ch04Ref = React.createRef();
   onProdWheel = (e) => {
-    const el = this.prodRef.current; if (!el || e.ctrlKey) return;
-    const r = el.getBoundingClientRect(), vh = window.innerHeight, now = performance.now();
-    if (this._wheelEscape && now - this._wheelLast < 240) { this._wheelLast = now; return; }
-    this._wheelEscape = false;
-    if (r.top > 2 || r.bottom < vh - 2) return;
-    const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? vh : 1); if (!dy) return;
-    const H = Math.max(1, el.offsetHeight - vh), top = window.scrollY + r.top, dir = Math.sign(dy);
-    const active = this._wheelLock && now - this._wheelLast < 240;
-    if (active) {
-      this._wheelLast = now;
-      if (dir === this._wheelDir) this._wheelSum += Math.abs(dy); else { this._wheelDir = dir; this._wheelSum = Math.abs(dy); this._wheelStart = now; }
-      if (dir < 0 && now - this._wheelStart < 320 && this._wheelSum > 1100) {
-        this._wheelLock = false; this._wheelEscape = true;
-        window.scrollTo({ top: Math.round(top - 4), behavior: "instant" });
-        return;
-      }
-      if (now - this._wheelStep < 520) { e.preventDefault(); return; }
-    }
-    const pp = Math.max(0, Math.min(1, -r.top / H)), NP = this.PROD_PHOTOS.length;
-    const snaps = Array.from({ length: NP }, (_, k) => (k + 0.8) / NP);
-    const from = this._wheelTarget != null && active ? this._wheelTarget : pp;
-    const target = dir > 0 ? snaps.find(v => v > from + 0.004) : snaps.slice().reverse().find(v => v < from - 0.004);
-    if (target == null) { this._wheelLock = false; this._wheelTarget = null; return; }
+    const el = this.prodRef.current; if (!el || e.ctrlKey || this._heroReduce) return;
+    const r = el.getBoundingClientRect(), vh = window.innerHeight, NP = this.PROD_PHOTOS.length;
+    if (Math.abs(r.top) > 6) return;
+    if (e.deltaY <= 0 || (this.state.prodIdx || 0) >= NP - 1) return;
     e.preventDefault();
-    if (!active) { this._wheelStart = now; this._wheelDir = dir; this._wheelSum = Math.abs(dy); }
-    this._wheelLock = true; this._wheelLast = now; this._wheelStep = now; this._wheelTarget = target;
-    window.scrollTo({ top: Math.round(top + target * H), behavior: "smooth" });
+    const now = performance.now(), gap = now - (this._prodWheelAt || 0); this._prodWheelAt = now;
+    if (now - (this._prodStep || 0) < 1000 || (gap < 220 && now - (this._prodStep || 0) < 1600)) return;
+    this._prodStep = now; this._prodLast = now;
+    this.setState(s => ({ prodFast: true, prodIdx: Math.min(NP - 1, (s.prodIdx || 0) + 1) }));
+  };
+  prodTick = () => {
+    const el = this.prodRef.current; if (!el) return;
+    const r = el.getBoundingClientRect(), vh = window.innerHeight, NP = this.PROD_PHOTOS.length, now = performance.now();
+    if (r.top >= vh) { this._prodLast = now; if (this.state.prodIdx) this.setState({ prodIdx: 0 }); return; }
+    if (r.bottom <= 0) { this._prodLast = now; return; }
+    const idx = this.state.prodIdx || 0;
+    if (now - (this._prodLast || now) < (idx === NP - 1 ? 9000 : 6500)) return;
+    this._prodLast = now;
+    this.setState({ prodFast: false, prodIdx: (idx + 1) % NP });
   };
   onPmScroll = () => {
     if (this._pmRaf) return;
@@ -822,13 +819,6 @@ class Component extends DCLogic {
       const p = (vh * 0.7 - r.top) / Math.max(1, r.height * 0.55);
       const count = Math.max(0, Math.min(this.PM_ITEMS.length, Math.floor(p * this.PM_ITEMS.length) + 1));
       if (count !== this.state.pmCount) this.setState({ pmCount: count });
-      const pe = this.prodRef.current;
-      if (pe) {
-        const pr = pe.getBoundingClientRect();
-        const pp = Math.max(0, Math.min(1, -pr.top / Math.max(1, pr.height - vh)));
-        const q = Math.round(pp * 200) / 200;
-        if (q !== this.state.prodP) this.setState({ prodP: q });
-      }
     });
   };
   buildSlateAnim() {
@@ -857,6 +847,8 @@ class Component extends DCLogic {
   }
   ch05Ref = React.createRef();
   prodRef = React.createRef();
+  TP_DEFAULTS = {"teamPhoto1Order":5,"teamPhoto1X":44,"teamPhoto1Y":37,"teamPhoto2Order":2,"teamPhoto2X":40,"teamPhoto2Y":16,"teamPhoto3Order":1,"teamPhoto3X":50,"teamPhoto3Y":45,"teamPhoto4Order":4,"teamPhoto4X":50,"teamPhoto4Y":48,"teamPhoto5Order":5,"teamPhoto5X":50,"teamPhoto5Y":20,"teamPhoto6Order":6,"teamPhoto6X":63,"teamPhoto6Y":78,"teamPhoto7Order":7,"teamPhoto7X":58,"teamPhoto7Y":44,"teamPhoto8Order":8,"teamPhoto8X":54,"teamPhoto8Y":57,"teamPhoto9Order":9,"teamPhoto9X":50,"teamPhoto9Y":33,"teamPhoto10Order":10,"teamPhoto10X":55,"teamPhoto10Y":35};
+  get tp() { const pr = this.props || {}; return new Proxy({}, { get: (_, k) => pr[k] ?? this.TP_DEFAULTS[k] }); }
   PROD_PHOTOS = [
     { src: "uploads/Red Door - BTS Edits-23-web.jpg", pos: "center 40%", caption: "Red Door PSA" },
     { src: "uploads/the_suspension_heathers_faves (59 of 64).jpg", pos: "center 45%", caption: "The Suspension - Short Film" },
@@ -867,7 +859,8 @@ class Component extends DCLogic {
     { src: "uploads/IMG_8301.JPG", pos: "center 45%", caption: "Star Trek: Strange New Worlds - Paramount+" },
     { src: "uploads/IMG_0598.JPG", pos: "center 50%", caption: "Ride The Tide - Music Video" },
     { src: "uploads/IMG_2996.jpg", pos: "center 40%", caption: "Fan Expo Canada - Media Team" },
-    { src: "uploads/F38B67EA-8D53-4651-8B3E-64BF9F74134CIMG_6420.jpg", pos: "center 35%", caption: "Something Very Bad Is Going To Happen - Netflix" }
+    { src: "uploads/F38B67EA-8D53-4651-8B3E-64BF9F74134CIMG_6420.jpg", pos: "center 35%", caption: "Something Very Bad Is Going To Happen - Netflix" },
+    { src: "uploads/IMG_6113.JPG", pos: "center 30%", caption: "Star Trek: Strange New Worlds S4 - Paramount+", lead: true }
   ];
   buildPostAnim() {
     const h = React.createElement, reduce = this._heroReduce, LOOP = 4;
@@ -999,7 +992,21 @@ class Component extends DCLogic {
   };
   HERO_WORDS = ["Film", "Commercial", "PSA", "Music Video"];
   ch01Ref = React.createRef();
+  comesRef = React.createRef();
+  syncHeroTimer = () => {
+    const run = this._heroVis || this.state.stripOn;
+    if (run && !this._heroTimer && this._heroTick) this._heroTimer = setInterval(this._heroTick, 2600);
+    else if (!run && this._heroTimer) { clearInterval(this._heroTimer); this._heroTimer = null; this.setState({ heroIndex: 0, heroPrev: 0 }); }
+  };
+  onStripScroll = () => {
+    const hd = document.querySelector(".site-header");
+    const top = hd ? Math.max(0, Math.round(hd.getBoundingClientRect().bottom)) : 0;
+    const c = this.comesRef.current, e = this.ch06Ref && this.ch06Ref.current;
+    const on = !!(c && e && c.getBoundingClientRect().bottom < top + 4 && e.getBoundingClientRect().bottom > top + 80);
+    if (on !== this.state.stripOn || top !== this.state.stripTop) this.setState({ stripOn: on, stripTop: top }, this.syncHeroTimer);
+  };
   componentDidMount() {
+    window.addEventListener("scroll", this.onStripScroll, { passive: true }); this.onStripScroll();
     this._heroReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (this.ch01Ref.current && window.IntersectionObserver) {
       this._chObserver = new IntersectionObserver((entries) => {
@@ -1028,17 +1035,26 @@ class Component extends DCLogic {
       if (this.ch06Ref.current) this._ch6Observer.observe(this.ch06Ref.current);
     } else { this.setState({ ch01In: true, ch02In: true, ch03In: true, ch04In: true, ch05In: true, ch06In: true, fundValue: 75000 }); }
     if (this._heroReduce) this.setState({ pmCount: this.PM_ITEMS.length, prodP: 1 });
-    else { window.addEventListener("scroll", this.onPmScroll, { passive: true }); this.onPmScroll(); window.addEventListener("wheel", this.onProdWheel, { passive: false }); }
+    else { window.addEventListener("scroll", this.onPmScroll, { passive: true }); this.onPmScroll(); window.addEventListener("wheel", this.onProdWheel, { passive: false }); this._prodLast = performance.now(); this._prodTimer = setInterval(this.prodTick, 250); }
     this._heroReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this._heroTimer = setInterval(() => this.setState(s => ({ heroIndex: ((s.heroIndex || 0) + 1) % this.HERO_WORDS.length, heroPrev: s.heroIndex || 0 })), 2600);
+    const heroTick = () => this.setState(s => ({ heroIndex: ((s.heroIndex || 0) + 1) % this.HERO_WORDS.length, heroPrev: s.heroIndex || 0 }));
+    this._heroTimer = setInterval(heroTick, 2600);
+    if (this.heroMidRef.current && window.IntersectionObserver) {
+      this._heroWordObs = new IntersectionObserver((en) => {
+        this._heroVis = en.some(x => x.isIntersecting); this._heroTick = heroTick; this.syncHeroTimer();
+      }, { threshold: 0, rootMargin: "60px 0px" });
+      this._heroWordObs.observe(this.heroMidRef.current);
+    }
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(this.measureHeroWords));
     window.addEventListener("resize", this.measureHeroWords);
   }
   componentWillUnmount() {
+    window.removeEventListener("scroll", this.onStripScroll);
+    this._heroWordObs && this._heroWordObs.disconnect();
     window.removeEventListener("resize", this.measureHeroWords);
     clearInterval(this._heroTimer);
     ["_chObserver","_ch2Observer","_ch3Observer","_ch4Observer","_ch5Observer","_ch6Observer"].forEach(k => this[k] && this[k].disconnect());
-    window.removeEventListener("scroll", this.onPmScroll); window.removeEventListener("wheel", this.onProdWheel);
+    window.removeEventListener("scroll", this.onPmScroll); window.removeEventListener("wheel", this.onProdWheel); clearInterval(this._prodTimer);
     cancelAnimationFrame(this._pmRaf); cancelAnimationFrame(this._fundFrame);
   }
   renderVals() {
@@ -1065,15 +1081,16 @@ class Component extends DCLogic {
     const pmCount = this.state.pmCount || 0;
     const c5 = !!this.state.ch05In, rv5 = (d) => ({ opacity: c5 ? 1 : 0, transform: c5 ? "translateY(0)" : "translateY(22px)", transition: `opacity 0.7s ease ${d}s, transform 0.9s ${ease} ${d}s` });
     const pp = this.state.prodP || 0;
+    const pIdx = this.state.prodIdx || 0, pPhase2 = pIdx >= Math.ceil(this.PROD_PHOTOS.length / 2);
     const open = Math.min(1, pp / 0.55), oe = 1 - Math.pow(1 - open, 3);
-    const PHOTOS = this.PROD_PHOTOS.map((p, k) => Object.assign({ n: k + 1 }, p)).sort((a, b) => ((this.props["teamPhoto" + a.n + "Order"] ?? a.n) - (this.props["teamPhoto" + b.n + "Order"] ?? b.n)) || a.n - b.n), NP = PHOTOS.length, t0 = Math.max(0, Math.min(1, pp * NP));
+    const PHOTOS = this.PROD_PHOTOS.map((p, k) => Object.assign({ n: k + 1 }, p)).sort((a, b) => (b.lead ? 1 : 0) - (a.lead ? 1 : 0) || ((this.tp["teamPhoto" + a.n + "Order"] ?? a.n) - (this.tp["teamPhoto" + b.n + "Order"] ?? b.n)) || a.n - b.n), NP = PHOTOS.length, t0 = Math.max(0, Math.min(1, pp * NP));
     const cl = (v) => Math.max(0, Math.min(1, v)), sw = cl((pp - 0.44) / 0.06), l3 = cl((pp - 0.5) / 0.06), l4 = cl((pp - 0.53) / 0.06);
     const l1 = cl((t0 - 0.2) / 0.3) * (1 - sw), l2 = cl((t0 - 0.45) / 0.3) * (1 - sw);
     const e3 = (t) => 1 - Math.pow(1 - t, 3);
     const c6 = !!this.state.ch06In, rv6 = (d) => ({ opacity: c6 ? 1 : 0, transform: c6 ? "translateY(0)" : "translateY(22px)", transition: `opacity 0.7s ease ${d}s, transform 0.9s ${ease} ${d}s` });
     return {
       heroMidRef: this.heroMidRef,
-      heroMidStyle: Object.assign({ display: "grid", justifyContent: "center", perspective: "900px", color: "#f4f2ec", background: "oklch(0.5 0.17 262)", padding: "0.1em 0.22em 0.02em", borderRadius: "0.06em", boxSizing: "content-box", transition: "width 0.42s cubic-bezier(0.34,1.35,0.64,1) 0.04s" },
+      heroMidStyle: Object.assign({ display: "grid", justifyContent: "center", perspective: "900px", color: "oklch(0.5 0.17 262)", background: "#f4f2ec", padding: "0.1em 0.22em 0.02em", borderRadius: "0.06em", boxSizing: "content-box", transition: "width 0.42s cubic-bezier(0.34,1.35,0.64,1) 0.04s" },
         this.state.heroWidths ? { width: Math.ceil(this.state.heroWidths[this.state.heroIndex || 0]) + "px" } : {}),
       ch06Ref: this.ch06Ref,
       postAnim: this._postAnim || (this._postAnim = this.buildPostAnim()),
@@ -1086,29 +1103,31 @@ class Component extends DCLogic {
       ch05NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#f4f2ec" }, rv5(0)),
       ch05LineStyle: Object.assign({ margin: 0, fontSize: "clamp(24px, 2.6vw, 36px)", lineHeight: 1.2, fontWeight: 500, color: "#f4f2ec" }, rv5(0.2)),
       ch05BodyStyle: Object.assign({ margin: 0, maxWidth: "34em", fontSize: "17px", lineHeight: 1.7, color: "#b8b4a9", textWrap: "pretty" }, rv5(0.5)),
-      prodTrackStyle: { position: "relative", height: (100 + 70 * NP) + "vh" },
+      prodTrackStyle: { position: "relative", height: "100vh" },
       prodPhotos: PHOTOS.map((p, i) => {
-        const t = Math.max(0, Math.min(1, pp * NP - i)), op = Math.min(1, t / 0.55), e = 1 - Math.pow(1 - op, 3);
+        const on = this._heroReduce ? i === 0 : i <= pIdx;
         return { caption: p.caption || "", style: {
-          position: "absolute", inset: 0, zIndex: 1, opacity: i === 0 ? 1 : Math.min(1, t / 0.1),
+          position: "absolute", inset: 0, zIndex: 1, opacity: on ? 1 : 0, transition: this.state.prodFast ? "opacity 0.85s ease-out" : "opacity 2.2s ease-in-out",
           backgroundImage: "linear-gradient(180deg, rgba(20,19,15,0.5), rgba(20,19,15,0.62)), url('" + p.src + "')",
-          backgroundSize: "cover", backgroundPosition: (this.props["teamPhoto" + p.n + "X"] ?? 50) + "% " + (this.props["teamPhoto" + p.n + "Y"] ?? parseFloat((p.pos || "center 40%").split(" ")[1])) + "%",
-          clipPath: `inset(${(16 * (1 - e)).toFixed(2)}% ${(20 * (1 - e)).toFixed(2)}% round ${(18 * (1 - e)).toFixed(1)}px)`,
-          transform: `scale(${((1.12 - 0.12 * e) * (this.props["teamPhoto" + p.n + "Zoom"] ?? 100) / 100).toFixed(4)})`, transformOrigin: (this.props["teamPhoto" + p.n + "X"] ?? 50) + "% " + (this.props["teamPhoto" + p.n + "Y"] ?? 50) + "%", willChange: "clip-path, transform" } };
+          backgroundSize: "cover", backgroundPosition: (this.tp["teamPhoto" + p.n + "X"] ?? 50) + "% " + (this.tp["teamPhoto" + p.n + "Y"] ?? parseFloat((p.pos || "center 40%").split(" ")[1])) + "%",
+          transform: "scale(" + ((this.tp["teamPhoto" + p.n + "Zoom"] ?? 100) / 100).toFixed(4) + ")", transformOrigin: (this.tp["teamPhoto" + p.n + "X"] ?? 50) + "% " + (this.tp["teamPhoto" + p.n + "Y"] ?? 50) + "%" } };
       }),
-      prodLine1Style: { display: "block", color: "#f4f2ec", opacity: l1, transform: `translateX(${(-6 * (1 - e3(l1))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
-      prodLine2Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: l2, transform: `translateX(${(6 * (1 - e3(l2))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
-      prodLine3Style: { display: "block", color: "#f4f2ec", opacity: l3, transform: `translateX(${(-6 * (1 - e3(l3))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
-      prodLine4Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: l4, transform: `translateX(${(6 * (1 - e3(l4))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine1Style: { display: "block", color: "#f4f2ec", opacity: !pPhase2 ? 1 : 0, transform: !pPhase2 ? "translateX(0)" : "translateX(-4vw)", transition: "opacity 1.1s ease 0s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 0s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine2Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: !pPhase2 ? 1 : 0, transform: !pPhase2 ? "translateX(0)" : "translateX(4vw)", transition: "opacity 1.1s ease 0.3s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 0.3s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine3Style: { display: "block", color: "#f4f2ec", opacity: pPhase2 ? 1 : 0, transform: pPhase2 ? "translateX(0)" : "translateX(-4vw)", transition: "opacity 1.1s ease 0.9s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 0.9s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine4Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: pPhase2 ? 1 : 0, transform: pPhase2 ? "translateX(0)" : "translateX(4vw)", transition: "opacity 1.1s ease 1.2s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 1.2s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
       ch04Ref: this.ch04Ref,
       clipAnim: this._clipAnim || (this._clipAnim = this.buildClipAnim()),
       pmItems: this.PM_ITEMS.map((text, i) => {
-        const on = i < pmCount, latest = i === pmCount - 1;
+        const on = i < pmCount, latest = i === pmCount - 1 || (on && i === this.PM_ITEMS.length - 1);
         return { text, style: { display: "inline-block", color: latest ? "oklch(0.45 0.17 262)" : "#14130f", opacity: on ? 1 : 0.13, transform: on ? "translateY(0)" : "translateY(10px)", transition: `opacity 0.5s ease, transform 0.6s ${ease}, color 0.6s ease` } };
       }),
       ch04NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv4(0)),
       ch04LineStyle: Object.assign({ margin: 0, fontSize: "clamp(24px, 2.6vw, 36px)", lineHeight: 1.2, fontWeight: 500 }, rv4(0.2)),
       ch04BodyStyle: Object.assign({ margin: 0, maxWidth: "34em", fontSize: "17px", lineHeight: 1.7, color: "#57544a", textWrap: "pretty" }, rv4(0.5)),
+      comesRef: this.comesRef,
+      stripWord: this.HERO_WORDS[this.state.heroIndex || 0],
+      stripStyle: { position: "fixed", left: 0, right: 0, top: (this.state.stripTop || 0) + "px", zIndex: 25, display: "flex", justifyContent: "center", alignItems: "center", padding: "14px 5vw 12px", background: "oklch(0.5 0.17 262 / 0.52)", backdropFilter: "blur(16px) saturate(1.5)", WebkitBackdropFilter: "blur(16px) saturate(1.5)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.38), inset 0 -1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(20,19,15,0.12)", color: "#f4f2ec", textShadow: "0 1px 2px rgba(20,19,15,0.25)", pointerEvents: "none", transform: this.state.stripOn ? "translateY(0)" : "translateY(-110%)", opacity: this.state.stripOn ? 1 : 0, transition: "transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease" },
       ch03Ref: this.ch03Ref,
       crewAnim: this._crewAnim || (this._crewAnim = this.buildCrewAnim()),
       ch03NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv3(0)),
@@ -1127,7 +1146,7 @@ class Component extends DCLogic {
       ch01NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv(0)),
       ch01BodyStyle: Object.assign({ margin: 0, maxWidth: "34em", fontSize: "17px", lineHeight: 1.7, color: "#57544a", textWrap: "pretty" }, rv(1.2)),
       heroWords,
-      heroAria: "How your " + this.HERO_WORDS[hIdx] + " comes to life",
+      heroAria: "How I bring your " + this.HERO_WORDS[hIdx] + " to life",
     };
   }
 }

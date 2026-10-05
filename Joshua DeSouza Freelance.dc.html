@@ -72,8 +72,26 @@
   @media (max-width: 480px) {
     .prevnext-grid { grid-template-columns: 1fr !important; gap: 14px !important; }
     .footer-grid { grid-template-columns: 1fr !important; }
-    .contact-modal { padding: 32px 22px !important; }
+    .cm-pad { padding-left: 22px !important; padding-right: 22px !important; }
   }
+  .proj-row > span:not(:last-child) { font-size: clamp(11px, 0.95vw, 14px) !important; letter-spacing: 0.16em !important; min-width: 0; overflow-wrap: break-word; }
+  @keyframes projHeadIn { from { opacity: 0; transform: translateY(0.5em); letter-spacing: 0.24em; filter: blur(4px); } to { opacity: 1; transform: translateY(0); letter-spacing: 0.04em; filter: blur(0); } }
+  .proj-head > span { display: block; animation: projHeadIn 0.7s cubic-bezier(0.16,1,0.3,1) backwards; transition: opacity 0.16s ease-in, transform 0.16s ease-in, filter 0.16s ease-in; }
+  .proj-head > span:nth-child(1) { animation-delay: 0.22s; }
+  .proj-head > span:nth-child(2) { animation-delay: 0.32s; }
+  .proj-head > span:nth-child(3) { animation-delay: 0.42s; }
+  .page-leaving .proj-head > span { opacity: 0; transform: translateY(-0.4em); filter: blur(3px); }
+  .page-leaving .proj-head > span:nth-child(2) { transition-delay: 0.03s; }
+  .page-leaving .proj-head > span:nth-child(3) { transition-delay: 0.06s; }
+  .proj-row > div > span { font-size: clamp(11px, 0.95vw, 14px) !important; letter-spacing: 0.16em !important; min-width: 0; overflow-wrap: break-word; }
+  .proj-row > div > span, .proj-row > span:not(:last-child) { display: block; opacity: 0; transform: translateY(0.5em); filter: blur(4px); transition: opacity 0.6s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1), filter 0.6s ease; }
+  .banner-reveal.revealed .proj-row > div > span, .banner-reveal.revealed .proj-row > span:not(:last-child) { opacity: 1; transform: translateY(0); filter: blur(0); }
+  .banner-reveal.revealed .proj-row > div > span { transition-delay: 0.14s; }
+  .banner-reveal.revealed .proj-row > span:nth-child(2) { transition-delay: 0.22s; }
+  .banner-reveal.revealed .proj-row > span:nth-child(3) { transition-delay: 0.3s; }
+  .page-leaving .proj-row > div > span, .page-leaving .proj-row > span:not(:last-child) { opacity: 0 !important; transform: translateY(-0.4em) !important; filter: blur(3px) !important; transition: opacity 0.16s ease-in, transform 0.16s ease-in, filter 0.16s ease-in !important; transition-delay: 0s !important; }
+  @keyframes playerRise { from { opacity: 0; transform: translateY(48px) scale(0.96); } to { opacity: 1; transform: translateY(0) scale(1); } }
+  @media (max-width: 720px) { .detail-body { padding: 0 16px 24px !important; margin-top: -72px !important; } .detail-player { border-radius: 12px !important; } }
   @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
   @keyframes modalOverlayOut { from { opacity: 1; } to { opacity: 0; } }
   @keyframes modalPopIn { from { opacity: 0; transform: translateY(28px) scale(0.94); } to { opacity: 1; transform: translateY(0) scale(1); } }
@@ -109,7 +127,7 @@
     <a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.32em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
       <a href="/home">Home</a>
       <a href="/union-work">Union Work</a>
       <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Freelance</span>
@@ -239,40 +257,42 @@
 </div>
 
 <sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
-    <div class="contact-modal" onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace; animation: {{ contactModalAnim }}">
-      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
+  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.62); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
+    <div onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; color: #14130f; font-family: 'IBM Plex Sans', Helvetica, sans-serif; animation: {{ contactModalAnim }}">
+      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 0; right: 0; z-index: 2; display: flex; align-items: center; gap: 10px; height: 34px; margin: 14px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,0.16); color: #f4f2ec; border: none; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.2s ease" style-hover="background: rgba(20,19,15,0.55)">Close <span style="font-size: 18px; line-height: 1; letter-spacing: 0">×</span></button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
-        <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
-          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
-          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
+        <div class="cm-pad" style="background: linear-gradient(155deg, oklch(0.5 0.17 262 / 0.94), oklch(0.5 0.17 262 / 0.84)); color: #f4f2ec; padding: 64px 40px 32px; display: flex; flex-direction: column; gap: 14px; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25)">
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 7vw, 76px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Thanks, {{ contactName }}.</h3>
         </div>
+        <p class="cm-pad" style="margin: 0; padding: 32px 40px 40px; font-size: 17px; line-height: 1.7; color: #57544a; text-wrap: pretty">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
       </sc-if>
       <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
-      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
-          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Send a message</h3>
-          <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column">
+        <div class="cm-pad" style="background: linear-gradient(155deg, oklch(0.5 0.17 262 / 0.94), oklch(0.5 0.17 262 / 0.84)); color: #f4f2ec; padding: 64px 40px 32px; display: flex; flex-direction: column; gap: 14px; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25)">
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 7vw, 76px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Send a message</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.5; font-weight: 500; color: #f4f2ec">Got an upcoming project? Tell me all about it below.</p>
         </div>
+        <div class="cm-pad" style="padding: 32px 40px 36px; display: flex; flex-direction: column; gap: 26px">
         <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
-          <p style="margin: 0; font-size: 14px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
+          <p style="margin: 0; font-size: 15px; font-weight: 500; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
         </sc-if>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-name" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
-          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-name" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Your name</label>
+          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></input>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-email" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
-          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-email" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Email</label>
+          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></input>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-message" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
-          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-message" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Message</label>
+          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; line-height: 1.6; min-height: 110px; resize: vertical" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></textarea>
         </div>
-        <button type="submit" style="font-family: inherit; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        <button type="submit" style="display: flex; align-items: center; justify-content: space-between; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; padding: 18px 20px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.5 0.17 262)"><span>Send message</span><span aria-hidden="true" style="font-size: 18px; letter-spacing: 0">→</span></button>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #57544a; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        </div>
       </form>
       </sc-if>
     </div>
@@ -282,92 +302,90 @@
 <sc-if value="{{ detailOpen }}" hint-placeholder-val="{{ false }}">
   <div data-screen-label="Freelance detail" onClick="{{ closeDetail }}" style="{{ backdropStyle }}">
     <div onClick="{{ stopClick }}" style="{{ modalCardStyle }}">
-      <button type="button" onClick="{{ closeDetail }}" aria-label="Close" style="position: absolute; top: 14px; right: 16px; z-index: 10; background: rgba(20,19,15,0.55); color: #f4f2ec; border: none; border-radius: 50%; width: 30px; height: 30px; font-size: 17px; line-height: 1; cursor: pointer">×</button>
+      <button type="button" onClick="{{ closeDetail }}" aria-label="Close" style="position: absolute; top: 16px; right: 16px; z-index: 10; display: flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px; border-radius: 999px; background: rgba(20,19,15,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); color: #f4f2ec; border: 1px solid rgba(255,255,255,0.18); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.5 0.17 262)">Close <span style="font-size: 18px; line-height: 1; letter-spacing: 0">×</span></button>
       <div id="detail-scroll" style="{{ detailScrollStyle }}">
-
+        <div style="-webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 140px), transparent 100%); mask-image: linear-gradient(to bottom, #000 calc(100% - 140px), transparent 100%)">
         <div style="{{ detail.heroContainerStyle }}">
-      <sc-if value="{{ detail.heroBg }}" hint-placeholder-val="{{ false }}">
-        <div style="position: absolute; inset: 0; background: linear-gradient(90deg, #f4f2ec 0%, rgba(244,242,236,0.55) 55%, rgba(244,242,236,0.25) 100%)"></div>
-        <div style="position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(244,242,236,0) 82%, #f4f2ec 100%)"></div>
-      </sc-if>
-      <span style="position: relative; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #8b887d">{{ detail.client }} — {{ detail.format }}</span>
-      <h1 style="position: relative; margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(40px, 5vw, 84px); line-height: 0.95; letter-spacing: -0.01em; text-wrap: pretty">{{ detail.title }}</h1>
-    </div>
-
-    <div class="detail-grid" style="display: grid; grid-template-columns: minmax(0, 1.9fr) minmax(280px, 1fr); border-bottom: 1px solid #14130f">
-      <div class="detail-media" style="border-right: 1px solid #14130f; padding: 40px 44px">
-        <sc-if value="{{ detail.hasVideo }}" hint-placeholder-val="{{ false }}">
-          <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #131210; border-radius: 10px; overflow: hidden">
-            <iframe src="{{ detail.videoSrc }}" title="Project video" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block"></iframe>
+          <sc-if value="{{ detail.heroBg }}" hint-placeholder-val="{{ false }}">
+            <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(244,242,236,0.95) 0%, rgba(244,242,236,0.6) 55%, rgba(244,242,236,0.2) 100%)"></div>
+          </sc-if>
+          <span style="position: relative; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">{{ detail.client }} — {{ detail.format }}</span>
+          <h1 style="position: relative; margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 7vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance; max-width: 14em">{{ detail.title }}</h1>
+        </div>
+        </div>
+        <div class="detail-body" style="position: relative; z-index: 2; margin-top: -104px; padding: 0 32px 36px; display: flex; flex-direction: column; gap: 22px">
+          <div class="detail-player" style="position: relative; border-radius: 18px; overflow: hidden; background: #131210; box-shadow: 0 50px 90px -28px rgba(15,14,12,0.7), 0 14px 30px -10px rgba(15,14,12,0.4); animation: playerRise 0.9s cubic-bezier(0.16,1,0.3,1) 0.3s backwards; transition: transform 0.5s cubic-bezier(0.16,1,0.3,1), box-shadow 0.5s ease" style-hover="transform: translateY(-4px); box-shadow: 0 60px 100px -28px rgba(15,14,12,0.75), 0 18px 34px -10px rgba(15,14,12,0.45)">
+            <sc-if value="{{ detail.hasVideo }}" hint-placeholder-val="{{ false }}">
+              <div style="position: relative; width: 100%; aspect-ratio: 16/9; background: #131210">
+                <iframe src="{{ detail.videoSrc }}" title="Project video" referrerPolicy="strict-origin-when-cross-origin" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen="{{ true }}" style="position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block"></iframe>
+              </div>
+            </sc-if>
+            <sc-if value="{{ detail.showPoster }}" hint-placeholder-val="{{ false }}">
+              <div style="aspect-ratio: 16/9; background: #ffffff"><image-slot id="red-door-poster" src="uploads/slot-red-door-poster.webp" shape="rect" fit="contain" placeholder="Drop the Red Door PSA poster art"></image-slot></div>
+            </sc-if>
+            <sc-if value="{{ detail.showPhoto }}" hint-placeholder-val="{{ false }}">
+              <div style="{{ detail.photoStyle }}"></div>
+            </sc-if>
+            <sc-if value="{{ detail.showPlaceholder }}" hint-placeholder-val="{{ true }}">
+              <div style="aspect-ratio: 16/9; background: repeating-linear-gradient(135deg, #1b1a17 0 12px, #131210 12px 24px); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #b8b4a9">Link to come</div>
+            </sc-if>
           </div>
-          <a href="{{ detail.watchUrl }}" target="_blank" rel="noopener" style="display: inline-flex; align-items: center; gap: 8px; margin-top: 12px; font-size: 14px; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid #14130f; padding-bottom: 3px">Watch on YouTube ↗</a>
-        </sc-if>
-        <sc-if value="{{ detail.showPoster }}" hint-placeholder-val="{{ false }}">
-          <div style="aspect-ratio: 16/9; border-radius: 10px; overflow: hidden; background: #ffffff"><image-slot id="red-door-poster" src="uploads/slot-red-door-poster.webp" shape="rect" fit="contain" placeholder="Drop the Red Door PSA poster art"></image-slot></div>
-        </sc-if>
-        <sc-if value="{{ detail.showPhoto }}" hint-placeholder-val="{{ false }}">
-          <div style="{{ detail.photoStyle }}"></div>
-        </sc-if>
-        <sc-if value="{{ detail.showPlaceholder }}" hint-placeholder-val="{{ true }}">
-          <div style="aspect-ratio: 16/9; border-radius: 10px; background: repeating-linear-gradient(135deg, #1b1a17 0 12px, #131210 12px 24px); display: flex; align-items: center; justify-content: center; font-size: 14px; letter-spacing: 0.24em; text-transform: uppercase; color: #7a776e">Link to come</div>
-        </sc-if>
-        <div class="prevnext-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px; border-top: 1px solid #14130f; padding-top: 20px; margin-top: 20px; align-items: start">
-          <a onClick="{{ goPrev }}" href="#top" style="display: flex; align-items: center; gap: 14px; cursor: pointer; transition: gap 0.25s ease" style-hover="gap: 22px">
-            <span style="width: 0; height: 0; border-right: 8px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; flex: none"></span>
-            <span style="display: flex; flex-direction: column; gap: 6px">
-              <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Previous</span>
-              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 26px; line-height: 1.05">{{ prevTitle }}</span>
-            </span>
-          </a>
-          <a onClick="{{ goNext }}" href="#top" style="display: flex; align-items: center; justify-content: flex-end; gap: 14px; cursor: pointer; text-align: right; transition: gap 0.25s ease" style-hover="gap: 22px">
-            <span style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end">
-              <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Next</span>
-              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 26px; line-height: 1.05">{{ nextTitle }}</span>
-            </span>
-            <span style="width: 0; height: 0; border-left: 8px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; flex: none"></span>
-          </a>
-        </div>
-      </div>
-      <div class="detail-info" style="padding: 40px 44px; display: flex; flex-direction: column; gap: 26px">
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Role</span>
-          <span style="font-size: 14px; line-height: 1.6">{{ detail.role }}</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Dates</span>
-          <span style="font-size: 14px; color: #d8d5cb">{{ detail.dates }}</span>
-        </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Client</span>
-          <span style="font-size: 14px">{{ detail.client }}</span>
-        </div>
-        <sc-if value="{{ detail.hasDescription }}" hint-placeholder-val="{{ false }}">
-          <div style="display: flex; flex-direction: column; gap: 6px">
-            <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">About</span>
-            <span style="font-size: 14px; line-height: 1.7">{{ detail.description }}</span>
+          <sc-if value="{{ detail.hasVideo }}" hint-placeholder-val="{{ false }}">
+            <a href="{{ detail.watchUrl }}" target="_blank" rel="noopener" style="align-self: flex-end; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; background: rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #14130f; transition: background 0.2s ease, color 0.2s ease" style-hover="background: #14130f; color: #f4f2ec">Watch on YouTube ↗</a>
+          </sc-if>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
+            <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8)">
+              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Role</span>
+              <span style="font-size: clamp(18px, 1.8vw, 22px); line-height: 1.25; font-weight: 500">{{ detail.role }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8)">
+              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Dates</span>
+              <span style="font-size: 17px; line-height: 1.4">{{ detail.dates }}</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8)">
+              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Client</span>
+              <span style="font-size: 17px; line-height: 1.4">{{ detail.client }}</span>
+            </div>
           </div>
-        </sc-if>
-      </div>
-    </div>
-
-    <sc-if value="{{ detail.hasBts }}" hint-placeholder-val="{{ false }}">
-    <div style="padding: 0 44px 56px; display: flex; flex-direction: column; gap: 18px">
-      <div style="display: flex; justify-content: space-between; align-items: baseline; border-top: 1px solid #14130f; padding-top: 18px">
-        <span style="font-size: 14px; letter-spacing: 0.22em; text-transform: uppercase; color: #8b887d">Behind the scenes</span>
-      </div>
-      <div class="bts-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px">
-        <sc-if value="{{ detail.hasBts0 }}" hint-placeholder-val="{{ false }}">
-          <div style="{{ detail.bts0Style }}" onClick="{{ openBts0 }}"></div>
-        </sc-if>
-        <sc-if value="{{ detail.hasBts1 }}" hint-placeholder-val="{{ false }}">
-          <div style="{{ detail.bts1Style }}" onClick="{{ openBts1 }}"></div>
-        </sc-if>
-        <sc-if value="{{ detail.hasBts2 }}" hint-placeholder-val="{{ false }}">
-          <div style="{{ detail.bts2Style }}" onClick="{{ openBts2 }}"></div>
-        </sc-if>
-      </div>
-    </div>
-    </sc-if>
+          <sc-if value="{{ detail.hasDescription }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 10px; padding: 4px 4px 0">
+              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">About</span>
+              <p style="margin: 0; max-width: 40em; font-size: 17px; line-height: 1.7; color: #57544a; text-wrap: pretty">{{ detail.description }}</p>
+            </div>
+          </sc-if>
+          <sc-if value="{{ detail.hasBts }}" hint-placeholder-val="{{ false }}">
+            <div style="display: flex; flex-direction: column; gap: 12px; padding: 4px 4px 0">
+              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Behind the scenes</span>
+              <div class="bts-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
+              <sc-if value="{{ detail.hasBts0 }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ detail.bts0Style }}" onClick="{{ openBts0 }}"></div>
+              </sc-if>
+              <sc-if value="{{ detail.hasBts1 }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ detail.bts1Style }}" onClick="{{ openBts1 }}"></div>
+              </sc-if>
+              <sc-if value="{{ detail.hasBts2 }}" hint-placeholder-val="{{ false }}">
+                <div style="{{ detail.bts2Style }}" onClick="{{ openBts2 }}"></div>
+              </sc-if>
+              </div>
+            </div>
+          </sc-if>
+          <div class="prevnext-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px">
+            <a onClick="{{ goPrev }}" href="#top" style="display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.45); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); cursor: pointer; transition: background 0.25s ease, gap 0.25s ease" style-hover="background: rgba(255,255,255,0.85); gap: 20px">
+              <span style="width: 0; height: 0; border-right: 8px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; flex: none"></span>
+              <span style="display: flex; flex-direction: column; gap: 6px; min-width: 0">
+                <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Previous</span>
+                <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 30px; line-height: 0.95">{{ prevTitle }}</span>
+              </span>
+            </a>
+            <a onClick="{{ goNext }}" href="#top" style="display: flex; align-items: center; gap: 14px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.45); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); cursor: pointer; transition: background 0.25s ease, gap 0.25s ease; justify-content: flex-end; text-align: right" style-hover="background: rgba(255,255,255,0.85); gap: 20px">
+              <span style="display: flex; flex-direction: column; gap: 6px; align-items: flex-end; min-width: 0">
+                <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Next</span>
+                <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 30px; line-height: 0.95">{{ nextTitle }}</span>
+              </span>
+              <span style="width: 0; height: 0; border-left: 8px solid currentColor; border-top: 6px solid transparent; border-bottom: 6px solid transparent; flex: none"></span>
+            </a>
+          </div>
+        </div>
 
     <sc-if value="{{ lightbox.open }}" hint-placeholder-val="{{ false }}">
       <div onClick="{{ closeLightbox }}" style="position: fixed; inset: 0; z-index: 200; background: rgba(19,18,16,0.92); display: flex; align-items: center; justify-content: center; padding: 40px">
@@ -518,18 +536,7 @@ class Component extends DCLogic {
     this._onMove = (e) => {
       const glow = document.getElementById('cursor-glow');
       if (glow) glow.style.background = 'radial-gradient(480px circle at ' + e.clientX + 'px ' + e.clientY + 'px, rgba(244,242,236,0.045), transparent 60%)';
-      const header = document.querySelector('.site-header');
-      const topZoneStart = header ? header.getBoundingClientRect().bottom : 0;
-      const zoneH = window.innerHeight / 16;
-      const dir = e.clientY > window.innerHeight - zoneH ? 1 : (e.clientY > topZoneStart && e.clientY < topZoneStart + zoneH ? -1 : 0);
-      if (dir !== 0 && dir !== this._scrollDir) {
-        clearInterval(this._scrollTimer);
-        this._scrollTimer = setInterval(() => window.scrollBy({ top: 4 * dir, behavior: "auto" }), 16);
-      } else if (dir === 0 && this._scrollTimer) {
-        clearInterval(this._scrollTimer);
-        this._scrollTimer = null;
-      }
-      this._scrollDir = dir;
+
     };
     window.addEventListener("mousemove", this._onMove);
     const rows = Array.from(document.querySelectorAll('.banner-reveal'));
@@ -624,8 +631,8 @@ class Component extends DCLogic {
         watchUrl: p.id ? "https://www.youtube.com/watch?v=" + p.id : "",
         showPoster: !!p.poster, showPhoto: !!p.photo && !p.id,
         showPlaceholder: !p.id && !p.poster && !p.photo,
-        photoStyle: p.photo ? { position: "relative", aspectRatio: "16/9", borderRadius: "10px", background: 'url("' + p.photo + '") center 40% / cover no-repeat' } : "",
-        heroContainerStyle: HERO_BANNER[this.state.openTitle] ? { position: "relative", padding: "56px 44px 40px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: 'url("' + HERO_BANNER[this.state.openTitle][0] + '") ' + (HERO_BANNER[this.state.openTitle][3] ? (P[HERO_BANNER[this.state.openTitle][3]] ?? HERO_BANNER[this.state.openTitle][4]) : 50) + '% ' + (P[HERO_BANNER[this.state.openTitle][1]] ?? HERO_BANNER[this.state.openTitle][2]) + '% / cover no-repeat' } : (HERO_SOLID[this.state.openTitle] ? { position: "relative", padding: "56px 44px " + (P.heroImageHeight ?? 40) + "px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: HERO_SOLID[this.state.openTitle] } : { position: "relative", padding: "56px 44px 40px", overflow: "hidden", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease" }),
+        photoStyle: p.photo ? { position: "relative", aspectRatio: "16/9", borderRadius: 0, background: 'url("' + p.photo + '") center 40% / cover no-repeat' } : "",
+        heroContainerStyle: HERO_BANNER[this.state.openTitle] ? { position: "relative", padding: "64px 44px 150px", overflow: "hidden", display: "flex", flexDirection: "column", gap: "14px", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: 'url("' + HERO_BANNER[this.state.openTitle][0] + '") ' + (HERO_BANNER[this.state.openTitle][3] ? (P[HERO_BANNER[this.state.openTitle][3]] ?? HERO_BANNER[this.state.openTitle][4]) : 50) + '% ' + (P[HERO_BANNER[this.state.openTitle][1]] ?? HERO_BANNER[this.state.openTitle][2]) + '% / cover no-repeat' } : (HERO_SOLID[this.state.openTitle] ? { position: "relative", padding: "64px 44px " + (110 + (P.heroImageHeight ?? 40)) + "px", overflow: "hidden", display: "flex", flexDirection: "column", gap: "14px", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease", background: HERO_SOLID[this.state.openTitle] } : { position: "relative", padding: "64px 44px 150px", overflow: "hidden", display: "flex", flexDirection: "column", gap: "14px", opacity: this.state.heroFading ? 0 : 1, transition: "opacity 0.16s ease" }),
         heroBg: !!HERO_BANNER[this.state.openTitle] || !!HERO_SOLID[this.state.openTitle],
         heroTextColor: "#14130f",
         heroSubColor: "#8b887d",
@@ -645,8 +652,8 @@ class Component extends DCLogic {
     };
     const modalAtFinal = this.state.modalAtFinal;
     const originRect = this.state.originRect;
-    const finalW = Math.min(900, window.innerWidth * 0.92);
-    const finalH = Math.min(760, window.innerHeight * 0.86);
+    const finalW = Math.min(1040, window.innerWidth * 0.94);
+    const finalH = Math.min(880, window.innerHeight * 0.9);
     const finalTop = (window.innerHeight - finalH) / 2;
     const finalLeft = (window.innerWidth - finalW) / 2;
     const geom = originRect ? {
@@ -657,12 +664,15 @@ class Component extends DCLogic {
     } : { top: finalTop, left: finalLeft, width: finalW, height: finalH };
     const modalCardStyle = {
       position: "fixed", top: geom.top + "px", left: geom.left + "px", width: geom.width + "px", height: geom.height + "px",
-      borderRadius: modalAtFinal ? "14px" : "2px", overflow: "hidden", background: modalAtFinal ? "#f4f2ec" : "#131210", color: "#14130f",
-      boxShadow: modalAtFinal ? "0 30px 90px rgba(15,14,12,0.45)" : "none",
-      transition: "top 0.42s cubic-bezier(0.22,0.8,0.24,1), left 0.42s cubic-bezier(0.22,0.8,0.24,1), width 0.42s cubic-bezier(0.22,0.8,0.24,1), height 0.42s cubic-bezier(0.22,0.8,0.24,1), border-radius 0.3s ease, box-shadow 0.3s ease, background-color 0.4s ease"
+      borderRadius: modalAtFinal ? "28px" : "4px", boxSizing: "border-box", overflow: "hidden", color: "#14130f",
+      backgroundColor: modalAtFinal ? "rgba(246,244,239,0.8)" : "#131210", backgroundImage: modalAtFinal ? "linear-gradient(155deg, rgba(255,255,255,0.75), rgba(255,255,255,0.2) 60%, rgba(255,255,255,0.45))" : "none",
+      backdropFilter: "blur(30px) saturate(180%)", WebkitBackdropFilter: "blur(30px) saturate(180%)",
+      border: modalAtFinal ? "1px solid rgba(255,255,255,0.6)" : "1px solid transparent",
+      boxShadow: modalAtFinal ? "inset 0 1px 0 rgba(255,255,255,0.85), inset 0 0 0 1px rgba(255,255,255,0.25), 0 40px 100px rgba(15,14,12,0.45)" : "none",
+      transition: "top 0.42s cubic-bezier(0.22,0.8,0.24,1), left 0.42s cubic-bezier(0.22,0.8,0.24,1), width 0.42s cubic-bezier(0.22,0.8,0.24,1), height 0.42s cubic-bezier(0.22,0.8,0.24,1), border-radius 0.42s cubic-bezier(0.22,0.8,0.24,1), box-shadow 0.3s ease, background-color 0.4s ease"
     };
     const detailScrollStyle = { overflowY: "auto", height: "100%", opacity: modalAtFinal ? 1 : 0, transition: "opacity 0.3s ease " + (modalAtFinal ? "0.2s" : "0s") };
-    const backdropStyle = { position: "fixed", inset: 0, zIndex: 60, background: "rgba(20,19,15," + (modalAtFinal ? 0.72 : 0) + ")", transition: "background 0.35s ease" };
+    const backdropStyle = { position: "fixed", inset: 0, zIndex: 60, background: "rgba(20,19,15," + (modalAtFinal ? 0.55 : 0) + ")", backdropFilter: modalAtFinal ? "blur(6px)" : "blur(0px)", WebkitBackdropFilter: modalAtFinal ? "blur(6px)" : "blur(0px)", transition: "background 0.35s ease, backdrop-filter 0.35s ease" };
     return {
       auroraRef: this.auroraRef,
       contactOpen: this.state.contactOpen,
