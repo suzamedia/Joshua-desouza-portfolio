@@ -25,6 +25,9 @@ Cinematic, modern, editorial, bold, personal, professional, confident. Independe
 Avoid: agency layouts, corporate/buzzword copy, stock aesthetics, heavy gradients, complicated UI, excessive animation, résumé feel.
 Copy above is verbatim — don't rewrite.
 
+## Top menu must match on every page
+Any change to the top menu (header bar, "J." mark, hamburger, nav links, mobile layout/alignment) must be applied to ALL menus on ALL pages in the same turn: Home, About, Portfolio, Freelance, Press, and any other page with a header. Reference: Home (align-items: center; mobile height 64px, padding 0 20px; J. line-height 1, padding 3px 0 2px).
+
 ## Keep About page in sync
 Any change to the homepage from the "Bring your [Film] to life" bar down to the photo collage at the bottom must also be applied to the same section on the About page. The About page (Joshua DeSouza About.dc.html) pulls that section from Process Sections.dc.html, so mirror the change there. Do this every time, in the same turn.
 
