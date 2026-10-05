@@ -2,10 +2,15 @@ repo: suzamedia/Joshua-desouza-portfolio
 branch: main
 
 ## Last sync
-date: 2026-10-02T21:07:09Z
-tree: d94d7ff0d50c (read-only; repo index.html read as reference for the original Recent Work / Upcoming panels)
+date: 2026-10-03T07:57:12Z
+tree: 1f056f47a32f (read-only check after user's manual upload)
 
-### Updated in this project (not yet reflected on GitHub — manual upload pending)
+### Updated in this project
+- Homepage rework pushed; old index.html removed so / serves the new homepage.
+- 4 oversized photos replaced with -web.jpg copies (<1MB); all site images verified present in uploads/ on GitHub.
+- Still missing everywhere: uploads/IMG_8315.JPG, uploads/Red Door - BTS Edits-55.jpg (Freelance Red Door BTS).
+
+### Earlier (2026-10-02)
 - Homepage rework started: "YOUR [FILM / COMMERCIAL / PSA / MUSIC VIDEO] COMES TO LIFE" hero added below current homepage content (staging position).
 - Theatre-curtain / Coming Soon experiment removed; original Recent Work + Upcoming panels kept.
 
@@ -22,6 +27,7 @@ tree: d94d7ff0d50c (read-only; repo index.html read as reference for the origina
 - Then upload the current project files over the root.
 
 ## Sync history
+- 2026-10-02T21:07:09Z @ tree d94d7ff0d50c — read-only; homepage rework staged locally.
 - 2026-08-31T20:40:07Z — read-only inspection; footer, banner, and deploy-doc fixes logged.
 - 2026-08-30T07:39:01Z — noted stray upload folders and duplicate root images; repo root files stale versus project.
 - 2026-08-21T16:03:21Z @ 24193376c809 — initial connection; repo lacked shared JS modules at the time (now present at root).

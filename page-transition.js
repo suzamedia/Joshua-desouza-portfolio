@@ -42,6 +42,7 @@
   // and this script does not re-run, so force the page visible again.
   window.addEventListener('pageshow', function (e) {
     if (!e.persisted) return;
+    document.documentElement.classList.remove('page-leaving');
     lockOverflow(false);
     setBodyMotion(1, 'none');
   });
@@ -60,21 +61,28 @@
 
     lockOverflow(true);
     setBodyMotion(1, 'none');
-    requestAnimationFrame(function () {
+    var hasHead = !!document.querySelector('.proj-head');
+    document.documentElement.classList.add('page-leaving');
+    var startFade = function () {
       requestAnimationFrame(function () {
-        setBodyMotion(0, 'opacity 0.13s ease-in');
+        requestAnimationFrame(function () {
+          setBodyMotion(0, 'opacity 0.13s ease-in');
+        });
       });
-    });
+    };
+    if (hasHead) { e.preventDefault(); setTimeout(startFade, 160); } else startFade();
 
     // If navigation never happens (cancelled, blocked, slow), don't leave a blank page.
     setTimeout(function () {
       lockOverflow(false);
+      document.documentElement.classList.remove('page-leaving');
       setBodyMotion(1, 'opacity 0.2s ease-out');
     }, 1500);
 
-    if (previewMode && ROUTES[url.pathname]) {
+    var dest = (previewMode && ROUTES[url.pathname]) ? ROUTES[url.pathname] + url.search + url.hash : (hasHead ? url.href : null);
+    if (dest) {
       e.preventDefault();
-      setTimeout(function () { window.location.href = ROUTES[url.pathname] + url.search + url.hash; }, 140);
+      setTimeout(function () { window.location.href = dest; }, hasHead ? 300 : 140);
     }
   }, false);
 })();

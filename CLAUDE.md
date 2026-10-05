@@ -6,8 +6,8 @@ Core idea: concept → funding → production → finished project → out in th
 Flow: YOUR IDEA → CREATIVE COLLABORATION → FUNDING → YOUR TEAM → PRODUCTION → POST & RELEASE → RECENT WORK.
 
 ## Hero
-"YOUR [FILM / COMMERCIAL / PSA / MUSIC VIDEO] COMES TO LIFE"
-YOUR (left) · cycling word fixed in place, sentence never shifts · COMES TO LIFE (right). Large, bold, existing type. Polished cinematic flip — primary motion statement, not a generic carousel. Hero stays clean.
+"BRING YOUR [FILM / COMMERCIAL / PSA / MUSIC VIDEO] TO LIFE" (changed from "Your … comes to life" at user request)
+BRING YOUR (left) · cycling word fixed in place, sentence never shifts · TO LIFE (right). Large, bold, existing type. Polished cinematic flip — primary motion statement, not a generic carousel. Hero stays clean.
 
 ## Process (major chapters: big numbers, big type, sticky/scroll interaction, visual continuity)
 01 CREATIVE COLLABORATION — "Shape the idea. Find the story. Build the plan." — From the first conversation to the first draft, I help turn loose ideas into clear, producible projects. We talk through the vision, develop the approach, and figure out what it actually takes to make it happen.
@@ -24,6 +24,9 @@ Follows the process as its proof ("Okay, what has this actually produced?"). Kee
 Cinematic, modern, editorial, bold, personal, professional, confident. Independent producer, not a company/agency. Message: "I understand the creative vision, and I know how to actually make it happen."
 Avoid: agency layouts, corporate/buzzword copy, stock aesthetics, heavy gradients, complicated UI, excessive animation, résumé feel.
 Copy above is verbatim — don't rewrite.
+
+## Keep About page in sync
+Any change to the homepage from the "Bring your [Film] to life" bar down to the photo collage at the bottom must also be applied to the same section on the About page. The About page (Joshua DeSouza About.dc.html) pulls that section from Process Sections.dc.html, so mirror the change there. Do this every time, in the same turn.
 
 ## Tucked-away code
 - "View Union work and freelance work home page buttons" (cta-buttons block in Joshua DeSouza Home.dc.html) is hidden behind `showHomeButtons: false` in renderVals. Restore by setting it true when the user asks for that phrase.

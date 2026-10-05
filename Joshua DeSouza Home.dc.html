@@ -12,13 +12,15 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
 <script src="./image-slot.js"></script>
 <script src="./page-transition.js"></script>
 <script src="./site-cms.js" defer></script>
 <style>
   body { margin: 0; background: #14130f; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
-  html { scrollbar-width: none; }
+  html { scrollbar-width: none; scroll-snap-type: y proximity; }
+  html, body { overflow-x: clip; }
+  @supports (height: 100svh) { .hero-track, .hero-stage { height: calc(100svh - 78px) !important; } .prod-sticky { height: 100svh !important; } }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: oklch(0.45 0.17 262); }
@@ -69,7 +71,10 @@
     .landing-two-col button[aria-label^="Go to"] { height: 10px !important; }
   }
   @media (max-width: 720px) {
-    .site-header { padding: 16px 20px !important; }
+    .site-header { padding: 0 20px !important; height: 64px; box-sizing: border-box; }
+    .hero-stage { top: 64px !important; }
+    .hero-track, .hero-stage { height: calc(100vh - 64px) !important; }
+    @supports (height: 100svh) { .hero-track, .hero-stage { height: calc(100svh - 64px) !important; } }
     .nav-burger { display: flex !important; }
     .site-nav { display: none !important; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
     .nav-toggle-cb:checked ~ .site-nav { display: flex !important; }
@@ -81,7 +86,7 @@
   }
   @media (max-width: 480px) {
     .footer-grid { grid-template-columns: 1fr !important; }
-    .contact-modal { padding: 32px 22px !important; }
+    .cm-pad { padding-left: 22px !important; padding-right: 22px !important; }
   }
 
   @media (max-width: 720px) {
@@ -110,16 +115,18 @@
     .wh-wrap > button { pointer-events: none; min-height: 40px; display: flex; align-items: center; }
     .foot-cb:focus-visible ~ .foot-head { outline: 2px solid currentColor; outline-offset: 2px; }
   }
+  @keyframes jdPeek { 0% { transform: translateY(104%); } 9% { transform: translateY(-6%); } 13% { transform: translateY(0); } 82% { transform: translateY(0); } 92% { transform: translateY(-5%); } 100% { transform: translateY(104%); } }
+  @keyframes jdPeekPoint { 0%, 18% { transform: rotate(0deg); } 24% { transform: rotate(-7deg); } 30% { transform: rotate(4deg); } 36% { transform: rotate(-7deg); } 42% { transform: rotate(4deg); } 48%, 100% { transform: rotate(0deg); } }
 </style>
 </helmet>
 
 <div data-screen-label="Landing" style="background: #f4f2ec; color: #14130f">
 
-  <header class="site-header" style="position: sticky; top: 0; z-index: 30; background: rgba(244,242,236,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
-    <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</span>
+  <header class="site-header" style="position: sticky; top: 0; z-index: 30; background: rgba(244,242,236,0.75); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: center; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+    <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px; line-height: 1; display: block; padding: 3px 0 2px">J.</span>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.32em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
       <span style="border-bottom: 1px solid #14130f; padding-bottom: 2px">Home</span>
       <a href="/union-work">Union Work</a>
       <a href="/freelance-work">Freelance</a>
@@ -129,7 +136,7 @@
     </nav>
   </header>
 
-  <div ref="{{ heroTrackRef }}" style="position: relative; height: calc(230vh - 78px)">
+  <div ref="{{ heroTrackRef }}" class="hero-track" style="position: relative; height: calc(100vh - 78px)">
   <div onMouseMove="{{ onApertureMouseMove }}" onMouseLeave="{{ onApertureMouseLeave }}" onTouchMove="{{ onApertureTouchMove }}" onClick="{{ onHeroClick }}" data-screen-label="Opening — Name" class="hero-stage" style="position: sticky; top: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; height: calc(100vh - 78px); min-height: 0; box-sizing: border-box; padding: 96px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; overflow: hidden">
     <canvas ref="{{ wavesRef }}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none"></canvas>
     <div ref="{{ glassRef }}" aria-hidden="true" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: calc(min(820px, 112vw, 88vh) * 0.965); height: calc(min(820px, 112vw, 88vh) * 0.965); border-radius: 50%; pointer-events: none; backdrop-filter: blur(18px) saturate(170%); -webkit-backdrop-filter: blur(18px) saturate(170%); background: radial-gradient(circle at 30% 22%, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 55%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -18px 40px rgba(255,255,255,0.04)"></div>
@@ -152,44 +159,46 @@
     <div aria-hidden="true" style="{{ tipStyle }}"><sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Click to take Alex's photo</span></sc-if><sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Tap when Alex looks sharp</span></sc-if></div>
     <div ref="{{ flashRef }}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 4; pointer-events: none; background: #fffdf6; opacity: 0"></div>
     <sc-if value="{{ gameHint }}" hint-placeholder-val="{{ true }}">
-      <div style="position: absolute; z-index: 3; right: 4vw; bottom: 22px; pointer-events: none; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(244,242,236,0.72)">Scroll to play ↓</div>
+      <button type="button" onClick="{{ startPlay }}" style="position: absolute; z-index: 3; right: 4vw; bottom: 18px; padding: 4px; border: none; background: none; cursor: pointer; font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 18px; line-height: 1; letter-spacing: 0.1em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 4px 0 #14130f; opacity: {{ playHintOpacity }}; transition: opacity 0.3s ease" style-hover="opacity: 1; color: oklch(0.85 0.15 85)" style-active="transform: translateY(2px)">Click to play</button>
+      {{ peeker }}
     </sc-if>
     <sc-if value="{{ gameHud }}" hint-placeholder-val="{{ false }}">
-      <div style="position: absolute; z-index: 3; right: 4vw; bottom: 22px; display: flex; align-items: center; gap: 18px; pointer-events: none; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #f4f2ec">
-        <span style="display: flex; align-items: center; gap: 8px">Memory<span style="display: flex; gap: 4px"><sc-for list="{{ memBlocks }}" as="m" hint-placeholder-count="3"><span style="{{ m.style }}"></span></sc-for></span></span>
-        <span>Shots {{ hitCount }}/5</span>
-      </div>
-      <button type="button" onClick="{{ toggleRules }}" style="position: absolute; z-index: 5; left: 4vw; top: 22px; display: flex; align-items: center; gap: 8px; padding: 9px 16px; border-radius: 999px; border: 1px solid rgba(244,242,236,0.35); background: rgba(20,19,15,0.55); color: #f4f2ec; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer" style-hover="background: #f4f2ec; color: #14130f">How to play</button>
+      <div style="position: absolute; z-index: 3; right: 4vw; bottom: 24px; display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: flex-end; gap: 12px 28px; pointer-events: none"><span style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 20px; line-height: 1; letter-spacing: 0.08em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Memory</span><span style="filter: drop-shadow(0 3px 0 #14130f)">{{ hudMem }}</span></span><span style="display: flex; flex-direction: column; align-items: flex-start; gap: 6px"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 20px; line-height: 1; letter-spacing: 0.08em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shots</span><span style="display: flex; align-items: center; gap: 10px"><span style="filter: drop-shadow(0 3px 0 #14130f)">{{ hudShots }}</span><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 20px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">{{ hitCount }}/5</span></span></span></div>
+      <button type="button" onClick="{{ toggleRules }}" style="position: absolute; z-index: 5; left: 4vw; top: 22px; display: flex; align-items: center; gap: 10px; padding: 4px; border: none; background: none; color: #fffdf6; font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f; cursor: pointer; opacity: 0.5; transition: opacity 0.2s ease" style-hover="color: oklch(0.85 0.15 85); opacity: 1" style-active="transform: translateY(3px)"><span style="display: flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%; background: oklch(0.85 0.15 85); border: 3px solid #14130f; box-shadow: 0 3px 0 #14130f; color: #14130f; text-shadow: none; font-size: 22px; padding-top: 2px; box-sizing: border-box">?</span><span style="padding-top: 2px">How to play</span></button>
     </sc-if>
     <sc-if value="{{ rulesOpen }}" hint-placeholder-val="{{ false }}">
       <div onClick="{{ toggleRules }}" style="position: absolute; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 12px 24px; box-sizing: border-box; min-height: 0; background: rgba(20,19,15,0.6); cursor: pointer">
-        <div onClick="{{ stopClick }}" style="position: relative; cursor: default; display: flex; flex-direction: column; gap: 18px; width: 440px; max-width: 92vw; max-height: calc(100% - 24px); overflow-y: auto; padding: 30px 32px; border-radius: 20px; background: #14130f; border: 1px solid rgba(244,242,236,0.18); color: #f4f2ec; box-sizing: border-box; text-align: left">
-          <button type="button" aria-label="Close rules" onClick="{{ toggleRules }}" style="position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(244,242,236,0.25); background: transparent; color: #f4f2ec; font-size: 18px; line-height: 1; cursor: pointer" style-hover="background: #f4f2ec; color: #14130f">×</button>
-          <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 48px; line-height: 0.9; letter-spacing: 0.01em">How to play</span>
-          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #b8b4a9">Help Josh get five sharp shots of Alex before your memory card fills up.</p>
-          <div style="display: flex; flex-direction: column; gap: 14px; font-size: 14px; line-height: 1.55">
-            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Focus</span><span>The iris is your focus ring. Move the mouse right, left, up or down to focus.</span></div><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Shoot</span><span>Click anywhere when she looks sharp.</span></div></sc-if>
-            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Focus</span><span>Focus is locked. Alex walks in and out of it.</span></div><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Shoot</span><span>Tap anywhere the moment she looks sharp.</span></div></sc-if>
-            <div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Misses</span><span>A blurry shot or one taken while she's turned away is a miss. Three misses and the card is full.</span></div>
-            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Rounds</span><span>Every shot you land, she moves faster and the sharp moment gets shorter.</span></div></sc-if>
-            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px"><span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: oklch(0.78 0.11 262); padding-top: 2px">Phone</span><span>Tap the moment she steps into focus.</span></div></sc-if>
+        <div onClick="{{ stopClick }}" style="position: relative; cursor: default; display: flex; flex-direction: column; gap: 18px; width: 480px; max-width: 92vw; max-height: calc(100% - 24px); overflow-y: auto; padding: 28px 28px 24px; border-radius: 22px; background: #2c2b31; border: 3px solid #14130f; box-shadow: 0 6px 0 #14130f; color: #f4f2ec; box-sizing: border-box; text-align: left">
+          <button type="button" aria-label="Close rules" onClick="{{ toggleRules }}" style="position: absolute; top: 14px; right: 14px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 3px solid #14130f; box-shadow: 0 3px 0 #14130f; background: oklch(0.85 0.15 85); color: #14130f; font-size: 20px; font-weight: 700; line-height: 1; cursor: pointer; box-sizing: border-box" style-hover="background: #fffdf6" style-active="transform: translateY(3px); box-shadow: none">×</button>
+          <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 48px; line-height: 0.9; letter-spacing: 0.04em; color: #fffdf6; padding-top: 4px; text-shadow: 3px 3px 0 #14130f, -3px 3px 0 #14130f, 3px -3px 0 #14130f, -3px -3px 0 #14130f, 0 3.5px 0 #14130f, 0 -3.5px 0 #14130f, 3.5px 0 0 #14130f, -3.5px 0 0 #14130f, 0 7px 0 #14130f">How to play</span>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: #d6d2c6; text-wrap: pretty">Help Josh get five sharp shots of Alex before your memory card fills up.</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px">
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px 16px; border-radius: 14px; background: #1d1c21; border: 3px solid #14130f; min-width: 0"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shots</span><span>{{ rulesShots }}</span><span style="font-size: 13px; line-height: 1.5; color: #d6d2c6">Every sharp shot fills a frame. Fill all five to win.</span></div>
+            <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px 16px; border-radius: 14px; background: #1d1c21; border: 3px solid #14130f; min-width: 0"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Memory</span><span>{{ rulesMem }}</span><span style="font-size: 13px; line-height: 1.5; color: #d6d2c6">A blurry shot or one taken while she's turned away is a miss. Three misses and the card is full.</span></div>
           </div>
-          <span style="font-size: 13px; color: #b8b4a9">Best played on a desktop or laptop.</span>
+          <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.55">
+            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Focus</span><span>The iris is your focus ring. Move the mouse left or right to pull focus. You can also spin the iris by circling its edge.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shoot</span><span>Click anywhere when she looks sharp.</span></div></sc-if>
+            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Focus</span><span>Focus is locked. Alex walks in and out of it.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shoot</span><span>Tap anywhere the moment she looks sharp.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Rounds</span><span>Every shot you land, she moves faster and the sharp moment gets shorter.</span></div></sc-if>
+            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Phone</span><span>Tap the moment she steps into focus.</span></div></sc-if>
+          </div>
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #b8b4a9">Best played on a desktop or laptop.</span>
         </div>
       </div>
     </sc-if>
     <sc-if value="{{ gameEnded }}" hint-placeholder-val="{{ false }}">
-      <div onClick="{{ playAgain }}" style="position: absolute; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(20,19,15,0.6); cursor: pointer">
-        <div onClick="{{ stopClick }}" style="position: relative; cursor: default; display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 28px 32px; border-radius: 20px; background: #14130f; border: 1px solid rgba(244,242,236,0.18); color: #f4f2ec; max-width: 92vw; box-sizing: border-box; text-align: center">
+      <div onClick="{{ playAgain }}" style="position: absolute; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 12px 24px; box-sizing: border-box; background: rgba(20,19,15,0.6); cursor: pointer">
+        <div onClick="{{ stopClick }}" style="position: relative; cursor: default; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 24px 32px; border-radius: 20px; background: #14130f; border: 1px solid rgba(244,242,236,0.18); color: #f4f2ec; max-width: 92vw; max-height: calc(100% - 24px); overflow-y: auto; box-sizing: border-box; text-align: center">
           <button type="button" aria-label="Close and restart" onClick="{{ playAgain }}" style="position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(244,242,236,0.25); background: transparent; color: #f4f2ec; font-size: 18px; line-height: 1; cursor: pointer" style-hover="background: #f4f2ec; color: #14130f">×</button>
-          <div style="width: 86px; height: 200px">{{ endGirl }}</div>
-          <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 56px; line-height: 0.9; letter-spacing: 0.01em; color: {{ endColor }}">{{ endTitle }}</span>
+          <div style="flex: none; width: min(86px, 9.5vh); height: min(200px, 22vh)">{{ endGirl }}</div>
+          <div style="display: flex; align-items: center; justify-content: center; gap: 14px"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 56px; line-height: 0.9; letter-spacing: 0.01em; color: {{ endColor }}">{{ endTitle }}</span><sc-if value="{{ endLose }}" hint-placeholder-val="{{ false }}"><span style="display: block; flex: none; filter: drop-shadow(0 3px 0 #14130f)">{{ endSd }}</span></sc-if></div>
           <span style="font-size: 14px; color: {{ endColor }}">{{ endSub }}</span>
+          
           <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 10px; background: #0b0a08; border-radius: 6px">
             <sc-for list="{{ endShots }}" as="s" hint-placeholder-count="5">
               <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 72px; height: 96px; border-radius: 3px; overflow: hidden; background: #2a2722">{{ s.thumb }}</div><span style="{{ s.capStyle }}">{{ s.cap }}</span></div>
             </sc-for>
           </div>
+          <sc-if value="{{ endLose }}" hint-placeholder-val="{{ false }}"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px; line-height: 1; letter-spacing: 0.06em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">{{ hitCount }}/5</span></sc-if>
           <button type="button" onClick="{{ playAgain }}" style="font-family: inherit; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 12px 22px; border-radius: 12px; border: none; background: #f4f2ec; color: #14130f; cursor: pointer" style-hover="background: oklch(0.62 0.15 262); color: #f4f2ec">Play again</button>
         </div>
       </div>
@@ -256,25 +265,29 @@
   </div>
   </div>
 
-  <section data-screen-label="Comes to life" style="background: #f4f2ec; color: #14130f; padding: clamp(96px, 16vh, 180px) 5vw clamp(72px, 10vh, 120px); overflow: hidden; border-bottom: 1px solid #14130f; display: flex; flex-direction: column; align-items: center; gap: 36px">
-    <h2 class="hero-line" aria-label="{{ heroAria }}" style="margin: 0 auto; max-width: 1180px; display: grid; grid-template-columns: auto auto auto; justify-content: center; align-items: baseline; column-gap: 0.26em; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 6.6vw, 124px); line-height: 0.92; letter-spacing: 0.01em; text-align: center; color: #14130f">
-      <span style="justify-self: end; white-space: nowrap">How your</span>
+  <div aria-hidden="true" style="{{ stripStyle }}"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(18px, 2.2vw, 30px); line-height: 1.05; letter-spacing: 0.02em; text-align: center; text-wrap: balance"><span>My six steps to take your first idea to finished film</span></span></div>
+  <div style="background: #f4f2ec">
+  <section data-screen-label="Comes to life" ref="{{ comesRef }}" style="position: sticky; top: 0; z-index: 2; background: oklch(0.5 0.17 262); color: #f4f2ec; padding: clamp(96px, 16vh, 180px) 5vw clamp(72px, 10vh, 120px); overflow: hidden; border-bottom: 1px solid #14130f; display: flex; flex-direction: column; align-items: center; gap: 36px">
+    <h2 class="hero-line" aria-label="{{ heroAria }}" style="position: relative; z-index: 2; margin: 0 auto; max-width: 1180px; display: grid; grid-template-columns: auto auto auto; justify-content: center; align-items: baseline; column-gap: 0.26em; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 6.6vw, 124px); line-height: 0.92; letter-spacing: 0.01em; text-align: center; color: #f4f2ec">
+      <span style="justify-self: end; white-space: nowrap; position: relative"><span aria-hidden="true" style="position: absolute; z-index: 3; left: -0.04em; bottom: 1.22em; font-family: 'Pacifico', cursive; font-weight: 400; font-size: 0.62em; line-height: 1; letter-spacing: 0; text-transform: none; color: #f4f2ec; transform: rotate(-7deg); transform-origin: left bottom; text-shadow: 0 2px 10px rgba(20,19,15,0.28); pointer-events: none">How I</span>Bring your</span>
       <span aria-hidden="true" ref="{{ heroMidRef }}" style="{{ heroMidStyle }}">
         <span style="{{ heroWords.0.style }}">Film</span>
         <span style="{{ heroWords.1.style }}">Commercial</span>
         <span style="{{ heroWords.2.style }}">PSA</span>
         <span style="{{ heroWords.3.style }}">Music Video</span>
       </span>
-      <span style="justify-self: start; white-space: nowrap">Comes to life</span>
+      <span style="justify-self: start; white-space: nowrap">To life</span>
     </h2>
-    <p style="margin: 0; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: clamp(12px, 1.1vw, 15px); letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.5 0.17 262); text-align: center">Six steps from first idea to finished film</p>
+    <p style="margin: 0; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: clamp(12px, 1.1vw, 15px); letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec; text-align: center; position: relative; z-index: 2">My six steps to take your first idea to finished film</p>
   </section>
+  <div aria-hidden="true" style="height: 32vh; scroll-snap-align: end"></div>
+  </div>
 
-  <section data-screen-label="Process 01 — Creative Collaboration" ref="{{ ch01Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
-      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+  <section data-screen-label="Process 01 — Creative Collaboration" ref="{{ ch01Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: stretch; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-top: 24px">
         <span style="{{ ch01NumStyle }}">01</span>
-        <div style="width: 110%">{{ scriptAnim }}</div>
+        <div style="width: 100%; margin: auto auto 0">{{ scriptAnim }}</div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Creative Collaboration</h3>
@@ -288,11 +301,11 @@
     </div>
   </section>
 
-  <section data-screen-label="Process 02 — Grants &amp; Funding" ref="{{ ch02Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
-      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+  <section data-screen-label="Process 02 — Grants &amp; Funding" ref="{{ ch02Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: stretch; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-top: 24px">
         <span style="{{ ch02NumStyle }}">02</span>
-        <div style="width: 100%">{{ grantAnim }}</div>
+        <div style="width: 100%; margin: auto auto 0">{{ grantAnim }}</div>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Grants &amp; Funding</h3>
@@ -304,26 +317,26 @@
     </div>
   </section>
 
-  <section data-screen-label="Process 03 — Crew Assembly" ref="{{ ch03Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f; overflow-x: clip" class="crew-section">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; min-height: 90vh; box-sizing: border-box">
-      <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
+  <section data-screen-label="Process 03 — Crew Assembly" ref="{{ ch03Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw; overflow-x: clip" class="crew-section">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 96px 0 40px; min-height: calc(100svh - 48px); box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 14px">
         <span style="{{ ch03NumStyle }}">03</span>
         
       </div>
-      <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+      <div style="display: flex; flex-direction: column; gap: 28px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Crew Assembly</h3>
         <p style="{{ ch03LineStyle }}">The right people make all the difference.</p>
         <p style="{{ ch03BodyStyle }}">I bring a deep network of trusted creatives, technicians, and industry professionals to projects of any scale, connecting the right people to the right project with passion at the core.&nbsp;</p>
       </div>
-      <div class="crew-anim" style="grid-column: 1 / -1; width: 114%; margin: -36px 0 0 -7%">{{ crewAnim }}</div>
+      <div class="crew-anim" style="grid-column: 1 / -1; width: 100%; max-width: max(420px, calc((100svh - 548px) * 1.955)); margin: 24px auto 0">{{ crewAnim }}</div>
     </div>
   </section>
 
-  <section data-screen-label="Process 04 — Production Management" ref="{{ ch04Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f; overflow: hidden">
-    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
-      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
+  <section data-screen-label="Process 04 — Production Management" ref="{{ ch04Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw; overflow: hidden">
+    <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: stretch; max-width: 1180px; margin: 0 auto; padding: 120px 0 140px; box-sizing: border-box">
+      <div class="chapter-num" style="display: flex; flex-direction: column; justify-content: space-between; gap: 40px; padding-top: 24px">
         <span style="{{ ch04NumStyle }}">04</span>
-        <div style="width: 100%; position: relative; z-index: 0; pointer-events: none">{{ clipAnim }}</div>
+        <div style="width: 78%; margin: auto auto 0; position: relative; z-index: 0; pointer-events: none">{{ clipAnim }}</div>
       </div>
       <div style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
         <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(52px, 6.8vw, 108px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Production Management</h3>
@@ -344,10 +357,10 @@
     </div>
   </section>
 
-  <section data-screen-label="Process 05 — Production" ref="{{ ch05Ref }}" style="background: #14130f; color: #f4f2ec">
+  <section data-screen-label="Process 05 — Production" ref="{{ ch05Ref }}" style="min-height: calc(100svh - 48px); box-sizing: border-box; scroll-snap-align: start; scroll-margin-top: 48px; background: #14130f; color: #f4f2ec">
     <div style="padding: 0 5vw">
-      <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 0; box-sizing: border-box">
-        <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
+      <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 96px 0 0; box-sizing: border-box">
+        <div class="chapter-num" style="display: flex; flex-direction: column; gap: 14px">
           <span style="{{ ch05NumStyle }}">05</span>
         </div>
         <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
@@ -356,13 +369,13 @@
           <p style="{{ ch05BodyStyle }}">I keep the production moving, solve problems as they come, and make sure the team has what they need to execute the vision.&nbsp;</p>
         </div>
       </div>
-      <div style="max-width: 1180px; margin: 48px auto 0; padding-bottom: 120px"><div style="width: 100%; border-radius: 14px; overflow: hidden">{{ setAnim }}</div></div>
+      <div style="max-width: min(1180px, max(420px, calc((100svh - 548px) * 2.91))); margin: 24px auto 0; padding-bottom: 40px"><div style="width: 100%; border-radius: 14px; overflow: hidden">{{ setAnim }}</div></div>
     </div>
   </section>
 
-  <section data-screen-label="Process 06 — Post, Festivals &amp; Distribution" ref="{{ ch06Ref }}" style="background: #f4f2ec; color: #14130f; padding: 0 5vw; border-bottom: 1px solid #14130f">
+  <section data-screen-label="Process 06 — Post, Festivals &amp; Distribution" ref="{{ ch06Ref }}" style="scroll-snap-align: start; scroll-margin-top: 48px; background: #f4f2ec; color: #14130f; padding: 0 5vw">
     <div class="chapter-grid" style="display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); column-gap: 5vw; align-items: start; max-width: 1180px; margin: 0 auto; padding: 120px 0 0; box-sizing: border-box">
-      <div class="chapter-num" style="position: sticky; top: 110px; display: flex; flex-direction: column; gap: 14px">
+      <div class="chapter-num" style="display: flex; flex-direction: column; gap: 14px">
         <span style="{{ ch06NumStyle }}">06</span>
       </div>
       <div style="display: flex; flex-direction: column; gap: 40px; padding-top: 24px">
@@ -375,8 +388,8 @@
   </section>
 
   <section data-screen-label="A great team" style="background: #14130f; color: #f4f2ec">
-    <div ref="{{ prodRef }}" style="{{ prodTrackStyle }}">
-      <div style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center">
+    <div ref="{{ prodRef }}" style="position: relative; height: 100vh; scroll-snap-align: start">
+      <div class="prod-sticky" style="position: sticky; top: 0; height: 100vh; overflow: hidden; display: flex; align-items: center; justify-content: center">
         <sc-for list="{{ prodPhotos }}" as="ph" hint-placeholder-count="1"><div style="{{ ph.style }}"><span style="position: absolute; right: 4vw; bottom: 4vh; max-width: 80vw; text-align: right; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #f4f2ec; text-shadow: 0 1px 12px rgba(20,19,15,0.7)">{{ ph.caption }}</span></div></sc-for>
         <h3 aria-label="A great team makes a great film. Let's team up on your next project." style="position: relative; z-index: 2; margin: 0; display: grid; padding: 0 5vw; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(60px, 10.5vw, 196px); line-height: 0.88; letter-spacing: 0.005em; text-align: center">
           <span style="grid-area: 1 / 1; display: flex; flex-direction: column; justify-content: center; gap: 0.08em">
@@ -458,40 +471,42 @@
   </footer>
 
 <sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
-    <div class="contact-modal" onClick="{{ stopClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace; animation: {{ contactModalAnim }}">
-      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
+  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.62); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
+    <div onClick="{{ stopClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; color: #14130f; font-family: 'IBM Plex Sans', Helvetica, sans-serif; animation: {{ contactModalAnim }}">
+      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 0; right: 0; z-index: 2; display: flex; align-items: center; gap: 10px; height: 34px; margin: 14px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,0.16); color: #f4f2ec; border: none; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.2s ease" style-hover="background: rgba(20,19,15,0.55)">Close <span style="font-size: 18px; line-height: 1; letter-spacing: 0">×</span></button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
-        <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
-          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
-          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
-          <p style="margin: 0; font-size: 13px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
+        <div class="cm-pad" style="background: linear-gradient(155deg, oklch(0.5 0.17 262 / 0.94), oklch(0.5 0.17 262 / 0.84)); color: #f4f2ec; padding: 64px 40px 32px; display: flex; flex-direction: column; gap: 14px; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25)">
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 7vw, 76px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Thanks, {{ contactName }}.</h3>
         </div>
+        <p class="cm-pad" style="margin: 0; padding: 32px 40px 40px; font-size: 17px; line-height: 1.7; color: #57544a; text-wrap: pretty">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
       </sc-if>
       <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
-      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
-          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Send a message</h3>
-          <p style="margin: 4px 0 0; font-size: 12px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column">
+        <div class="cm-pad" style="background: linear-gradient(155deg, oklch(0.5 0.17 262 / 0.94), oklch(0.5 0.17 262 / 0.84)); color: #f4f2ec; padding: 64px 40px 32px; display: flex; flex-direction: column; gap: 14px; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25)">
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 7vw, 76px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Send a message</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.5; font-weight: 500; color: #f4f2ec">Got an upcoming project? Tell me all about it below.</p>
         </div>
+        <div class="cm-pad" style="padding: 32px 40px 36px; display: flex; flex-direction: column; gap: 26px">
         <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
-          <p style="margin: 0; font-size: 12px; padding: 10px 12px; border-radius: 10px; background: oklch(0.45 0.17 262 / 0.1); border: 1px solid oklch(0.45 0.17 262 / 0.3); color: oklch(0.4 0.17 262)">{{ contactError }}</p>
+          <p style="margin: 0; font-size: 15px; font-weight: 500; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
         </sc-if>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-name" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
-          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-name" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Your name</label>
+          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></input>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-email" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
-          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-email" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Email</label>
+          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></input>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-message" style="font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
-          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-message" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Message</label>
+          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; line-height: 1.6; min-height: 110px; resize: vertical" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></textarea>
         </div>
-        <button type="submit" style="font-family: inherit; font-size: 13px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
-        <p style="margin: 0; font-size: 11px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        <button type="submit" style="display: flex; align-items: center; justify-content: space-between; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; padding: 18px 20px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.5 0.17 262)"><span>Send message</span><span aria-hidden="true" style="font-size: 18px; letter-spacing: 0">→</span></button>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #57544a; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        </div>
       </form>
       </sc-if>
     </div>
@@ -719,48 +734,66 @@ class Component extends DCLogic {
   }
   gameMe(lcd, mood) {
     const h = React.createElement, ink = "#14130f", hairC = "#1f1a17", lip = "#7a2230";
-    const blue = "oklch(0.55 0.17 262)", blueS = "oklch(0.47 0.17 262)", mustard = "oklch(0.8 0.15 80)";
+    const blue = "#2c2b31", blueS = "#18171c", mustard = "oklch(0.8 0.15 80)";
     const skin = "#8a5536", skinS = "#6e3f24", dark = "#2f2e38", dark2 = "#44434e", metal = "#55545f";
     const G = (p, ...k) => h("g", p || null, ...k);
     const R = (x, y, w, hh, rx, fill, ex) => h("rect", Object.assign({ x, y, width: w, height: hh, rx, fill }, ex || {}));
     const E = (cx, cy, rx, ry, fill, ex) => h("ellipse", Object.assign({ cx, cy, rx, ry, fill }, ex || {}));
     const T = (d, c, w) => h("path", { d, fill: "none", stroke: c, strokeWidth: w, strokeLinecap: "round", strokeLinejoin: "round" });
-    const screen = lcd ? G({ key: lcd.key, className: "jm-lcd" },
+    const screen = lcd ? G({ key: "fx" + lcd.key, ref: this.meLcdRef, transform: "translate(" + (this._lcdFixX || 0).toFixed(1) + " " + (this._lcdFixY || 0).toFixed(1) + ")" }, G({ key: lcd.key, className: "jm-lcd" },
       R(214, 128, 14, 26, 4, dark2),
       R(60, -32, 190, 168, 14, ink),
       h("defs", null, h("filter", { id: "jmBlur" + lcd.key }, h("feGaussianBlur", { stdDeviation: lcd.blur }))),
       h("svg", { x: 72, y: -20, width: 166, height: 104, viewBox: "20 40 160 100", preserveAspectRatio: "xMidYMid slice" },
         h("rect", { x: 0, y: 0, width: 200, height: 400, fill: "#3d4a5a" }),
         G({ filter: "url(#jmBlur" + lcd.key + ")" }, this.gameGirl(lcd.pose, true, lcd.back))),
-      h("text", { x: 155, y: 120, textAnchor: "middle", fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: 26, letterSpacing: "0.06em", fill: lcd.ok ? "oklch(0.74 0.19 145)" : "oklch(0.64 0.23 25)" }, lcd.text)) : null;
+      h("text", { x: 155, y: 120, textAnchor: "middle", fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: 26, letterSpacing: "0.06em", fill: lcd.ok ? "oklch(0.74 0.19 145)" : "oklch(0.64 0.23 25)" }, lcd.text))) : null;
     const hair = [[120, 124, 32], [152, 100, 34], [188, 92, 34], [224, 98, 30], [250, 118, 24], [106, 156, 24], [102, 190, 18], [134, 110, 26]];
     return G({ className: "jm-in" }, G({ className: "jm-breathe" },
-      R(30, 300, 340, 240, 96, blueS), R(30, 300, 340, 226, 96, blue),
+      R(64, 300, 260, 240, 90, blueS), R(64, 300, 260, 226, 90, blue),
+      T("M 112 370 Q 124 420 116 470", blueS, 4), T("M 268 380 Q 278 430 272 470", blueS, 4),
       R(150, 258, 64, 64, 22, skinS),
+      h("path", { d: "M 136 304 Q 182 352 228 304 L 214 300 Q 182 330 150 300 Z", fill: blueS }),
       R(98, 110, 172, 172, 62, skinS), R(98, 106, 172, 168, 62, skin),
-      E(110, 202, 15, 21, skinS),
+      E(110, 202, 15, 21, skinS), E(112, 202, 7, 12, skin), T("M 110 194 Q 104 202 110 210", skinS, 3),
+      E(124, 176, 9, 22, hairC),
+      T("M 214 198 Q 224 214 212 220", skinS, 4),
       hair.map(([x, y, r], k) => E(x, y, r, r, hairC, { key: k })),
+      [[142, 96, 5], [182, 80, 5], [220, 86, 4], [118, 126, 4], [250, 108, 3.5], [160, 112, 3.5]].map(([x, y, r], k) => E(x, y, r, r, "#3a302a", { key: "hl" + k })),
       G({ key: "m" + (mood || "n") + (lcd ? lcd.key : ""), className: mood ? "jm-react" : null },
-        mood === "good" ? R(156, 150, 40, 10, 5, hairC, { transform: "rotate(-6 176 155)" }) : mood === "bad" ? R(160, 162, 38, 10, 5, hairC, { transform: "rotate(22 179 167)" }) : R(160, 160, 36, 10, 5, hairC, { transform: "rotate(10 178 165)" }),
-        mood === "good" ? h("path", { d: "M 180 204 L 166 190 Q 160 182 167 177 Q 174 173 180 181 Q 186 173 193 177 Q 200 182 194 190 Z", fill: "oklch(0.6 0.22 25)", className: "jm-heart" }) : T("M 166 190 Q 180 184 194 190", ink, 5),
-        mood === "good" ? h("path", { d: "M 190 236 Q 214 266 236 236 Z", fill: lip }) : mood === "bad" ? T("M 196 254 Q 212 240 230 252", lip, 5) : T("M 198 246 Q 214 241 228 248", lip, 5),
-        mood === "good" ? E(148, 226, 13, 7, "oklch(0.6 0.22 25)", { opacity: 0.4 }) : null,
+        mood === "good" ? R(148, 148, 52, 13, 6.5, hairC, { transform: "rotate(-6 174 154)" }) : mood === "bad" ? R(150, 158, 50, 13, 6.5, hairC, { transform: "rotate(18 175 164)" }) : R(150, 158, 48, 13, 6.5, hairC, { transform: "rotate(-4 174 164)" }),
+        mood === "good" ? h("path", { d: "M 176 212 L 156 192 Q 148 181 158 174 Q 168 168 176 180 Q 184 168 194 174 Q 204 181 196 192 Z", fill: "oklch(0.6 0.22 25)", className: "jm-heart" }) : G(null, T("M 162 194 Q 177 204 192 194", ink, 5), mood === "bad" ? T("M 160 182 Q 176 174 192 182", skinS, 3.5) : null),
+        mood === "good" ? h("path", { d: "M 172 238 Q 186 258 200 238 Z", fill: lip }) : mood === "bad" ? T("M 172 255 Q 186 244 200 252", lip, 5) : T("M 174 247 Q 187 243 200 248", lip, 5),
+        mood === "good" ? E(140, 226, 15, 8, "oklch(0.6 0.22 25)", { opacity: 0.4 }) : null,
         mood === "bad" ? h("path", { d: "M 132 150 Q 126 162 132 168 Q 138 162 132 150 Z", fill: "oklch(0.78 0.08 230)" }) : null),
-      T("M 300 340 Q 322 300 326 262", blueS, 52),
-      G({ ref: this.meCamRef },
-        R(214, 148, 154, 100, 16, dark), R(234, 132, 62, 20, 6, dark2), R(310, 138, 26, 12, 4, metal),
-        E(326, 136, 11, 6, mustard), lcd ? E(326, 136, 30, 22, "#fffdf6", { key: "fl" + lcd.key, className: "jm-flash" }) : null,
-        R(364, 160, 64, 80, 12, dark2), G({ className: "jm-focus" }, R(384, 154, 20, 92, 6, metal), T("M 388 162 L 388 238", dark2, 2), T("M 398 162 L 398 238", dark2, 2)),
-        E(330, 254, 28, 26, skin), T("M 312 246 L 348 246", skinS, 3)),
-      T("M 360 380 Q 418 330 414 266", blue, 50), E(412, 252, 26, 24, skin),
+      T("M 290 346 L 340 446 L 334 290", blueS, 50), T("M 290 346 L 340 446 L 334 290", blue, 42),
+      T("M 110 350 L 150 452 L 258 290", blueS, 50), T("M 110 350 L 150 452 L 258 290", "#232227", 42), E(262, 280, 22, 19, skinS),
+      G({ transform: "translate(-28 18)" }, G({ ref: this.meCamRef },
+        h("path", { d: "M 234 152 L 248 112 Q 251 106 258 106 L 284 106 Q 291 106 294 112 L 304 152 Z", fill: dark2 }),
+        h("path", { d: "M 252 118 L 290 118 L 296 134 L 246 134 Z", fill: ink, opacity: 0.3 }),
+        R(258, 96, 24, 12, 3, metal), E(270, 95, 9, 5, mustard),
+        lcd ? E(270, 95, 30, 22, "#fffdf6", { key: "fl" + lcd.key, className: "jm-flash" }) : null,
+        R(232, 140, 22, 10, 4, dark2), [235, 240, 245, 250].map(x => T("M " + x + " 140 L " + x + " 148", metal, 1.5)),
+        R(226, 146, 96, 106, 18, dark), R(234, 150, 80, 5, 2.5, dark2, { opacity: 0.8 }),
+        R(300, 140, 36, 114, 18, "#25242c"), [176, 190, 204, 218, 232].map(y => T("M 310 " + y + " L 328 " + y, dark2, 2.5)),
+        R(306, 132, 22, 10, 4, metal), E(317, 131, 8, 4, "oklch(0.6 0.22 25)"),
+        E(238, 164, 5, 5, ink), E(238, 164, 2, 2, metal),
+        R(332, 156, 12, 84, 4, metal),
+        R(342, 162, 50, 72, 10, dark2),
+        G({ className: "jm-focus" }, R(350, 158, 24, 80, 6, metal), [354, 359, 364, 369].map(x => T("M " + x + " 166 L " + x + " 230", dark2, 2))),
+        R(380, 162, 4, 72, 2, "oklch(0.6 0.22 25)"),
+        h("path", { d: "M 388 164 L 408 148 Q 412 146 412 152 L 412 244 Q 412 250 408 248 L 388 232 Z", fill: dark }),
+        E(412, 198, 6, 46, "oklch(0.42 0.09 255)"), E(413, 180, 2.5, 13, "#fffdf6", { opacity: 0.55 }),
+        E(366, 252, 30, 15, skinS), E(366, 249, 29, 13, skin))),
       screen));
   }
-  heroTrackRef = React.createRef(); gameLayerRef = React.createRef(); meWrapRef = React.createRef();
+  heroTrackRef = React.createRef(); gameLayerRef = React.createRef(); meWrapRef = React.createRef(); meLcdRef = React.createRef();
   _initHeroScroll() {
     const onScroll = () => {
       const tr = this.heroTrackRef.current, mesh = this.meshWrapRef.current; if (!tr) return;
       const r = tr.getBoundingClientRect();
-      const p = Math.min(1, Math.max(0, (78 - r.top) / (window.innerHeight * 0.7)));
+      if (this._playP > 0 && r.bottom < window.innerHeight * 0.45 && !this._playTw) this._playP = 0;
+      const p = this._playP || 0;
       this._heroP = p; this._heroVisible = r.bottom > 78; if ((p >= 0.25) !== !!this.state.gInView) this.setState({ gInView: p >= 0.25 });
       const cards = mesh && mesh.parentElement && mesh.parentElement.querySelector(".landing-two-col");
       const e = p * p * (3 - 2 * p), fade = String(Math.max(0, 1 - p * 1.6));
@@ -770,6 +803,11 @@ class Component extends DCLogic {
       else if (p === 0 && this.state.gameOn) { cancelAnimationFrame(this._gRaf); this.setState({ gameOn: false, gEnded: null, gLcd: null }); }
     };
     this._heroScroll = onScroll;
+    this._startPlay = () => {
+      if (this._playTw) return; const t0 = performance.now(), from = this._playP || 0;
+      const step = (now) => { const k = Math.min(1, (now - t0) / 900); this._playP = from + (1 - from) * k; onScroll(); this._playTw = k < 1 ? requestAnimationFrame(step) : null; };
+      this._playTw = requestAnimationFrame(step);
+    };
     window.addEventListener("scroll", onScroll, { passive: true }); window.addEventListener("resize", onScroll);
     onScroll();
   }
@@ -803,31 +841,42 @@ class Component extends DCLogic {
   }
   startGame() {
     cancelAnimationFrame(this._gRaf);
-    this._mob = this._isMobileGame(); this.setState({ gameOn: true, gLives: 3, gHits: 0, gPose: 0, gShots: [], gEnded: null, gLcd: null, gRules: false }); this._gUsed = [];
+    this._mob = this._isMobileGame(); this.setState({ gameOn: true, gLives: 3, gHits: 0, gPose: 0, gShots: [], gEnded: null, gLcd: null, gRules: false, gCeleb: null }); this._gUsed = []; clearTimeout(this._celebT);
     if (!this._tipDone) { this._tipDone = true; this._gClicked = false; [[2000, true], [5000, false], [10000, true], [13000, false]].forEach(([ms, v]) => setTimeout(() => this.setState({ gTip: v && !this._gClicked }), ms)); }
     this._gSeq = [0].concat([1, 2, 3, 7, 8, 9].sort(() => Math.random() - 0.5).slice(0, 3), [4]);
-    this._gB = { d: 0.35, t: 0, seg: null, facing: "front", vel: 0, lastDir: -1, walking: true }; this._gLast = performance.now(); this._gCool = performance.now() + 400;
+    this._gB = { d: this._mob ? 0.85 : 0.35, t: 0, seg: null, facing: "front", vel: 0, lastDir: -1, walking: true }; this._gLast = performance.now(); this._gCool = performance.now() + 400;
     const loop = (now) => {
       if (!this.state.gameOn) return;
       const dt = Math.min(0.05, (now - this._gLast) / 1000); this._gLast = now; const t = now / 1000;
       if (this._heroVisible === false || this.state.gRules) { this._gRaf = requestAnimationFrame(loop); return; }
       if (this.meWrapRef.current) { const mw = this.meWrapRef.current, tx = this._mouseHX == null ? 0 : this._mouseHX, ty = this._mouseHY == null ? 0 : this._mouseHY; this._meX = (this._meX || 0) + (tx - (this._meX || 0)) * 0.06; this._meY = (this._meY || 0) + (ty - (this._meY || 0)) * 0.06; mw.style.transform = "translate(" + (this._meX * 7).toFixed(2) + "vw," + (this._meY * 4).toFixed(2) + "vh) rotate(" + (this._meY * 6 + this._meX * 2).toFixed(2) + "deg)"; }
+      const lg = this.meLcdRef.current, host = this.gameLayerRef.current;
+      if (lg && host && lg.getScreenCTM) {
+        const m = lg.getScreenCTM(), hr = host.getBoundingClientRect(), sc = Math.hypot(m.a, m.b) || 1;
+        const px = (x, y) => ({ x: m.a * x + m.c * y + m.e, y: m.b * x + m.d * y + m.f });
+        const pts = [px(60, -32), px(250, -32), px(60, 136), px(250, 136)];
+        const l = Math.min(...pts.map(p => p.x)), r = Math.max(...pts.map(p => p.x)), tp = Math.min(...pts.map(p => p.y));
+        const mL = hr.left + 14, mR = hr.right - 14, mT = hr.top + 76;
+        const nx = l < mL ? mL - l : r > mR ? mR - r : 0, ny = tp < mT ? mT - tp : 0;
+        if (nx || ny) { this._lcdFixX = (this._lcdFixX || 0) + nx / sc; this._lcdFixY = (this._lcdFixY || 0) + ny / sc; lg.setAttribute("transform", "translate(" + this._lcdFixX.toFixed(1) + " " + this._lcdFixY.toFixed(1) + ")"); }
+      } else if (!lg) { this._lcdFixX = 0; this._lcdFixY = 0; }
       const B = this._gB;
       if (!B.seg || B.t >= B.seg.dur) { B.seg = this.gameNextSeg(B); B.t = 0; }
       B.t += dt;
       const sg = B.seg;
-      if (sg.type === "walk") { const k = Math.min(1, B.t / sg.dur), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; B.d = sg.from + (sg.to - sg.from) * e; B.vel = Math.sign(sg.to - sg.from); B.lastDir = B.vel; B.facing = B.vel < 0 ? "front" : "back"; B.walking = true; }
+      const f = this._mob ? 0.5 : Math.min(1, Math.max(0, ((this._irisNow == null ? 1 : this._irisNow) - 0.75) / 1.7));
+      if (sg.type === "walk") { const k = Math.min(1, B.t / sg.dur), e = k < 0.5 ? 2 * k * k : 1 - Math.pow(-2 * k + 2, 2) / 2; B.d = sg.from + (sg.to - sg.from) * e; B.vel = Math.sign(sg.to - sg.from); B.lastDir = B.vel; B.facing = sg.facing || (B.vel < 0 ? "front" : "back"); B.walking = true; }
+      else if (sg.track) { const gap = f - B.d, ag = Math.abs(gap); B.d += Math.sign(gap) * Math.min(ag, dt * 0.35 + ag * dt * 2.4); B.vel = ag > 0.025 ? Math.sign(gap) : 0; if (B.vel) B.lastDir = B.vel; B.facing = "front"; B.walking = ag > 0.025; }
       else { B.vel = 0; B.facing = sg.facing; B.walking = false; }
       const pz = this.state.gHits || 0, wob = pz === 3 ? 0.03 * Math.sin(t * 4.2) : pz === 4 ? 0.045 * Math.sin(t * 5.5) : 0;
       const d = Math.min(1, Math.max(0, B.d + wob)), vel = B.vel || B.lastDir * 0.001;
-      const f = this._mob ? 0.5 : Math.min(1, Math.max(0, ((this._irisNow == null ? 1 : this._irisNow) - 0.4) / 2.15));
       const diff = Math.abs(d - f), blur = Math.min(14, Math.max(0, (diff - 0.02) * 42));
       this._gm = { d, f, diff, vel, blur };
       const el = this.girlWrapRef.current;
       if (el) {
         const host = el.parentElement, hw = host.clientWidth, hh = host.clientHeight, ap = this.apertureSvgRef.current;
-        let irisR = hw * 0.5;
-        if (ap) { const ar = ap.getBoundingClientRect(), hr = host.getBoundingClientRect(); irisR = (ar.left + ar.right) / 2 - hr.left + (ap.clientWidth || ar.width) / 2; }
+        let irisR = hw * 0.5, irisC = hw * 0.5, apW = hw * 0.6;
+        if (ap) { const ar = ap.getBoundingClientRect(), hr = host.getBoundingClientRect(); apW = ap.clientWidth || ar.width; irisC = (ar.left + ar.right) / 2 - hr.left; irisR = irisC + apW / 2; }
         const room = Math.max(60, hw - irisR - 24);
         let hPx = hh * 0.62 * (1 - 0.6 * d);
         if (hPx / 2 > room) hPx = room * 2;
@@ -835,6 +884,9 @@ class Component extends DCLogic {
         if (hw < 700 || (window.matchMedia && window.matchMedia("(pointer: coarse)").matches && hw < 1024)) {
           const mh = Math.min(hh * 0.42, hw * 0.62) * (1 - 0.3 * d);
           el.style.left = (hw / 2) + "px"; el.style.bottom = (hh / 2 - mh / 2 + hh * 0.04 * d) + "px"; el.style.height = mh + "px";
+        } else if (room < hh * 0.62 * 0.5 * 0.8) {
+          const ch = Math.min(hh * 0.62, apW * 1.1) * (1 - 0.5 * d);
+          el.style.left = irisC + "px"; el.style.bottom = (hh / 2 - ch / 2 + hh * 0.05 * d) + "px"; el.style.height = ch + "px";
         } else { el.style.left = cx + "px"; el.style.bottom = (4 + 30 * d) + "%"; el.style.height = hPx + "px"; }
         el.style.filter = "blur(" + blur.toFixed(2) + "px)";
       }
@@ -846,12 +898,21 @@ class Component extends DCLogic {
     this._gRaf = requestAnimationFrame(loop);
   }
   gameNextSeg(B) {
-    const prev = B.seg, r = Math.random(), mul = [1, 1, 1.1, 1.45, 1.7][Math.min(4, this.state.gHits || 0)];
-    if (prev && prev.type === "walk" && r < 0.6) return { type: "pause", dur: (0.9 + Math.random() * 1.8) / mul, facing: Math.random() < 0.6 ? "front" : "back" };
-    if (prev && prev.type === "pause" && r < 0.35) return { type: "pause", dur: (0.7 + Math.random() * 1.4) / mul, facing: prev.facing === "front" ? "back" : "front" };
-    if (this._mob && Math.random() < 0.8) { const to = B.d < 0.5 ? 0.62 + Math.random() * 0.34 : 0.04 + Math.random() * 0.34; return { type: "walk", from: B.d, to, dur: Math.max(1.2 / mul, Math.abs(to - B.d) * (5 + Math.random() * 3) / mul) }; }
-    let to, n = 0; do { to = 0.04 + Math.random() * 0.92; n++; } while (Math.abs(to - B.d) < 0.18 && n < 20);
-    return { type: "walk", from: B.d, to, dur: Math.max(1.2 / mul, Math.abs(to - B.d) * (5 + Math.random() * 3) / mul) };
+    const prev = B.seg, r = Math.random(), hits = this.state.gHits || 0, mob = this._mob;
+    const mul = (mob ? [1, 1.45, 1.8, 2.2, 2.6] : [1, 1.15, 1.35, 1.65, 1.95])[Math.min(4, hits)];
+    if (hits === 0) {
+      if (mob) return prev ? { type: "pause", dur: 60, facing: "front" } : { type: "walk", from: B.d, to: 0.5, dur: 0.75, facing: "front" };
+      if (!prev || prev.type === "walk") return { type: "pause", dur: 2.4 + Math.random() * 1.6, facing: "front", track: true };
+      const to = Math.min(0.88, Math.max(0.08, B.d + (Math.random() < 0.5 ? -1 : 1) * (0.1 + Math.random() * 0.1)));
+      return { type: "walk", from: B.d, to, dur: 1.1, facing: "front" };
+    }
+    const wf = (to) => to < B.d ? "front" : (Math.random() < 0.75 ? "back" : "front");
+    if (prev && prev.type === "walk" && r < 0.35) return { type: "pause", dur: (0.9 + Math.random() * 1.8) / mul, facing: Math.random() < 0.7 ? "front" : "back" };
+    if (prev && prev.type === "pause" && r < 0.2) return { type: "pause", dur: (0.7 + Math.random() * 1.4) / mul, facing: prev.facing === "front" ? (Math.random() < 0.75 ? "back" : "front") : "front" };
+    const pace = mob ? 3.6 + Math.random() * 2 : 5 + Math.random() * 3;
+    if (mob && Math.random() < 0.8) { const to = B.d < 0.5 ? 0.62 + Math.random() * 0.3 : 0.06 + Math.random() * 0.32; return { type: "walk", from: B.d, to, dur: Math.max(0.9 / mul, Math.abs(to - B.d) * pace / mul), facing: wf(to) }; }
+    let to, n = 0; do { to = 0.06 + Math.random() * 0.86; n++; } while (Math.abs(to - B.d) < 0.18 && n < 20);
+    return { type: "walk", from: B.d, to, dur: Math.max(1.2 / mul, Math.abs(to - B.d) * pace / mul), facing: wf(to) };
   }
   shoot() {
     const now = performance.now();
@@ -865,9 +926,12 @@ class Component extends DCLogic {
       const livesB = this.state.gLives - 1;
       this.setState({ gLives: livesB, gShots: this.state.gShots.concat([{ pose, back: true, gag: "back", blur: Math.min(4, g.blur * 0.4) }]), gLcd: { ok: false, text: "TURNED AWAY", pose, back: true, blur: Math.min(8, g.blur * 0.6), key: Math.round(now) } });
       if (livesB <= 0) setTimeout(() => this.setState({ gEnded: "lose" }), 1300);
-    } else if (g.diff < (this._mob ? [0.085, 0.075, 0.065, 0.055, 0.045] : [0.055, 0.055, 0.05, 0.042, 0.038])[Math.min(4, this.state.gHits || 0)]) {
+    } else if (g.diff < (this._mob ? [0.2, 0.085, 0.072, 0.06, 0.05] : [0.07, 0.055, 0.05, 0.042, 0.038])[Math.min(4, this.state.gHits || 0)]) {
       const hits = this.state.gHits + 1;
-      this.setState({ gHits: hits, gShots: this.state.gShots.concat([{ pose, ok: true, blur: 0 }]), gPose: this._gSeq[Math.min(4, hits)], gLcd: { ok: true, text: "NICE SHOT!", pose, blur: 0, key: Math.round(now) } });
+      this._gCool = now + 1300;
+      if (this._gB) { this._gB.seg = { type: "pause", dur: 1.3, facing: "front" }; this._gB.t = 0; }
+      clearTimeout(this._celebT); this._celebT = setTimeout(() => this.setState({ gCeleb: null, gPose: this._gSeq[Math.min(4, hits)] }), 1250);
+      this.setState({ gHits: hits, gCeleb: Math.round(now), gShots: this.state.gShots.concat([{ pose, ok: true, blur: 0 }]), gLcd: { ok: true, text: "NICE SHOT!", pose, blur: 0, key: Math.round(now) } });
       if (hits >= 5) setTimeout(() => this.setState({ gEnded: "win" }), 1300);
     } else {
       const early = Math.sign(g.f - g.d) === Math.sign(g.vel);
@@ -1395,33 +1459,25 @@ class Component extends DCLogic {
   }
   ch04Ref = React.createRef();
   onProdWheel = (e) => {
-    const el = this.prodRef.current; if (!el || e.ctrlKey) return;
-    const r = el.getBoundingClientRect(), vh = window.innerHeight, now = performance.now();
-    if (this._wheelEscape && now - this._wheelLast < 240) { this._wheelLast = now; return; }
-    this._wheelEscape = false;
-    if (r.top > 2 || r.bottom < vh - 2) return;
-    const dy = e.deltaY * (e.deltaMode === 1 ? 16 : e.deltaMode === 2 ? vh : 1); if (!dy) return;
-    const H = Math.max(1, el.offsetHeight - vh), top = window.scrollY + r.top, dir = Math.sign(dy);
-    const active = this._wheelLock && now - this._wheelLast < 240;
-    if (active) {
-      this._wheelLast = now;
-      if (dir === this._wheelDir) this._wheelSum += Math.abs(dy); else { this._wheelDir = dir; this._wheelSum = Math.abs(dy); this._wheelStart = now; }
-      if (dir < 0 && now - this._wheelStart < 320 && this._wheelSum > 1100) {
-        this._wheelLock = false; this._wheelEscape = true;
-        window.scrollTo({ top: Math.round(top - 4), behavior: "instant" });
-        return;
-      }
-      if (now - this._wheelStep < 520) { e.preventDefault(); return; }
-    }
-    const pp = Math.max(0, Math.min(1, -r.top / H)), NP = this.PROD_PHOTOS.length;
-    const snaps = Array.from({ length: NP }, (_, k) => (k + 0.8) / NP);
-    const from = this._wheelTarget != null && active ? this._wheelTarget : pp;
-    const target = dir > 0 ? snaps.find(v => v > from + 0.004) : snaps.slice().reverse().find(v => v < from - 0.004);
-    if (target == null) { this._wheelLock = false; this._wheelTarget = null; return; }
+    const el = this.prodRef.current; if (!el || e.ctrlKey || this._heroReduce) return;
+    const r = el.getBoundingClientRect(), vh = window.innerHeight, NP = this.PROD_PHOTOS.length;
+    if (Math.abs(r.top) > 6) return;
+    if (e.deltaY <= 0 || (this.state.prodIdx || 0) >= NP - 1) return;
     e.preventDefault();
-    if (!active) { this._wheelStart = now; this._wheelDir = dir; this._wheelSum = Math.abs(dy); }
-    this._wheelLock = true; this._wheelLast = now; this._wheelStep = now; this._wheelTarget = target;
-    window.scrollTo({ top: Math.round(top + target * H), behavior: "smooth" });
+    const now = performance.now(), gap = now - (this._prodWheelAt || 0); this._prodWheelAt = now;
+    if (now - (this._prodStep || 0) < 1000 || (gap < 220 && now - (this._prodStep || 0) < 1600)) return;
+    this._prodStep = now; this._prodLast = now;
+    this.setState(s => ({ prodFast: true, prodIdx: Math.min(NP - 1, (s.prodIdx || 0) + 1) }));
+  };
+  prodTick = () => {
+    const el = this.prodRef.current; if (!el) return;
+    const r = el.getBoundingClientRect(), vh = window.innerHeight, NP = this.PROD_PHOTOS.length, now = performance.now();
+    if (r.top >= vh) { this._prodLast = now; if (this.state.prodIdx) this.setState({ prodIdx: 0 }); return; }
+    if (r.bottom <= 0) { this._prodLast = now; return; }
+    const idx = this.state.prodIdx || 0;
+    if (now - (this._prodLast || now) < (idx === NP - 1 ? 9000 : 6500)) return;
+    this._prodLast = now;
+    this.setState({ prodFast: false, prodIdx: (idx + 1) % NP });
   };
   onPmScroll = () => {
     if (this._pmRaf) return;
@@ -1433,13 +1489,6 @@ class Component extends DCLogic {
       const p = (vh * 0.7 - r.top) / Math.max(1, r.height * 0.55);
       const count = Math.max(0, Math.min(this.PM_ITEMS.length, Math.floor(p * this.PM_ITEMS.length) + 1));
       if (count !== this.state.pmCount) this.setState({ pmCount: count });
-      const pe = this.prodRef.current;
-      if (pe) {
-        const pr = pe.getBoundingClientRect();
-        const pp = Math.max(0, Math.min(1, -pr.top / Math.max(1, pr.height - vh)));
-        const q = Math.round(pp * 200) / 200;
-        if (q !== this.state.prodP) this.setState({ prodP: q });
-      }
     });
   };
   buildSlateAnim() {
@@ -1478,7 +1527,8 @@ class Component extends DCLogic {
     { src: "uploads/IMG_8301.JPG", pos: "center 45%", caption: "Star Trek: Strange New Worlds - Paramount+" },
     { src: "uploads/IMG_0598.JPG", pos: "center 50%", caption: "Ride The Tide - Music Video" },
     { src: "uploads/IMG_2996.jpg", pos: "center 40%", caption: "Fan Expo Canada - Media Team" },
-    { src: "uploads/F38B67EA-8D53-4651-8B3E-64BF9F74134CIMG_6420.jpg", pos: "center 35%", caption: "Something Very Bad Is Going To Happen - Netflix" }
+    { src: "uploads/F38B67EA-8D53-4651-8B3E-64BF9F74134CIMG_6420.jpg", pos: "center 35%", caption: "Something Very Bad Is Going To Happen - Netflix" },
+    { src: "uploads/IMG_6113.JPG", pos: "center 30%", caption: "Star Trek: Strange New Worlds S4 - Paramount+", lead: true }
   ];
   buildPostAnim() {
     const h = React.createElement, reduce = this._heroReduce, LOOP = 4;
@@ -1737,8 +1787,25 @@ void main(){
   };
   HERO_WORDS = ["Film", "Commercial", "PSA", "Music Video"];
   ch01Ref = React.createRef();
+  comesRef = React.createRef();
+  syncHeroTimer = () => {
+    const run = this._heroVis || this.state.stripOn;
+    if (run && !this._heroTimer && this._heroTick) this._heroTimer = setInterval(this._heroTick, 2600);
+    else if (!run && this._heroTimer) { clearInterval(this._heroTimer); this._heroTimer = null; this.setState({ heroIndex: 0, heroPrev: 0 }); }
+  };
+  onStripScroll = () => {
+    const hd = document.querySelector(".site-header");
+    const top = hd ? Math.max(0, Math.round(hd.getBoundingClientRect().bottom)) : 0;
+    const c = this.comesRef.current, e = this.ch06Ref && this.ch06Ref.current;
+    const on = !!(c && e && c.getBoundingClientRect().bottom < top + 4 && e.getBoundingClientRect().bottom > top + 80);
+    if (on !== this.state.stripOn || top !== this.state.stripTop) this.setState({ stripOn: on, stripTop: top }, this.syncHeroTimer);
+  };
   componentDidMount() {
+    window.addEventListener("scroll", this.onStripScroll, { passive: true }); this.onStripScroll();
     this._initHeroScroll();
+    const peekClear = () => { const tr = this.heroTrackRef.current, cards = tr && tr.querySelector(".landing-two-col"); if (!tr || !cards) return true; const hb = tr.getBoundingClientRect(), cb = cards.getBoundingClientRect(); return cb.bottom < hb.bottom - 112 || cb.height === 0; };
+    const peek = () => { if (!this.state.gameOn && this._heroVisible !== false && !document.hidden && peekClear()) { this.setState({ peekKey: Date.now() }); clearTimeout(this._peekEnd); this._peekEnd = setTimeout(() => this.setState({ peekKey: null }), 4600); } };
+    clearTimeout(this._peekT1); clearInterval(this._peekIv); this._peekT1 = setTimeout(peek, 1600); this._peekIv = setInterval(peek, 24000);
     if (this.ch01Ref.current && window.IntersectionObserver) {
       this._chObserver = new IntersectionObserver((entries) => {
         entries.forEach(en => { if (en.isIntersecting) { this.setState({ ch01In: true }); if (this._bookWrap) this._bookWrap.setAttribute('data-in', '1'); this._chObserver.disconnect(); } });
@@ -1766,9 +1833,16 @@ void main(){
       if (this.ch06Ref.current) this._ch6Observer.observe(this.ch06Ref.current);
     } else { this.setState({ ch01In: true, ch02In: true, ch03In: true, ch04In: true, ch05In: true, ch06In: true, fundValue: 75000 }); }
     if (this._heroReduce) this.setState({ pmCount: this.PM_ITEMS.length, prodP: 1 });
-    else { window.addEventListener("scroll", this.onPmScroll, { passive: true }); this.onPmScroll(); window.addEventListener("wheel", this.onProdWheel, { passive: false }); }
+    else { window.addEventListener("scroll", this.onPmScroll, { passive: true }); this.onPmScroll(); window.addEventListener("wheel", this.onProdWheel, { passive: false }); this._prodLast = performance.now(); this._prodTimer = setInterval(this.prodTick, 250); }
     this._heroReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    this._heroTimer = setInterval(() => this.setState(s => ({ heroIndex: ((s.heroIndex || 0) + 1) % this.HERO_WORDS.length, heroPrev: s.heroIndex || 0 })), 2600);
+    const heroTick = () => this.setState(s => ({ heroIndex: ((s.heroIndex || 0) + 1) % this.HERO_WORDS.length, heroPrev: s.heroIndex || 0 }));
+    this._heroTimer = setInterval(heroTick, 2600);
+    if (this.heroMidRef.current && window.IntersectionObserver) {
+      this._heroWordObs = new IntersectionObserver((en) => {
+        this._heroVis = en.some(x => x.isIntersecting); this._heroTick = heroTick; this.syncHeroTimer();
+      }, { threshold: 0, rootMargin: "60px 0px" });
+      this._heroWordObs.observe(this.heroMidRef.current);
+    }
     (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(() => requestAnimationFrame(this.measureHeroWords));
     window.addEventListener("resize", this.measureHeroWords);
     this.startAurora();
@@ -1793,6 +1867,9 @@ void main(){
     });
   }
   componentWillUnmount() {
+    window.removeEventListener("scroll", this.onStripScroll);
+    this._heroWordObs && this._heroWordObs.disconnect();
+    clearTimeout(this._peekT1); clearInterval(this._peekIv); clearTimeout(this._peekEnd);
     if (this._heroScroll) { window.removeEventListener("scroll", this._heroScroll); window.removeEventListener("resize", this._heroScroll); }
     window.removeEventListener("resize", this.measureHeroWords);
     cancelAnimationFrame(this._wavesFrame);
@@ -1806,7 +1883,7 @@ void main(){
     if (this._ch4Observer) this._ch4Observer.disconnect();
     if (this._ch5Observer) this._ch5Observer.disconnect();
     if (this._ch6Observer) this._ch6Observer.disconnect();
-    window.removeEventListener("scroll", this.onPmScroll); window.removeEventListener("wheel", this.onProdWheel);
+    window.removeEventListener("scroll", this.onPmScroll); window.removeEventListener("wheel", this.onProdWheel); clearInterval(this._prodTimer);
     cancelAnimationFrame(this._pmRaf);
     cancelAnimationFrame(this._fundFrame);
     clearTimeout(this.apertureTimer);
@@ -1831,7 +1908,7 @@ void main(){
     const OSC_MIN = 1.0, OSC_MAX = 2.30, OSC_PERIOD = 16000, oscStart = performance.now();
     const SENS = 0.55;
     const K_OPEN = 8.7 * SENS, K_ROT = 40 * SENS, FREEZE_MS = 275;
-    let prevNX, prevNY;
+    let prevNX, prevNY, prevHX;
     const tick = () => {
       const now = performance.now();
       if (this._apertureHover) {
@@ -1851,13 +1928,13 @@ void main(){
               let da = Math.atan2(-cy, cx) - Math.atan2(-prevNY, prevNX);
               if (da > Math.PI) da -= Math.PI * 2; else if (da < -Math.PI) da += Math.PI * 2;
               delta = da / (Math.PI * 2) * 2.15;
-            } else delta = (dx + dy) * 1.075;
-            this._irisTarget = Math.min(2.55, Math.max(0.4, this._irisTarget + delta));
+            } else delta = (this._focusHX != null && prevHX != null) ? (this._focusHX - prevHX) * 3.2 : dx * 1.075;
+            this._irisTarget = Math.min(2.65, Math.max(0.3, this._irisTarget + delta));
           }
         }
-        prevNX = this._apertureCurNX; prevNY = this._apertureCurNY;
+        prevNX = this._apertureCurNX; prevNY = this._apertureCurNY; prevHX = this._focusHX;
       } else {
-        prevNX = undefined; prevNY = undefined; this._apertureSpeedSm = 0;
+        prevNX = undefined; prevNY = undefined; prevHX = undefined; this._apertureSpeedSm = 0;
       }
       const recentMove = this._apertureHover && this._apertureLastMove && (now - this._apertureLastMove <= FREEZE_MS);
       const frozen = this._apertureHover && !recentMove;
@@ -2072,8 +2149,9 @@ void main(){
     const pmCount = this.state.pmCount || 0;
     const c5 = !!this.state.ch05In, rv5 = (d) => ({ opacity: c5 ? 1 : 0, transform: c5 ? "translateY(0)" : "translateY(22px)", transition: `opacity 0.7s ease ${d}s, transform 0.9s ${ease} ${d}s` });
     const pp = this.state.prodP || 0;
+    const pIdx = this.state.prodIdx || 0, pPhase2 = pIdx >= Math.ceil(this.PROD_PHOTOS.length / 2);
     const open = Math.min(1, pp / 0.55), oe = 1 - Math.pow(1 - open, 3);
-    const PHOTOS = this.PROD_PHOTOS.map((p, k) => Object.assign({ n: k + 1 }, p)).sort((a, b) => ((this.pv("teamPhoto" + a.n + "Order") ?? a.n) - (this.pv("teamPhoto" + b.n + "Order") ?? b.n)) || a.n - b.n), NP = PHOTOS.length, t0 = Math.max(0, Math.min(1, pp * NP));
+    const PHOTOS = this.PROD_PHOTOS.map((p, k) => Object.assign({ n: k + 1 }, p)).sort((a, b) => (b.lead ? 1 : 0) - (a.lead ? 1 : 0) || ((this.pv("teamPhoto" + a.n + "Order") ?? a.n) - (this.pv("teamPhoto" + b.n + "Order") ?? b.n)) || a.n - b.n), NP = PHOTOS.length, t0 = Math.max(0, Math.min(1, pp * NP));
     const cl = (v) => Math.max(0, Math.min(1, v)), sw = cl((pp - 0.44) / 0.06), l3 = cl((pp - 0.5) / 0.06), l4 = cl((pp - 0.53) / 0.06);
     const l1 = cl((t0 - 0.2) / 0.3) * (1 - sw), l2 = cl((t0 - 0.45) / 0.3) * (1 - sw);
     const e3 = (t) => 1 - Math.pow(1 - t, 3);
@@ -2100,13 +2178,20 @@ void main(){
       heroMidRef: this.heroMidRef,
       glassRef: this.glassRef,
       wavesRef: this.wavesRef,
-      heroMidStyle: Object.assign({ display: "grid", justifyContent: "center", perspective: "900px", color: "#f4f2ec", background: "oklch(0.5 0.17 262)", padding: "0.1em 0.22em 0.02em", borderRadius: "0.06em", boxSizing: "content-box", transition: "width 0.42s cubic-bezier(0.34,1.35,0.64,1) 0.04s" },
+      heroMidStyle: Object.assign({ display: "grid", justifyContent: "center", perspective: "900px", color: "oklch(0.5 0.17 262)", background: "#f4f2ec", padding: "0.1em 0.22em 0.02em", borderRadius: "0.06em", boxSizing: "content-box", transition: "width 0.42s cubic-bezier(0.34,1.35,0.64,1) 0.04s" },
         this.state.heroWidths ? { width: Math.ceil(this.state.heroWidths[this.state.heroIndex || 0]) + "px" } : {}),
       showHomeButtons: false,
       gameScene: this.state.gameOn ? h0(React.Fragment, null,
-        h0("style", null, ".jg-legL,.jg-legR{transform-box:fill-box;transform-origin:50% 0;animation:jgLeg .5s ease-in-out infinite alternate}.jg-legR{animation-direction:alternate-reverse}@keyframes jgLeg{0%{transform:rotate(-9deg)}100%{transform:rotate(9deg)}}.jg-armA,.jg-armB{transform-box:fill-box;transform-origin:50% 0;animation:jgArm .5s ease-in-out infinite alternate}.jg-armB{animation-direction:alternate-reverse}@keyframes jgArm{0%{transform:rotate(8deg)}100%{transform:rotate(-8deg)}}[data-walk='0'] .jg-legL,[data-walk='0'] .jg-legR,[data-walk='0'] .jg-armA,[data-walk='0'] .jg-armB,[data-walk='0'] .jg-bob{animation:none}.jg-armBkA,.jg-armBkB{animation:jgArmBk .5s ease-in-out infinite alternate}.jg-armBkB{animation-direction:alternate-reverse}@keyframes jgArmBk{0%{transform:translateY(-3px)}100%{transform:translateY(3px)}}[data-walk='0'] .jg-armBkA,[data-walk='0'] .jg-armBkB{animation:none}.jg-bob{animation:jgBob .25s ease-in-out infinite alternate}@keyframes jgBob{0%{transform:translateY(0)}100%{transform:translateY(-3px)}}.jg-jump{animation:jgJump .9s cubic-bezier(.3,0,.4,1) infinite}@keyframes jgJump{0%,100%{transform:translateY(0)}45%{transform:translateY(-34px)}}.jg-twirl{transform-box:fill-box;transform-origin:50% 100%;animation:jgTwirl .8s ease-in-out infinite alternate}@keyframes jgTwirl{0%{transform:rotate(-6deg) scaleX(1)}50%{transform:rotate(0) scaleX(.92)}100%{transform:rotate(6deg) scaleX(1)}}.jg-beat{transform-box:fill-box;transform-origin:center;animation:jgBeat .8s ease-in-out infinite}@keyframes jgBeat{0%,100%{transform:scale(1)}30%{transform:scale(1.18)}50%{transform:scale(.95)}}.jg-happy{animation:jgHappy .6s cubic-bezier(.3,0,.4,1) infinite}@keyframes jgHappy{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px)}}.jg-mad{transform-box:fill-box;transform-origin:50% 100%;animation:jgMad 1.4s ease-in-out infinite}@keyframes jgMad{0%,60%,100%{transform:rotate(0)}68%{transform:rotate(-3deg)}76%{transform:rotate(3deg)}84%{transform:rotate(-2deg)}92%{transform:rotate(1deg)}}.jg-spark{transform-box:fill-box;transform-origin:center;animation:jgSpark .9s ease-in-out infinite alternate}@keyframes jgSpark{0%{transform:scale(.3);opacity:.4}100%{transform:scale(1.1);opacity:1}}.jg-point{transform-box:fill-box;transform-origin:0% 0%;animation:jgPoint 1.1s ease-in-out infinite}@keyframes jgPoint{0%,55%,100%{transform:scale(1)}70%{transform:scale(1.18) translate(-2px,2px)}}.jg-wink{transform-box:fill-box;transform-origin:center;animation:jgWink 1.1s ease-in-out infinite}@keyframes jgWink{0%,55%,100%{transform:scaleY(1)}70%{transform:scaleY(1.4)}}.jg-heart{animation:jgHeart 1.6s ease-out infinite}@keyframes jgHeart{0%{opacity:0;transform:translate(0,0) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(14px,-40px) scale(1.1)}}.jm-in{animation:jmIn .9s cubic-bezier(.3,1.4,.5,1) both}@keyframes jmIn{0%{transform:translateY(300px)}100%{transform:translateY(0)}}.jm-breathe{animation:jmBreathe 3.2s ease-in-out infinite alternate}@keyframes jmBreathe{0%{transform:translateY(0)}100%{transform:translateY(5px)}}.jm-focus{transform-box:fill-box;transform-origin:50% 50%;animation:jmFocus 2.6s ease-in-out infinite alternate}@keyframes jmFocus{0%{transform:translateY(-2px)}100%{transform:translateY(2px)}}.jm-heart{transform-box:fill-box;transform-origin:center;animation:jmHeart .5s ease-in-out infinite alternate}@keyframes jmHeart{0%{transform:scale(.9)}100%{transform:scale(1.15)}}.jm-flash{opacity:0;transform-box:fill-box;transform-origin:center;animation:jmFlash .45s ease-out both}@keyframes jmFlash{0%{opacity:1;transform:scale(.6)}25%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(1.6)}}.jm-react{transform-box:view-box;transform-origin:184px 274px;animation:jmReact .5s cubic-bezier(.3,1.6,.5,1) both}@keyframes jmReact{0%{transform:translateY(6px)}100%{transform:translateY(0)}}.jm-lcd{transform-box:fill-box;transform-origin:100% 100%;animation:jmLcd .35s cubic-bezier(.3,1.5,.5,1) both}@keyframes jmLcd{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}@keyframes jgIn{0%{opacity:0}100%{opacity:1}}"),
-        h0("div", { ref: this.girlWrapRef, style: { position: "absolute", left: "70%", bottom: "20%", height: "40vh", aspectRatio: "200 / 400", transform: "translateX(-50%)", willChange: "filter", animation: "jgIn .8s ease both" } },
-          h0("svg", { viewBox: "0 0 200 400", width: "100%", height: "100%", style: { display: "block", overflow: "visible" } }, this.gameGirl(this.state.gPose || 0, false))),
+        h0("style", null, ".jg-legL,.jg-legR{transform-box:fill-box;transform-origin:50% 0;animation:jgLeg .5s ease-in-out infinite alternate}.jg-legR{animation-direction:alternate-reverse}@keyframes jgLeg{0%{transform:rotate(-9deg)}100%{transform:rotate(9deg)}}.jg-armA,.jg-armB{transform-box:fill-box;transform-origin:50% 0;animation:jgArm .5s ease-in-out infinite alternate}.jg-armB{animation-direction:alternate-reverse}@keyframes jgArm{0%{transform:rotate(8deg)}100%{transform:rotate(-8deg)}}[data-walk='0'] .jg-legL,[data-walk='0'] .jg-legR,[data-walk='0'] .jg-armA,[data-walk='0'] .jg-armB,[data-walk='0'] .jg-bob{animation:none}.jg-armBkA,.jg-armBkB{animation:jgArmBk .5s ease-in-out infinite alternate}.jg-armBkB{animation-direction:alternate-reverse}@keyframes jgArmBk{0%{transform:translateY(-3px)}100%{transform:translateY(3px)}}[data-walk='0'] .jg-armBkA,[data-walk='0'] .jg-armBkB{animation:none}.jg-bob{animation:jgBob .25s ease-in-out infinite alternate}@keyframes jgBob{0%{transform:translateY(0)}100%{transform:translateY(-3px)}}.jg-jump{animation:jgJump .9s cubic-bezier(.3,0,.4,1) infinite}@keyframes jgJump{0%,100%{transform:translateY(0)}45%{transform:translateY(-34px)}}.jg-twirl{transform-box:fill-box;transform-origin:50% 100%;animation:jgTwirl .8s ease-in-out infinite alternate}@keyframes jgTwirl{0%{transform:rotate(-6deg) scaleX(1)}50%{transform:rotate(0) scaleX(.92)}100%{transform:rotate(6deg) scaleX(1)}}.jg-beat{transform-box:fill-box;transform-origin:center;animation:jgBeat .8s ease-in-out infinite}@keyframes jgBeat{0%,100%{transform:scale(1)}30%{transform:scale(1.18)}50%{transform:scale(.95)}}.jg-happy{animation:jgHappy .6s cubic-bezier(.3,0,.4,1) infinite}@keyframes jgHappy{0%,100%{transform:translateY(0)}45%{transform:translateY(-22px)}}.jg-mad{transform-box:fill-box;transform-origin:50% 100%;animation:jgMad 1.4s ease-in-out infinite}@keyframes jgMad{0%,60%,100%{transform:rotate(0)}68%{transform:rotate(-3deg)}76%{transform:rotate(3deg)}84%{transform:rotate(-2deg)}92%{transform:rotate(1deg)}}.jg-spark{transform-box:fill-box;transform-origin:center;animation:jgSpark .9s ease-in-out infinite alternate}@keyframes jgSpark{0%{transform:scale(.3);opacity:.4}100%{transform:scale(1.1);opacity:1}}.jg-point{transform-box:fill-box;transform-origin:0% 0%;animation:jgPoint 1.1s ease-in-out infinite}@keyframes jgPoint{0%,55%,100%{transform:scale(1)}70%{transform:scale(1.18) translate(-2px,2px)}}.jg-wink{transform-box:fill-box;transform-origin:center;animation:jgWink 1.1s ease-in-out infinite}@keyframes jgWink{0%,55%,100%{transform:scaleY(1)}70%{transform:scaleY(1.4)}}.jg-heart{animation:jgHeart 1.6s ease-out infinite}@keyframes jgHeart{0%{opacity:0;transform:translate(0,0) scale(.5)}20%{opacity:1}100%{opacity:0;transform:translate(14px,-40px) scale(1.1)}}.jm-in{animation:jmIn .9s cubic-bezier(.3,1.4,.5,1) both}@keyframes jmIn{0%{transform:translateY(300px)}100%{transform:translateY(0)}}.jm-breathe{animation:jmBreathe 3.2s ease-in-out infinite alternate}@keyframes jmBreathe{0%{transform:translateY(0)}100%{transform:translateY(5px)}}.jm-focus{transform-box:fill-box;transform-origin:50% 50%;animation:jmFocus 2.6s ease-in-out infinite alternate}@keyframes jmFocus{0%{transform:translateY(-2px)}100%{transform:translateY(2px)}}.jm-heart{transform-box:fill-box;transform-origin:center;animation:jmHeart .5s ease-in-out infinite alternate}@keyframes jmHeart{0%{transform:scale(.9)}100%{transform:scale(1.15)}}.jm-flash{opacity:0;transform-box:fill-box;transform-origin:center;animation:jmFlash .45s ease-out both}@keyframes jmFlash{0%{opacity:1;transform:scale(.6)}25%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(1.6)}}.jm-react{transform-box:view-box;transform-origin:184px 274px;animation:jmReact .5s cubic-bezier(.3,1.6,.5,1) both}@keyframes jmReact{0%{transform:translateY(6px)}100%{transform:translateY(0)}}.jm-lcd{transform-box:fill-box;transform-origin:100% 100%;animation:jmLcd .35s cubic-bezier(.3,1.5,.5,1) both}@keyframes jmLcd{0%{transform:scale(.2);opacity:0}100%{transform:scale(1);opacity:1}}@keyframes jgIn{0%{opacity:0}100%{opacity:1}}.jm-zoom{transform-box:fill-box;transform-origin:center;animation:jmZoom 2.6s ease-in-out infinite alternate}@keyframes jmZoom{0%{transform:rotate(-14deg)}100%{transform:rotate(14deg)}}.jm-rec{animation:jmRec 1.4s steps(1,end) infinite}@keyframes jmRec{0%{opacity:1}50%{opacity:.25}}@keyframes jgSdLose{0%{transform:translateY(0) rotate(0)}20%{transform:translateY(-3px) rotate(-8deg)}40%{transform:translateY(0) rotate(6deg)}60%{transform:rotate(-3deg)}100%{transform:rotate(0)}}@keyframes jgSdRed{0%{background:#f4f2ec}100%{background:oklch(0.6 0.22 25)}}@keyframes jgSlash{0%{transform:translate(-50%,-50%) rotate(-58deg) scaleX(0)}100%{transform:translate(-50%,-50%) rotate(-58deg) scaleX(1)}}@keyframes jgShotIn{0%{transform:scale(1.9);opacity:0}45%{transform:scale(.92);opacity:1}100%{transform:scale(1)}}@keyframes jgShotGlow{0%{box-shadow:0 0 0 0 oklch(0.74 0.19 145 / 0)}25%{box-shadow:0 0 18px 5px oklch(0.74 0.19 145 / 0.9)}100%{box-shadow:0 0 8px 1px oklch(0.74 0.19 145 / 0.55)}}@keyframes jgSdGlow{0%{filter:drop-shadow(0 0 0 oklch(0.6 0.22 25 / 0))}25%{filter:drop-shadow(0 0 9px oklch(0.62 0.24 25 / 1))}100%{filter:drop-shadow(0 0 4px oklch(0.6 0.22 25 / 0.6))}}@keyframes jgSdPulse{0%,100%{filter:drop-shadow(0 0 1px oklch(0.6 0.22 25 / 0.2))}50%{filter:drop-shadow(0 0 9px oklch(0.62 0.24 25 / 1))}}@keyframes jgSdTint{0%,100%{fill:oklch(0.8 0.15 80)}50%{fill:oklch(0.62 0.22 25)}}@keyframes jgShotFlash{0%{opacity:.95}100%{opacity:0}}.jg-hold{transform-origin:50% 100%;animation:jgHold 1.1s ease-in-out infinite alternate}@keyframes jgHold{0%{transform:translateY(0) rotate(-2.5deg)}100%{transform:translateY(-6px) rotate(2.5deg)}}.jg-cel{transform-origin:50% 100%;animation:jgCel .62s cubic-bezier(.3,0,.4,1) 2}@keyframes jgCel{0%,100%{transform:translateY(0) scale(1,1)}12%{transform:translateY(0) scale(1.06,.94)}45%{transform:translateY(-12%) scale(.97,1.04)}80%{transform:translateY(0) scale(1.04,.96)}}@keyframes jgStar{0%{opacity:0;transform:translate(-50%,-50%) scale(.2) rotate(0deg)}22%{opacity:1}70%{opacity:1}100%{opacity:0;transform:translate(calc(-50% + var(--sx)),calc(-50% + var(--sy))) scale(1) rotate(180deg)}}@keyframes jgGlow{0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}30%{opacity:.55}100%{opacity:0;transform:translate(-50%,-50%) scale(1.5)}}"),
+        h0("div", { ref: this.girlWrapRef, style: { position: "absolute", left: "70%", bottom: "20%", height: "40vh", aspectRatio: "200 / 400", transform: "translateX(-50%)", willChange: "filter", animation: "jgIn .4s ease both" } },
+          h0("svg", { key: this.state.gCeleb ? "gc" + this.state.gCeleb : "g", className: this.state.gCeleb ? "jg-cel" : (this._mob && !(this.state.gHits || 0) ? "jg-hold" : undefined), viewBox: "0 0 200 400", width: "100%", height: "100%", style: { display: "block", overflow: "visible" } }, this.gameGirl(this.state.gPose || 0, false)),
+          this.state.gCeleb ? h0("div", { key: "cel" + this.state.gCeleb, style: { position: "absolute", inset: 0, pointerEvents: "none" } },
+            h0("div", { style: { position: "absolute", left: "50%", top: "32%", width: "150%", aspectRatio: "1", borderRadius: "50%", background: "radial-gradient(circle, rgba(255,253,246,0.7) 0%, rgba(255,253,246,0) 65%)", animation: "jgGlow .9s ease-out both" } }),
+            [[-150, 13, 3.4, 0], [-105, 16, 2.4, 0.06], [-60, 14, 3, 0.02], [-20, 17, 2.2, 0.1], [20, 13, 2.8, 0.04], [65, 16, 2.4, 0.12], [-180, 11, 2, 0.14], [0, 10, 2, 0.18], [-125, 20, 1.8, 0.2], [-40, 21, 1.8, 0.22]].map(([a, dist, sz, dl], i) => {
+              const rad = a * Math.PI / 180;
+              return h0("svg", { key: i, viewBox: "0 0 20 20", style: { position: "absolute", left: "50%", top: "32%", width: sz + "vmin", height: sz + "vmin", "--sx": (Math.cos(rad) * dist).toFixed(1) + "vmin", "--sy": (Math.sin(rad) * dist).toFixed(1) + "vmin", animation: "jgStar 1.15s cubic-bezier(.2,.8,.3,1) " + dl + "s both", overflow: "visible" } },
+                h0("path", { d: "M10 0 L12.4 7.6 L20 10 L12.4 12.4 L10 20 L7.6 12.4 L0 10 L7.6 7.6 Z", fill: i % 2 ? "#fffdf6" : "oklch(0.8 0.15 80)" }));
+            })) : null),
         h0("div", { ref: this.meWrapRef, style: { position: "absolute", left: "-3vw", bottom: "-9vh", height: "min(68vh, 640px)", aspectRatio: "440 / 480", transformOrigin: "30% 100%", willChange: "transform" } },
           h0("svg", { viewBox: "0 -40 440 480", width: "100%", height: "100%", style: { display: "block", overflow: "visible" } }, this.gameMe(this.state.gLcd, this.state.gLcd ? (this.state.gLcd.ok ? "good" : "bad") : null)))) : null,
       gameHint: !this.state.gameOn,
@@ -2117,6 +2202,13 @@ void main(){
       rulesOpen: !!this.state.gRules && !!this.state.gameOn && !!this.state.gInView,
       toggleRules: (e) => { e.stopPropagation(); this.setState({ gRules: !this.state.gRules }); },
       endColor: this.state.gEnded === "win" ? "#2FB85A" : "#DE2828",
+      endLose: this.state.gEnded === "lose",
+      endSd: this.state.gEnded === "lose" ? h0("span", { style: { display: "block", width: "34px", height: "43px", animation: "jdEndSdBlink 1s steps(1, end) infinite" } },
+        h0("style", null, "@keyframes jdEndSdBlink{0%{opacity:1}50%{opacity:.25}}"),
+        h0("svg", { viewBox: "0 0 22 28", width: "34", height: "43", style: { display: "block", overflow: "visible" } },
+          h0("path", { d: "M 8 1.5 L 20.5 1.5 L 20.5 26.5 L 1.5 26.5 L 1.5 8 Z", fill: "oklch(0.6 0.22 25)", stroke: "#14130f", strokeWidth: 2.5, strokeLinejoin: "round" }),
+          h0("rect", { x: 5, y: 15, width: 12, height: 8, rx: 1.5, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1.5 }),
+          [9, 12.5, 16].map(x => h0("rect", { key: x, x, y: 4.5, width: 2, height: 5, rx: 0.8, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1 })))) : null,
       endTitle: this.state.gEnded === "win" ? "That's a wrap!" : "Memory full",
       endSub: this.state.gEnded === "win" ? "Five shots, all in focus." : "Your shot list was not complete. Time to plan a reshoot.",
       endShots: (this.state.gShots || []).slice(-12).map((sh, k) => ({
@@ -2124,9 +2216,41 @@ void main(){
         cap: sh.ok ? "NICE" : ({ thumb: "THUMB", tilt: "DUTCH ANGLE", crop: "HEADLESS", flare: "FLARE", back: "WRONG SIDE", blur: "OUT OF FOCUS", bug: "BUG ON LENS", sneeze: "SHE SNEEZED", photobomb: "PHOTOBOMB", blink: "MID-BLINK", pigeon: "PIGEON", cap: "LENS CAP", strap: "STRAP IN SHOT" })[sh.gag] || "MISS",
         capStyle: { fontFamily: "'IBM Plex Mono', ui-monospace, monospace", fontSize: "9px", letterSpacing: "0.08em", color: sh.ok ? "oklch(0.74 0.19 145)" : "oklch(0.68 0.2 25)" } })),
       endGirl: this.state.gEnded ? h0("svg", { viewBox: "20 30 160 370", width: "100%", height: "100%", style: { display: "block", overflow: "visible" } }, this.gameGirl(this.state.gEnded === "win" ? 6 : 5, "mood")) : null,
-      memBlocks: [0, 1, 2].map(k => ({ style: { display: "block", width: "14px", height: "9px", borderRadius: "2px", border: "1.5px solid #f4f2ec", background: k < (this.state.gLives || 0) ? "#f4f2ec" : "transparent" } })),
+      rulesMem: h0("span", { style: { display: "flex", gap: "8px", alignItems: "center", filter: "drop-shadow(0 3px 0 #14130f)" } }, [0, 1, 2].map(k => {
+        const lost = k === 2;
+        return h0("span", { key: k, style: { position: "relative", display: "block", width: "26px", height: "33px" } },
+          h0("svg", { viewBox: "0 0 22 28", width: "26", height: "33", style: { display: "block", overflow: "visible" } },
+            h0("path", { d: "M 8 1.5 L 20.5 1.5 L 20.5 26.5 L 1.5 26.5 L 1.5 8 Z", fill: lost ? "oklch(0.6 0.22 25)" : "oklch(0.8 0.15 80)", stroke: "#14130f", strokeWidth: 2.5, strokeLinejoin: "round" }),
+            h0("rect", { x: 5, y: 15, width: 12, height: 8, rx: 1.5, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1.5 }),
+            [9, 12.5, 16].map(x => h0("rect", { key: x, x, y: 4.5, width: 2, height: 5, rx: 0.8, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1 }))),
+          lost ? h0("span", { style: { position: "absolute", left: "50%", top: "50%", width: "40px", height: "6px", borderRadius: "3px", background: "#fffdf6", border: "2px solid #14130f", boxSizing: "border-box", transform: "translate(-50%, -50%) rotate(-45deg)" } }) : null);
+      })),
+      rulesShots: h0("span", { style: { display: "flex", gap: "6px", alignItems: "center", filter: "drop-shadow(0 3px 0 #14130f)" } }, [0, 1, 2, 3, 4].map(k => {
+        const sh = k < 2, next = k === 2;
+        return h0("span", { key: k, style: { display: "block", width: "26px", height: "33px", borderRadius: "6px", boxSizing: "border-box", border: sh || next ? "2.5px solid #14130f" : "2.5px dashed rgba(255,253,246,0.6)", outline: sh ? "2px solid oklch(0.74 0.19 145)" : "none", background: sh ? "#3d4a5a" : next ? "#ece8dc" : "transparent" } });
+      })),
+      hudMem: h0("span", { style: { display: "flex", gap: "6px", alignItems: "center" } }, [0, 1, 2].map(k => {
+        const lv = this.state.gLives == null ? 3 : this.state.gLives, lost = k >= lv, last = !lost && lv === 1, red = "oklch(0.6 0.22 25)";
+        return h0("span", { key: k + (lost ? "x" : "o"), style: { position: "relative", display: "block", width: "22px", height: "28px", animation: lost ? "jgSdLose .5s ease-out both, jgSdGlow 1.2s ease-out both" : last ? "jgSdPulse .9s ease-in-out infinite" : "none" } },
+          h0("svg", { viewBox: "0 0 22 28", width: "22", height: "28", style: { display: "block", overflow: "visible" } },
+            h0("path", { d: "M 8 1.5 L 20.5 1.5 L 20.5 26.5 L 1.5 26.5 L 1.5 8 Z", fill: lost ? red : "oklch(0.8 0.15 80)", stroke: "#14130f", strokeWidth: 2.5, strokeLinejoin: "round", style: last ? { animation: "jgSdTint .9s ease-in-out infinite" } : null }),
+            h0("rect", { x: 5, y: 15, width: 12, height: 8, rx: 1.5, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1.5 }),
+            [9, 12.5, 16].map(x => h0("rect", { key: x, x, y: 4.5, width: 2, height: 5, rx: 0.8, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1 }))),
+          lost ? h0("span", { style: { position: "absolute", left: "50%", top: "50%", width: "36px", height: "5px", borderRadius: "3px", background: "#fffdf6", border: "2px solid #14130f", boxSizing: "border-box", transformOrigin: "50% 50%", animation: "jgSlash .3s .18s cubic-bezier(.3,.8,.3,1) both" } }) : null);
+      })),
+      hudShots: h0("span", { style: { display: "flex", gap: "5px", alignItems: "center" } }, (() => { const ok = (this.state.gShots || []).filter(s => s.ok); return [0, 1, 2, 3, 4].map(k => {
+        const sh = ok[k], next = !sh && k === ok.length;
+        return h0("span", { key: k + (sh ? "f" : "e"), style: { position: "relative", display: "block", width: "22px", height: "28px", borderRadius: "5px", overflow: "hidden", boxSizing: "border-box", border: sh ? "2.5px solid #14130f" : next ? "2.5px solid #14130f" : "2.5px dashed rgba(255,253,246,0.6)", outline: sh ? "2px solid oklch(0.74 0.19 145)" : "none", background: sh ? "#3d4a5a" : next ? "#ece8dc" : "transparent", animation: sh ? "jgShotIn .5s cubic-bezier(.3,1.3,.5,1) both, jgShotGlow 1.2s ease-out both" : "none" } },
+          sh ? this.shotThumb(sh, "h" + k) : null,
+          sh ? h0("span", { style: { position: "absolute", inset: 0, background: "#fffdf6", animation: "jgShotFlash .5s .1s ease-out both" } }) : null);
+      }); })()),
       hitCount: String(this.state.gHits || 0),
       flashRef: this.flashRef, heroTrackRef: this.heroTrackRef, gameLayerRef: this.gameLayerRef,
+      playHintOpacity: this.state.peekKey ? 1 : 0.45,
+      peeker: this.state.peekKey && !this.state.gameOn ? h0("div", { key: this.state.peekKey, onClick: (e) => { e.stopPropagation(); this.setState({ peekKey: null }); this._startPlay && this._startPlay(); }, "aria-hidden": "true", style: { position: "absolute", zIndex: 3, right: "calc(4vw + 112px)", bottom: 0, width: "110px", height: "104px", overflow: "hidden", cursor: "pointer" } },
+        h0("div", { style: { width: "100%", height: "100%", animation: "jdPeek 4.6s cubic-bezier(.3,.9,.4,1) both" } },
+          h0("svg", { viewBox: "0 34 200 190", width: "110", height: "104", style: { display: "block", overflow: "visible", transformOrigin: "50% 100%", animation: "jdPeekPoint 4.6s ease-in-out both" } }, this.gameGirl(7, true)))) : null,
+      startPlay: (e) => { e.stopPropagation(); this._startPlay && this._startPlay(); },
       playAgain: (e) => { e.stopPropagation(); this.startGame(); },
       stopClick: (e) => e.stopPropagation(),
       onHeroClick: (e) => {
@@ -2155,20 +2279,19 @@ void main(){
       ch05NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#f4f2ec" }, rv5(0)),
       ch05LineStyle: Object.assign({ margin: 0, fontSize: "clamp(24px, 2.6vw, 36px)", lineHeight: 1.2, fontWeight: 500, color: "#f4f2ec" }, rv5(0.2)),
       ch05BodyStyle: Object.assign({ margin: 0, maxWidth: "34em", fontSize: "17px", lineHeight: 1.7, color: "#b8b4a9", textWrap: "pretty" }, rv5(0.5)),
-      prodTrackStyle: { position: "relative", height: (100 + 70 * NP) + "vh" },
+      prodTrackStyle: { position: "relative", height: "100vh" },
       prodPhotos: PHOTOS.map((p, i) => {
-        const t = Math.max(0, Math.min(1, pp * NP - i)), op = Math.min(1, t / 0.55), e = 1 - Math.pow(1 - op, 3);
+        const on = this._heroReduce ? i === 0 : i <= pIdx;
         return { caption: p.caption || "", style: {
-          position: "absolute", inset: 0, zIndex: 1, opacity: i === 0 ? 1 : Math.min(1, t / 0.1),
+          position: "absolute", inset: 0, zIndex: 1, opacity: on ? 1 : 0, transition: this.state.prodFast ? "opacity 0.85s ease-out" : "opacity 2.2s ease-in-out",
           backgroundImage: "linear-gradient(180deg, rgba(20,19,15,0.5), rgba(20,19,15,0.62)), url('" + p.src + "')",
           backgroundSize: "cover", backgroundPosition: (this.pv("teamPhoto" + p.n + "X") ?? 50) + "% " + (this.pv("teamPhoto" + p.n + "Y") ?? parseFloat((p.pos || "center 40%").split(" ")[1])) + "%",
-          clipPath: `inset(${(16 * (1 - e)).toFixed(2)}% ${(20 * (1 - e)).toFixed(2)}% round ${(18 * (1 - e)).toFixed(1)}px)`,
-          transform: `scale(${((1.12 - 0.12 * e) * (this.pv("teamPhoto" + p.n + "Zoom") ?? 100) / 100).toFixed(4)})`, transformOrigin: (this.pv("teamPhoto" + p.n + "X") ?? 50) + "% " + (this.pv("teamPhoto" + p.n + "Y") ?? 50) + "%", willChange: "clip-path, transform" } };
+          transform: "scale(" + ((this.pv("teamPhoto" + p.n + "Zoom") ?? 100) / 100).toFixed(4) + ")", transformOrigin: (this.pv("teamPhoto" + p.n + "X") ?? 50) + "% " + (this.pv("teamPhoto" + p.n + "Y") ?? 50) + "%" } };
       }),
-      prodLine1Style: { display: "block", color: "#f4f2ec", opacity: l1, transform: `translateX(${(-6 * (1 - e3(l1))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
-      prodLine2Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: l2, transform: `translateX(${(6 * (1 - e3(l2))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
-      prodLine3Style: { display: "block", color: "#f4f2ec", opacity: l3, transform: `translateX(${(-6 * (1 - e3(l3))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
-      prodLine4Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: l4, transform: `translateX(${(6 * (1 - e3(l4))).toFixed(2)}vw)`, textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine1Style: { display: "block", color: "#f4f2ec", opacity: !pPhase2 ? 1 : 0, transform: !pPhase2 ? "translateX(0)" : "translateX(-4vw)", transition: "opacity 1.1s ease 0s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 0s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine2Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: !pPhase2 ? 1 : 0, transform: !pPhase2 ? "translateX(0)" : "translateX(4vw)", transition: "opacity 1.1s ease 0.3s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 0.3s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine3Style: { display: "block", color: "#f4f2ec", opacity: pPhase2 ? 1 : 0, transform: pPhase2 ? "translateX(0)" : "translateX(-4vw)", transition: "opacity 1.1s ease 0.9s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 0.9s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
+      prodLine4Style: { display: "block", color: "oklch(0.78 0.11 262)", opacity: pPhase2 ? 1 : 0, transform: pPhase2 ? "translateX(0)" : "translateX(4vw)", transition: "opacity 1.1s ease 1.2s, transform 1.4s cubic-bezier(0.22,0.8,0.24,1) 1.2s", textShadow: "0 2px 30px rgba(20,19,15,0.5)" },
       ch04Ref: this.ch04Ref,
       clipAnim: this._clipAnim || (this._clipAnim = this.buildClipAnim()),
       pmItems: this.PM_ITEMS.map((text, i) => {
@@ -2178,6 +2301,9 @@ void main(){
       ch04NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv4(0)),
       ch04LineStyle: Object.assign({ margin: 0, fontSize: "clamp(24px, 2.6vw, 36px)", lineHeight: 1.2, fontWeight: 500 }, rv4(0.2)),
       ch04BodyStyle: Object.assign({ margin: 0, maxWidth: "34em", fontSize: "17px", lineHeight: 1.7, color: "#57544a", textWrap: "pretty" }, rv4(0.5)),
+      comesRef: this.comesRef,
+      stripWord: this.HERO_WORDS[this.state.heroIndex || 0],
+      stripStyle: { position: "fixed", left: 0, right: 0, top: (this.state.stripTop || 0) + "px", zIndex: 25, display: "flex", justifyContent: "center", alignItems: "center", padding: "14px 5vw 12px", background: "oklch(0.5 0.17 262 / 0.52)", backdropFilter: "blur(16px) saturate(1.5)", WebkitBackdropFilter: "blur(16px) saturate(1.5)", boxShadow: "inset 0 1px 0 rgba(255,255,255,0.38), inset 0 -1px 0 rgba(255,255,255,0.12), 0 8px 24px rgba(20,19,15,0.12)", color: "#f4f2ec", textShadow: "0 1px 2px rgba(20,19,15,0.25)", pointerEvents: "none", transform: this.state.stripOn ? "translateY(0)" : "translateY(-110%)", opacity: this.state.stripOn ? 1 : 0, transition: "transform 0.55s cubic-bezier(0.22,1,0.36,1), opacity 0.35s ease" },
       ch03Ref: this.ch03Ref,
       crewAnim: this._crewAnim || (this._crewAnim = this.buildCrewAnim()),
       ch03NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv3(0)),
@@ -2196,7 +2322,7 @@ void main(){
       ch01NumStyle: Object.assign({ fontFamily: "'Bebas Neue', Helvetica, sans-serif", fontSize: "clamp(119px, 15.6vw, 247px)", lineHeight: 0.84, letterSpacing: "-0.01em", color: "#14130f" }, rv(0)),
       ch01BodyStyle: Object.assign({ margin: 0, maxWidth: "34em", fontSize: "17px", lineHeight: 1.7, color: "#57544a", textWrap: "pretty" }, rv(1.2)),
       heroWords,
-      heroAria: "How your " + this.HERO_WORDS[hIdx] + " comes to life",
+      heroAria: "How I bring your " + this.HERO_WORDS[hIdx] + " to life",
       contactOpen: this.state.contactOpen,
       contactSent: this.state.contactSent,
       contactFormVisible: !this.state.contactSent,
@@ -2238,9 +2364,10 @@ void main(){
         this._apertureHover = true;
         this._apertureCurNX = fracX * 2 - 1; this._apertureCurNY = fracY * 2 - 1;
         const hr = e.currentTarget.getBoundingClientRect();
+        this._focusHX = (e.clientX - hr.left) / hr.width;
         this._mouseHX = ((e.clientX - hr.left) / hr.width) * 2 - 1; this._mouseHY = ((e.clientY - hr.top) / hr.height) * 2 - 1;
       },
-      onApertureMouseLeave: () => { this._apertureHover = false; this._apertureEnterTime = null; this._irisTarget = null; this._mouseHX = null; this._mouseHY = null; },
+      onApertureMouseLeave: () => { this._focusHX = null; this._apertureHover = false; this._apertureEnterTime = null; this._irisTarget = null; this._mouseHX = null; this._mouseHY = null; },
       upcomingList: list.map(item => {
         const zoom = item.id === "ride-the-tide" ? (this.pv("rideTideZoom") ?? 100) : 100;
         const ox = item.id === "ride-the-tide" ? (this.pv("rideTideX") ?? 50) : 50;

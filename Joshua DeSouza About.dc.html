@@ -12,12 +12,12 @@
 <helmet>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=IBM+Plex+Mono:wght@400;500&amp;family=Bebas+Neue&amp;family=Pacifico&amp;display=swap" rel="stylesheet">
 <script src="./page-transition.js"></script>
 <script src="./site-cms.js" defer></script>
 <style>
   body { margin: 0; background: #14130f; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
-  html { scrollbar-width: none; }
+  html { scrollbar-width: none; scroll-snap-type: y proximity; }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: oklch(0.45 0.17 262); }
@@ -46,7 +46,7 @@
   }
   @media (max-width: 480px) {
     .footer-grid { grid-template-columns: 1fr !important; }
-    .contact-modal { padding: 32px 22px !important; }
+    .cm-pad { padding-left: 22px !important; padding-right: 22px !important; }
   }
   @keyframes modalOverlayIn { from { opacity: 0; } to { opacity: 1; } }
   .photo-snap { opacity: 0; animation: photoSnapIn 0.62s cubic-bezier(0.34,1.4,0.64,1) both; animation-delay: 0.14s; }
@@ -97,7 +97,7 @@
 <a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
-    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.32em; text-transform: uppercase">
+    <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
       <a href="/home">Home</a>
       <a href="/union-work">Union Work</a>
       <a href="/freelance-work">Freelance</a>
@@ -200,40 +200,42 @@
 </div>
 
 <sc-if value="{{ contactOpen }}" hint-placeholder-val="{{ false }}">
-  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.55); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
-    <div class="contact-modal" onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 480px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; padding: 44px; color: #14130f; font-family: 'IBM Plex Mono', ui-monospace, monospace; animation: {{ contactModalAnim }}">
-      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 18px; right: 18px; width: 30px; height: 30px; border-radius: 50%; border: none; background: rgba(20,19,15,0.06); color: #14130f; font-size: 16px; cursor: pointer">×</button>
+  <div onClick="{{ closeContact }}" onKeyDown="{{ handleModalKeyDown }}" tabIndex="-1" style="position: fixed; inset: 0; z-index: 90; background: rgba(20,19,15,0.62); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; padding: 24px; animation: {{ contactOverlayAnim }}">
+    <div onClick="{{ stopContactClick }}" role="dialog" aria-modal="true" aria-label="Contact form" style="box-sizing: border-box; position: relative; width: 100%; max-width: 520px; max-height: 88vh; overflow-y: auto; background: linear-gradient(155deg, rgba(255,255,255,0.94), rgba(255,255,255,0.82)); backdrop-filter: blur(28px) saturate(180%); -webkit-backdrop-filter: blur(28px) saturate(180%); border: 1px solid rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8), 0 40px 80px rgba(20,19,15,0.35); border-radius: 24px; color: #14130f; font-family: 'IBM Plex Sans', Helvetica, sans-serif; animation: {{ contactModalAnim }}">
+      <button type="button" onClick="{{ closeContact }}" aria-label="Close" style="position: absolute; top: 0; right: 0; z-index: 2; display: flex; align-items: center; gap: 10px; height: 34px; margin: 14px; padding: 0 14px; border-radius: 999px; background: rgba(255,255,255,0.16); color: #f4f2ec; border: none; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; cursor: pointer; transition: background 0.2s ease" style-hover="background: rgba(20,19,15,0.55)">Close <span style="font-size: 18px; line-height: 1; letter-spacing: 0">×</span></button>
       <sc-if value="{{ contactSent }}" hint-placeholder-val="{{ false }}">
-        <div style="display: flex; flex-direction: column; gap: 10px; padding: 24px 0">
-          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Almost there</span>
-          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Thanks, {{ contactName }}.</h3>
-          <p style="margin: 0; font-size: 14px; line-height: 1.7; color: #57544a">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
+        <div class="cm-pad" style="background: linear-gradient(155deg, oklch(0.5 0.17 262 / 0.94), oklch(0.5 0.17 262 / 0.84)); color: #f4f2ec; padding: 64px 40px 32px; display: flex; flex-direction: column; gap: 14px; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25)">
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Almost there</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 7vw, 76px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Thanks, {{ contactName }}.</h3>
         </div>
+        <p class="cm-pad" style="margin: 0; padding: 32px 40px 40px; font-size: 17px; line-height: 1.7; color: #57544a; text-wrap: pretty">Your email app should have opened with a message addressed to joshuajdesouza@gmail.com — just hit send there. If nothing opened, email me directly at joshuajdesouza@gmail.com.</p>
       </sc-if>
       <sc-if value="{{ contactFormVisible }}" hint-placeholder-val="{{ true }}">
-      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column; gap: 22px">
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <span style="font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase; color: oklch(0.45 0.17 262)">Get in touch</span>
-          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 32px">Send a message</h3>
-          <p style="margin: 4px 0 0; font-size: 14px; line-height: 1.6; color: #8b887d">Got an upcoming project? Tell me all about it below.</p>
+      <form onSubmit="{{ submitContact }}" style="display: flex; flex-direction: column">
+        <div class="cm-pad" style="background: linear-gradient(155deg, oklch(0.5 0.17 262 / 0.94), oklch(0.5 0.17 262 / 0.84)); color: #f4f2ec; padding: 64px 40px 32px; display: flex; flex-direction: column; gap: 14px; box-shadow: inset 0 -1px 0 rgba(255,255,255,0.25)">
+          <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #f4f2ec">Get in touch</span>
+          <h3 style="margin: 0; font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(48px, 7vw, 76px); line-height: 0.9; letter-spacing: 0.01em; text-wrap: balance">Send a message</h3>
+          <p style="margin: 0; font-size: 17px; line-height: 1.5; font-weight: 500; color: #f4f2ec">Got an upcoming project? Tell me all about it below.</p>
         </div>
+        <div class="cm-pad" style="padding: 32px 40px 36px; display: flex; flex-direction: column; gap: 26px">
         <sc-if value="{{ contactError }}" hint-placeholder-val="{{ false }}">
-          <p style="margin: 0; font-size: 14px; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
+          <p style="margin: 0; font-size: 15px; font-weight: 500; color: oklch(0.45 0.17 262)">{{ contactError }}</p>
         </sc-if>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-name" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Your name</label>
-          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-name" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Your name</label>
+          <input id="contact-name" required="" value="{{ contactName }}" onChange="{{ setContactName }}" placeholder="Jane Doe" style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></input>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-email" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Email</label>
-          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 14px; padding: 12px 14px; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></input>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-email" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Email</label>
+          <input id="contact-email" type="email" required="" value="{{ contactEmail }}" onChange="{{ setContactEmail }}" placeholder="jane@studio.com" style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></input>
         </div>
-        <div style="display: flex; flex-direction: column; gap: 6px">
-          <label for="contact-message" style="font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; color: #57544a">Message</label>
-          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 14px; line-height: 1.6; padding: 12px 14px; min-height: 120px; resize: vertical; border-radius: 12px; border: 1px solid rgba(20,19,15,0.15); background: #ffffff; color: #14130f"></textarea>
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <label for="contact-message" style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Message</label>
+          <textarea id="contact-message" required="" value="{{ contactMessage }}" onChange="{{ setContactMessage }}" placeholder="Tell me about the project..." style="font-family: inherit; font-size: 17px; padding: 10px 0; border: none; border-bottom: 1px solid #14130f; border-radius: 0; background: transparent; color: #14130f; outline: none; transition: border-color 0.2s ease, box-shadow 0.2s ease; line-height: 1.6; min-height: 110px; resize: vertical" style-focus="border-bottom-color: oklch(0.5 0.17 262); box-shadow: 0 1px 0 oklch(0.5 0.17 262)"></textarea>
         </div>
-        <button type="submit" style="font-family: inherit; font-size: 14px; letter-spacing: 0.1em; text-transform: uppercase; padding: 14px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.45 0.17 262)">Send message</button>
-        <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #8b887d; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        <button type="submit" style="display: flex; align-items: center; justify-content: space-between; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; padding: 18px 20px; border-radius: 12px; border: none; background: #14130f; color: #f4f2ec; cursor: pointer; transition: background 0.2s ease" style-hover="background: oklch(0.5 0.17 262)"><span>Send message</span><span aria-hidden="true" style="font-size: 18px; letter-spacing: 0">→</span></button>
+        <p style="margin: 0; font-size: 13px; line-height: 1.5; color: #57544a; text-align: center">No tracking — only a timestamp is stored locally to prevent spam.</p>
+        </div>
       </form>
       </sc-if>
     </div>
