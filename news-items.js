@@ -2,9 +2,31 @@ import { loadContent } from './site-content.js';
 
 export const NEWS_ITEMS = [
   {
+    id: "ride-the-tide", tag: "Music Video", dateSort: "2026-09",
+    dateLabel: "September 2026",
+    title: "Sneaky Link's \"Ride The Tide\" shot on location at Highland Pines beach",
+    description: "DeSouza co-directed the music video with Chelsea Laufer and produced it for Sneaky Link, with cinematography by Nico Alcalde. It was filmed on the shore at Highland Pines beach and is now in post-production.",
+    imageSlot: "news-ride-the-tide", imageSrc: "uploads/MAT06313-web.jpg", imageFit: "cover", placeholder: "Add a still from Ride The Tide"
+  },
+  {
+    id: "are-you-a-killer", tag: "Music Video", dateSort: "2026-08",
+    dateLabel: "August 2026",
+    title: "Sneaky Link's \"Are You A Killer?\" shot at City Sound Studio in Etobicoke",
+    description: "DeSouza produced and directed the new Sneaky Link music video, shot at City Sound Studio in Etobicoke. It stars Genesis Jade and Corey Bernard, with cinematography by Nico Alcalde.",
+    imageSlot: "news-are-you-a-killer", imageSrc: "uploads/killer-cropped.jpg", imageFit: "cover", placeholder: "Add a still from Are You A Killer?"
+  },
+  {
+    id: "cac-grant", tag: "Grant", dateSort: "2026-10",
+    dateLabel: "October 2026",
+    title: "J. Knox's short film awarded CAC grant funding.",
+    description: "J. DeSouza is credited as Consulting Development Producer.",
+    imageSlot: "cac-grant-badge", imageSrc: "", imageFit: "cover", placeholder: "Add a photo or the CAC logo"
+  },
+  {
     id: "hitman", tag: "Team", dateSort: "2026-09",
     dateLabel: "September 2026",
     title: "Now Creative Director and Media Producer at Hit Man Records",
+    description: "DeSouza joins Hit Man Records to lead music videos, content creation and media strategy for the label and its artists.",
     imageSlot: "hitman-records-logo", imageSrc: "uploads/slot-hitman-records-logo.webp", imageFit: "contain", placeholder: "Add a photo or the Hit Man Records logo"
   },
   {

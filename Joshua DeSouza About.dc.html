@@ -33,15 +33,19 @@
     .about-copy { padding: 32px 24px 40px !important; }
     .contact-grid { padding: 40px 24px 32px !important; gap: 28px !important; }
   }
+  [aria-label="Contact form"] { scrollbar-width: none; -ms-overflow-style: none; }
+  [aria-label="Contact form"]::-webkit-scrollbar { display: none; }
   .nav-toggle-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
   .nav-toggle-cb:focus-visible ~ .nav-burger { outline: 2px solid currentColor; outline-offset: 3px; }
   .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 18px; padding: 13px; margin: -13px; box-sizing: content-box; cursor: pointer; }
   .nav-burger span { display: block; height: 2px; background: currentColor; border-radius: 1px; }
   @media (max-width: 720px) {
-    .site-header { padding: 16px 20px !important; }
+    .site-header { padding: 0 20px !important; height: 64px; box-sizing: border-box; }
     .nav-burger { display: flex !important; }
-    .site-nav { display: none !important; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
-    .nav-toggle-cb:checked ~ .site-nav { display: flex !important; }
+    .site-nav { display: flex !important; visibility: hidden; opacity: 0; transform: translateY(-16px); pointer-events: none; transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.3s; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
+    .site-nav > * { animation-name: none !important; }
+    .nav-toggle-cb:checked ~ .site-nav { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity 0.22s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
+    .nav-toggle-cb:checked ~ .site-nav > * { animation-name: popIn !important; animation-duration: 0.44s; animation-timing-function: cubic-bezier(0.34,1.56,0.64,1); animation-fill-mode: backwards; }
     .footer-grid { grid-template-columns: 1fr 1fr !important; gap: 32px 24px !important; }
   }
   @media (max-width: 480px) {
@@ -93,8 +97,8 @@
 
 <div data-screen-label="About" style="background: #14130f; color: #f4f2ec; min-height: 100vh">
 
-  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f; isolation: isolate">
-<a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
+  <header class="site-header" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: center; padding: 20px 5vw; border-bottom: 1px solid #14130f; isolation: isolate">
+<a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px; line-height: 1; display: block; padding: 3px 0 2px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
     <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">

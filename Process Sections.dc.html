@@ -10,8 +10,10 @@
 <body>
 <x-dc>
 <helmet><style>
-  .chapter-grid{} @media (max-width: 860px) { .chapter-grid { grid-template-columns: 1fr !important; row-gap: 28px !important; } .chapter-grid > .chapter-num { position: static !important; } }
-  @media (max-width: 720px) { .crew-anim { width: 132% !important; margin: -8px 0 0 -16% !important; } .crew-section { overflow: hidden !important; } .hero-line { grid-template-columns: 1fr !important; row-gap: 0.04em !important; justify-items: center; } .hero-line > * { justify-self: center !important; } .hero-line { font-size: clamp(52px, 16vw, 96px) !important; } }
+  section[data-screen-label^="Process"] { scroll-margin-top: 64px !important; }
+  @media (max-width: 860px) { section[data-screen-label^="Process"] { scroll-margin-top: 80px !important; } }
+  .chapter-grid{} @media (max-width: 860px) { .chapter-grid { grid-template-columns: 1fr !important; row-gap: 28px !important; } .chapter-grid > .chapter-num { position: static !important; } .chapter-grid { padding-top: 40px !important; } }
+  @media (max-width: 720px) { .crew-anim { width: 132% !important; max-width: none !important; margin: -8px 0 0 -16% !important; } .crew-section { overflow: hidden !important; } .hero-line { grid-template-columns: 1fr !important; row-gap: 0.04em !important; justify-items: center; } .hero-line > * { justify-self: center !important; } .hero-line { font-size: clamp(52px, 16vw, 96px) !important; } }
 </style></helmet>
   <div aria-hidden="true" style="{{ stripStyle }}"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: clamp(18px, 2.2vw, 30px); line-height: 1.05; letter-spacing: 0.02em; text-align: center; text-wrap: balance"><span>My six steps to take your first idea to finished film</span></span></div>
   <div style="background: #f4f2ec">

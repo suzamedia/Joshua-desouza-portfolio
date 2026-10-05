@@ -52,15 +52,19 @@
     .contact-grid { padding: 40px 24px 32px !important; gap: 28px !important; }
     .detail-media, .detail-info { padding: 28px 24px !important; }
   }
+  [aria-label="Contact form"] { scrollbar-width: none; -ms-overflow-style: none; }
+  [aria-label="Contact form"]::-webkit-scrollbar { display: none; }
   .nav-toggle-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
   .nav-toggle-cb:focus-visible ~ .nav-burger { outline: 2px solid currentColor; outline-offset: 3px; }
   .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 18px; padding: 13px; margin: -13px; box-sizing: content-box; cursor: pointer; }
   .nav-burger span { display: block; height: 2px; background: currentColor; border-radius: 1px; }
   @media (max-width: 720px) {
-    .site-header { padding: 16px 20px !important; }
+    .site-header { padding: 0 20px !important; height: 64px; box-sizing: border-box; }
     .nav-burger { display: flex !important; }
-    .site-nav { display: none !important; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
-    .nav-toggle-cb:checked ~ .site-nav { display: flex !important; }
+    .site-nav { display: flex !important; visibility: hidden; opacity: 0; transform: translateY(-16px); pointer-events: none; transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.3s; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
+    .site-nav > * { animation-name: none !important; }
+    .nav-toggle-cb:checked ~ .site-nav { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity 0.22s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
+    .nav-toggle-cb:checked ~ .site-nav > * { animation-name: popIn !important; animation-duration: 0.44s; animation-timing-function: cubic-bezier(0.34,1.56,0.64,1); animation-fill-mode: backwards; }
     .filter-tabs { flex-wrap: wrap !important; gap: 10px 16px !important; }
     .proj-head { display: none !important; }
     .proj-row { grid-template-columns: 1fr !important; gap: 6px !important; padding: 18px 20px !important; }
@@ -123,8 +127,8 @@
   <div id="scroll-progress" style="position: fixed; top: 0; left: 0; height: 2px; width: 0%; background: oklch(0.45 0.17 262); z-index: 100; transition: width 0.1s linear"></div>
 
 <sc-if value="{{ showHeader }}" hint-placeholder-val="{{ true }}">
-  <header class="site-header" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: baseline; padding: 20px 5vw; border-bottom: 1px solid #14130f">
-    <a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px">J.</a>
+  <header class="site-header" style="position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,0.94); backdrop-filter: blur(10px); color: #14130f; display: flex; justify-content: space-between; align-items: center; padding: 20px 5vw; border-bottom: 1px solid #14130f">
+    <a href="/home" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px; line-height: 1; display: block; padding: 3px 0 2px">J.</a>
     <input type="checkbox" id="nav-toggle" class="nav-toggle-cb">
     <label for="nav-toggle" class="nav-burger"><span></span><span></span><span></span></label>
     <nav class="site-nav" style="display: flex; gap: 28px; font-size: 14px; letter-spacing: 0.18em; text-transform: uppercase">
@@ -330,32 +334,44 @@
               <div style="aspect-ratio: 16/9; background: repeating-linear-gradient(135deg, #1b1a17 0 12px, #131210 12px 24px); display: flex; align-items: center; justify-content: center; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #b8b4a9">Link to come</div>
             </sc-if>
           </div>
-          <sc-if value="{{ detail.hasVideo }}" hint-placeholder-val="{{ false }}">
-            <a href="{{ detail.watchUrl }}" target="_blank" rel="noopener" style="align-self: flex-end; display: inline-flex; align-items: center; gap: 8px; height: 36px; padding: 0 16px; border-radius: 999px; background: rgba(255,255,255,0.6); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8); font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #14130f; transition: background 0.2s ease, color 0.2s ease" style-hover="background: #14130f; color: #f4f2ec">Watch on YouTube ↗</a>
-          </sc-if>
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px">
             <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8)">
-              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Role</span>
-              <span style="font-size: clamp(18px, 1.8vw, 22px); line-height: 1.25; font-weight: 500">{{ detail.role }}</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #57544a">Role</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(26px, 2.6vw, 32px); line-height: 1.05; letter-spacing: 0.01em">{{ detail.role }}</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8)">
-              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Dates</span>
-              <span style="font-size: 17px; line-height: 1.4">{{ detail.dates }}</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #57544a">Dates</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(26px, 2.6vw, 32px); line-height: 1.05; letter-spacing: 0.01em">{{ detail.dates }}</span>
             </div>
             <div style="display: flex; flex-direction: column; gap: 8px; padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,0.55); box-shadow: inset 0 1px 0 rgba(255,255,255,0.8)">
-              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Client</span>
-              <span style="font-size: 17px; line-height: 1.4">{{ detail.client }}</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #57544a">Client</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: clamp(26px, 2.6vw, 32px); line-height: 1.05; letter-spacing: 0.01em">{{ detail.client }}</span>
             </div>
           </div>
+          <sc-if value="{{ detail.hasCrew }}" hint-placeholder-val="{{ false }}">
+            <div style="background: #14130f; color: #f4f2ec; border-radius: 20px; padding: 28px 32px 30px; box-shadow: 0 30px 60px -28px rgba(15,14,12,0.6)">
+              <div style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #b8b4a9; margin-bottom: 22px">Crew</div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 22px 28px">
+                <sc-for list="{{ detail.crewRows }}" as="row" hint-placeholder-count="4">
+                  <div>
+                    <div style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 17px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #b8b4a9; margin-bottom: 4px">{{ row.role }}</div>
+                    <sc-for list="{{ row.names }}" as="nm" hint-placeholder-count="1">
+                      <div style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 30px; line-height: 1.05; letter-spacing: 0.01em">{{ nm }}</div>
+                    </sc-for>
+                  </div>
+                </sc-for>
+              </div>
+            </div>
+          </sc-if>
           <sc-if value="{{ detail.hasDescription }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; flex-direction: column; gap: 10px; padding: 4px 4px 0">
-              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">About</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #57544a">About</span>
               <p style="margin: 0; max-width: 40em; font-size: 17px; line-height: 1.7; color: #57544a; text-wrap: pretty">{{ detail.description }}</p>
             </div>
           </sc-if>
           <sc-if value="{{ detail.hasBts }}" hint-placeholder-val="{{ false }}">
             <div style="display: flex; flex-direction: column; gap: 12px; padding: 4px 4px 0">
-              <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-weight: 700; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #57544a">Behind the scenes</span>
+              <span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-weight: 400; font-size: 20px; letter-spacing: 0.08em; text-transform: uppercase; line-height: 1; color: #57544a">Behind the scenes</span>
               <div class="bts-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px">
               <sc-if value="{{ detail.hasBts0 }}" hint-placeholder-val="{{ false }}">
                 <div style="{{ detail.bts0Style }}" onClick="{{ openBts0 }}"></div>
@@ -404,27 +420,30 @@
 </sc-if>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props="{&quot;redDoorY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;tideY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:38,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;tideX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner horizontal position&quot;},&quot;killerY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:16,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;toughY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:21,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;jarY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:59,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;iobjectY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:17,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;fe25Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:39,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;suspensionY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:32,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;loveY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:36,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;fe24Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:24,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;creS3Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;fe23Y&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:39,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;konY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:42,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;culpritsY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:11,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;miaY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:43,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;barY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:29,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;sandY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:26,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;sixLackY&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:28,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner vertical position&quot;},&quot;redDoorX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner horizontal position&quot;},&quot;killerX&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:50,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Banner horizontal position&quot;}}">
+function parseCrew(list) {
+  return (list || []).map(s => { const k = s.indexOf(": "); return k > 0 ? { role: s.slice(0, k), names: s.slice(k + 2).split(/,\s*/) } : { role: "", names: [s] }; });
+}
 const PROJECTS = {
-  "Red Door PSA": { client: "Red Door Family Shelter", format: "PSA", role: "Producer, Creative Director", dates: "September 2026", id: "qcYBBh5IRTE", bts: ["uploads/BTS Red Door Crew Shot.JPG", "uploads/Red Door - BTS Edits-55.jpg", "uploads/IMG_8315.JPG"] },
-  "Ride The Tide": { client: "Sneaky Link", format: "Music Video", role: "Producer, Director", dates: "Sept 2026", photo: "uploads/MAT06313-web.jpg" },
-  "Are You A Killer?": { client: "Sneaky Link", format: "Music Video", role: "Producer, Director", dates: "2026", photo: "uploads/killer-cropped.jpg" },
-  "Tough Love": { client: "Amelia Maxwell", format: "Music Video", role: "1st Assistant Director", dates: "2026", id: "dYQqBSxUywM" },
-  "Functioning": { client: "Ticket Stubbs Inc.", format: "Short Film", role: "1st Assistant Director", dates: "2026" },
-  "How I Put My Head In A Jar": { client: "Queen Chelsea VFX", format: "YouTube — VFX Short", role: "Producer, DOP", dates: "2025", id: "JsgG3dkJthM" },
-  "I, Object": { client: "Scythia Films", format: "Feature, EPK", role: "EPK Camera Operator", dates: "2025", id: "u5ENTPq8xf0" },
-  "Fan Expo Canada 2025": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2025", id: "4vkQTw35Ou8" },
-  "The Suspension": { client: "Independent", format: "Short Film", role: "1st Assistant Director", dates: "2025", photo: "uploads/the-suspension-compressed.jpg" },
-  "My Bully Mia": { client: "Ticket Stubbs Inc.", format: "Sizzle Reel", role: "1st Assistant Director", dates: "2025", id: "ipkqvGl1tI4" },
-  "The Things We Do For Love": { client: "Independent", format: "Short Film", role: "Producer, Director of Photography", dates: "2024", id: "ob41xkV9ebo" },
-  "Fan Expo Canada 2024": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2024", id: "zSMX_Xdewjo" },
-  "Children Ruin Everything S3": { client: "CTV / New Metric Media", format: "TV Series", role: "Background Performer", dates: "2023", id: "4rtUjYBDPEk" },
-  "Fan Expo Canada 2023": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2023", id: "GomMgrU8MS4" },
-  "Kings of Napa": { client: "Warner Bros. / OWN", format: "TV Series", role: "Camera Trainee - Daily", dates: "May – Aug 2021", id: "3WUwossz3jY" },
-  "Culprits": { client: "STAR / Disney", format: "TV Series", role: "Assistant Director", dates: "October – December 2021", id: "vj676s3BS04" },
-  "Bar Seekers": { client: "48 Film Challenge", format: "48 Hour Film Challenge", role: "Art Director", dates: "2021", id: "zdIb3AYi-0g" },
-  "Sandcastles": { client: "Twiced Bleached", format: "Music Video", role: "Director, DOP", dates: "2019", id: "OUZ8VYHoY1g" },
-  "Camp Cedar Lake": { client: "Toronto Metropolitan University", format: "Student Film", role: "Director, Creator", dates: "2019" },
-  "Free 6lack Tour - Toronto": { client: "Independent", format: "Tour Recap Video", role: "Director, Editor", dates: "2018", id: "rJ8UMmh41cg" }
+  "Red Door PSA": { client: "Red Door Family Shelter", format: "PSA", role: "Producer, Creative Director", dates: "September 2026", id: "qcYBBh5IRTE", bts: ["uploads/BTS Red Door Crew Shot.JPG", "uploads/Red Door - BTS Edits-55.jpg", "uploads/IMG_8315.JPG"], crew: ["Executive Producers: Maritza Sanchez, David Wannan","Creative Director / Producer: Joshua DeSouza","Director: Jaime Knox","Producer: Lief Ramsaran","Hero VO Written by: Dave Calvert","Social VO Written by: Joey Whitelaw","Cast: Sarena Parmar, Mia SwamiNathan, Mikayla SwamiNathan","Voice Over Artist: Spencer Glassman","Social VO Artist: Mia SwamiNathan","1st AD: Spencer Glassman","Production Assistant: Rebecca Gonsalves","Location Manager: Alexandra Mowbray","Craft Services: Rodney Rodrigues","Director of Photography: Nico Alcalde","1st AC: Lily Chiasson","2nd AC: Ekaterina Shumakova","Gaffer: Taher Bhujwalla","Driver / Swing: Mahan Ashtari","LX / Grip: Michael Francavilla","Sound Recordist: Jon Chy","Production Designer: Hina Hosoya","Art Directors: Kate Vickery, Tiffany Pang","Poster Design: Aiden Carter","Hair / Makeup: Alannah Delgado","BTS Photographer: Jeremy Sandler","Post Producers: Rory Dann, Joshua DeSouza","Associate Producers: Joey Whitelaw, Jamie Knox","Editor: Joey Whitelaw","Colour: Ekaterina Shumakova","Sound Designer: John Green","VFX Artist: Chelsea Laufer","Score Composers: Corey Bernard, Joshua DeSouza","Pianist: Rebecca Gonsalves","Special Thanks: Ontario Camera, City Sound Studio, ACTRA Toronto"] },
+  "Ride The Tide": { client: "Sneaky Link", format: "Music Video", role: "Producer, Director", dates: "Sept 2026", photo: "uploads/MAT06313-web.jpg", crew: ["EP: Lenny Foreht", "Director / Producer: Joshua DeSouza", "Director: Chelsea Laufer", "AD: Dante Antognetti", "DOP: Nico Alcalde", "AC / Swing: Edgar", "Gaffer: Ryan Saltzberg", "Key Grip: Jason D'Souza", "Swing: Mahan Ashtari", "VFX Supervisor: Chelsea Laufer", "VFX BTS: Dillan", "BTS: Dexter Grant Forbes", "Background: Liana Mallia", "Special Guest: Matheus", "Lead Vocals: Corey Bernard", "Band: Lenny Foreht", "Guitar: Chris Evans", "Bass: Christian \"Chan\" Marasovic", "Drums: Sheldon De Souza"] },
+  "Are You A Killer?": { client: "Sneaky Link", format: "Music Video", role: "Producer, Director", dates: "2026", photo: "uploads/killer-cropped.jpg", crew: ["Sneaky Link: Corey Bernard, Lenny Foreht", "Directed by: Joshua DeSouza", "Starring: Genesis Jade, Corey Bernard", "Director of Photography: Nico Alcalde", "Edited by: Ankit Lad, Joshua DeSouza", "1st AC: Raihan Mobasherul", "2nd AC: Graham Gent", "Gaffer: Ryan Saltzberg", "Grip: Ekaterina Shumakova", "Colour by: Ekaterina Shumakova", "Production Assistants: Rebecca Gonsalves, Rodney Rodrigues", "BTS by: Dexter"] },
+  "Tough Love": { client: "Amelia Maxwell", format: "Music Video", role: "1st Assistant Director", dates: "2026", id: "dYQqBSxUywM", crew: ["Artist: Amelia Maxwell", "Producer: Spencer Glassman", "Director: Lief Ramsaran", "1st AD: Joshua DeSouza", "AD / Playback: Weeda Azim", "DOP: Stuart Croll", "1st AC: Tarneem Allati", "Gaffer: Levi Jack", "Stunts Coordinator: Eric Daniels", "Makeup Artist: Alannah Delgado", "Hair Stylist: Alannah Delgado", "BTS Cam Op: Niko Mihaijlovic", "Production Designer: Kristen Buckley", "Costume Designer: Hinako Hosoya", "Album Photographer: Sarah Berglund"] },
+  "Functioning": { client: "Ticket Stubbs Inc.", format: "Short Film", role: "1st Assistant Director", dates: "2026", crew: ["Writer / Director / Producer: Laura Stubbs", "Producer: Macaulee Cassaday", "1st AD: Joshua DeSouza", "Production Assistant: Ellen-Olivia Giddings", "DOP: Emily Zhang", "Camera Operator: Kat Zoum", "1st AC: Maria Glover", "Digital Imaging Technician: Emily Belnavis", "Script Supervisor: Kassandra Cardinale", "Gaffer: Chris Perkins", "Key Grip: Katie Bowyer", "Grip: Eris Tomicki", "Sound Mixer / Recordist: Ian Reynolds", "Production Designer: Cameron Stewart", "Hair / Makeup Artist: Rachel Cornett", "Wardrobe: Hanna Bruce", "BTS / Stills Photographer: Audrey Persaud", "Mental Health Support On Set: Ronnie Ali", "Editor: Beth Biederman", "Sound Mixer: Alex Huynh Do", "Composer: Sarah Basciano", "Colorist: Emily Zhang"] },
+  "How I Put My Head In A Jar": { client: "Queen Chelsea VFX", format: "YouTube — VFX Short", role: "Producer, DOP", dates: "2025", id: "JsgG3dkJthM", crew: ["Creator: Chelsea Laufer", "Lighting Gaffer: Michael Francavilla"] },
+  "I, Object": { client: "Scythia Films", format: "Feature, EPK", role: "EPK Camera Operator", dates: "2025", id: "u5ENTPq8xf0", crew: ["Camera Operator / DOP: Joshua DeSouza", "Gaffer: Michael Francavilla"] },
+  "Fan Expo Canada 2025": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2025", id: "4vkQTw35Ou8", crew: ["Official Videographer: Joshua DeSouza", "Team: Informa Media"] },
+  "The Suspension": { client: "Independent", format: "Short Film", role: "1st Assistant Director", dates: "2025", photo: "uploads/the-suspension-compressed.jpg", crew: ["Creator / Director: Weeda Azim", "Producers: Lief Ramsaran, Jackie DeNevervile", "Production Manager: Haaris Qaadri", "1st AD: Joshua DeSouza", "AD: Averie Harmer", "DOP: Khanh Tudo", "1st AC: Ashley Mach", "2nd AC: Dina Attalla, Penn Chen", "Gaffer: Kat Zoumboulakis", "Swing: Aaron Haidary, Joseph Masellis", "Makeup Artist / Hair Stylist: Alannah Delgado", "BTS Camera: Heather Legere", "Sound Mixer: Matt Beckett", "Set Designer / Stylist: Hinako Hosoya", "Art Director: Sam", "Art Assistants: Olivia Borges, Aahana Agrawal, Karoline Witek", "Casting Director: Margaret Rose", "Minors Coordinator: Lief Ramsaran", "Tutor: Rebecca Gonsalves"] },
+  "My Bully Mia": { client: "Ticket Stubbs Inc.", format: "Sizzle Reel", role: "1st Assistant Director", dates: "2025", id: "ipkqvGl1tI4", crew: ["Creator / Producer: Laura Stubbs", "Producer: Shawn Ahmed", "Director: Meeshelle Neal", "1st AD: Joshua DeSouza", "2nd AD: Nico Alcalde", "DOP: Emily Zhang", "1st AC: Kat Zoumboulakis", "2nd AC / DIT: Kate Shumakova", "Script Supervisor: Kassandra Cardinale", "Gaffer: Gerald Eze", "Key Grip: Travis Wallace", "Best Person Grip: Malik Fletcher", "Best Grip / Dolly: Katie Bowyer", "Makeup Artist: Rachel Cornett", "Hair Stylist: Ally Hillier", "Building Manager: Lauren Saarimaki", "Sound Mixer: Alexandra Huynh Do", "Intimacy Coordinator: Christina Fox", "Designer / Coordinator: Jason Manzi", "Props Coordinator: Julius Cho", "Props Assistant: Rong Fu", "Stylist: Bachana Adamia", "PA / AD: Lief Ramsaran, Zoraise Ahmed, Graham Gent", "Transport PA: Pablo Rufino"] },
+  "The Things We Do For Love": { client: "Independent", format: "Short Film", role: "Producer, Director of Photography", dates: "2024", id: "ob41xkV9ebo", crew: ["Producer / Director: Shawn Ahmed", "Starring: Rong Ahmed", "DOP / Camera: Joshua DeSouza", "Gaffer / Key Grip: Michael Francavilla", "Sound Mixer: Zoraise Ahmed"] },
+  "Fan Expo Canada 2024": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2024", id: "zSMX_Xdewjo", crew: ["Official Videographer: Joshua DeSouza", "Team: Informa Media"] },
+  "Children Ruin Everything S3": { client: "CTV / New Metric Media", format: "TV Series", role: "Background Performer", dates: "2023", id: "4rtUjYBDPEk", crew: ["Director: Melanie Orr", "Shared Scene With: Julius Cho"] },
+  "Fan Expo Canada 2023": { client: "Fan Expo Canada", format: "Convention", role: "Official Videographer", dates: "2023", id: "GomMgrU8MS4", crew: ["Official Videographer: Joshua DeSouza", "Team: Informa Media"] },
+  "Kings of Napa": { client: "Warner Bros. / OWN", format: "TV Series", role: "Camera Trainee - Daily", dates: "May – Aug 2021", id: "3WUwossz3jY", crew: ["Producers: Chris Beal, Winnifred Jong", "Production Manager: Effy Papadopoulos", "1st Asst. Prod. Coordinator: Jamey Sinanan", "Production Coordinators: Erin Thompson, Sandra Alcocer, Alina Dockery"] },
+  "Culprits": { client: "STAR / Disney", format: "TV Series", role: "Assistant Director", dates: "October – December 2021", id: "vj676s3BS04", crew: ["Directors: J Blakeson, Claire Oakley", "Lead Actor: Nathan Stewart-Jarrett", "Producers: Michael Wray, Mo Williams", "Production Manager: Camille Verschooris", "Production Coordinator: Amanda Cameron"] },
+  "Bar Seekers": { client: "48 Film Challenge", format: "48 Hour Film Challenge", role: "Art Director", dates: "2021", id: "zdIb3AYi-0g", crew: ["Director: Erik Smith", "Art Directors: Joshua DeSouza, Lara Tomori"] },
+  "Sandcastles": { client: "Twiced Bleached", format: "Music Video", role: "Director, DOP", dates: "2019", id: "OUZ8VYHoY1g", crew: ["Director / Producer: Joshua DeSouza"] },
+  "Camp Cedar Lake": { client: "Toronto Metropolitan University", format: "Student Film", role: "Director, Creator", dates: "2019", crew: ["Director: Joshua DeSouza"] },
+  "Free 6lack Tour - Toronto": { client: "Independent", format: "Tour Recap Video", role: "Director, Editor", dates: "2018", id: "rJ8UMmh41cg", crew: ["Director / Camera: Joshua DeSouza", "Camera: Kris Roske"] }
 };
 
 function bannerBg(src, y) { return { position: "absolute", inset: 0, background: 'url("' + src + '") center ' + y + '% / cover no-repeat' }; }
@@ -640,7 +659,8 @@ class Component extends DCLogic {
         hasBts0: !!(p.bts && p.bts[0]), bts0Style: p.bts && p.bts[0] ? { position: "relative", aspectRatio: "4/3", cursor: "pointer", background: 'url("' + p.bts[0] + '") center / cover no-repeat' } : "",
         hasBts1: !!(p.bts && p.bts[1]), bts1Style: p.bts && p.bts[1] ? { position: "relative", aspectRatio: "4/3", cursor: "pointer", background: 'url("' + p.bts[1] + '") center / cover no-repeat' } : "",
         hasBts2: !!(p.bts && p.bts[2]), bts2Style: p.bts && p.bts[2] ? { position: "relative", aspectRatio: "4/3", cursor: "pointer", background: 'url("' + p.bts[2] + '") center / cover no-repeat' } : "",
-        hasDescription: !!p.description
+        hasDescription: !!p.description,
+        hasCrew: !!(p.crew && p.crew.length), crewRows: parseCrew(p.crew)
       };
     }
     const btsList = p && p.bts ? p.bts : [];

@@ -19,11 +19,15 @@
 <style>
   body { margin: 0; background: #14130f; font-family: "IBM Plex Sans", Helvetica, sans-serif; scrollbar-width: none; -ms-overflow-style: none; }
   html { scrollbar-width: none; scroll-snap-type: y proximity; }
+  section[data-screen-label^="Process"] { scroll-margin-top: 64px !important; }
+  @media (max-width: 860px) { section[data-screen-label^="Process"] { scroll-margin-top: 80px !important; } }
   html, body { overflow-x: clip; }
   @supports (height: 100svh) { .hero-track, .hero-stage { height: calc(100svh - 78px) !important; } .prod-sticky { height: 100svh !important; } }
   html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
   a { color: inherit; text-decoration: none; }
   a:hover { color: oklch(0.45 0.17 262); }
+  [aria-label="Contact form"] { scrollbar-width: none; -ms-overflow-style: none; }
+  [aria-label="Contact form"]::-webkit-scrollbar { display: none; }
   .nav-toggle-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
   .nav-toggle-cb:focus-visible ~ .nav-burger { outline: 2px solid currentColor; outline-offset: 3px; }
   .nav-burger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 24px; height: 18px; padding: 13px; margin: -13px; box-sizing: content-box; cursor: pointer; }
@@ -73,11 +77,22 @@
   @media (max-width: 720px) {
     .site-header { padding: 0 20px !important; height: 64px; box-sizing: border-box; }
     .hero-stage { top: 64px !important; }
+    .play-hint { left: 4vw !important; right: auto !important; bottom: auto !important; top: 12px !important; padding: 4px !important; }
+    .end-card { padding: 16px 18px 18px !important; gap: 10px !important; }
+    .end-girl { height: min(100px, 11vh) !important; overflow: hidden; }
+    .end-girl > svg { height: 200% !important; }
+    .end-title { font-size: 52px !important; white-space: nowrap; }
+    .end-sd { width: 28px !important; height: 36px !important; }
+    .end-sd svg { width: 28px !important; height: 36px !important; }
+    .end-thumb { width: 54px !important; height: 72px !important; }
+    .play-hint > span { display: inline-block; writing-mode: vertical-rl; transform: rotate(180deg); }
     .hero-track, .hero-stage { height: calc(100vh - 64px) !important; }
     @supports (height: 100svh) { .hero-track, .hero-stage { height: calc(100svh - 64px) !important; } }
     .nav-burger { display: flex !important; }
-    .site-nav { display: none !important; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
-    .nav-toggle-cb:checked ~ .site-nav { display: flex !important; }
+    .site-nav { display: flex !important; visibility: hidden; opacity: 0; transform: translateY(-16px); pointer-events: none; transition: opacity 0.22s ease, transform 0.3s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.3s; position: absolute !important; top: 100% !important; left: 0 !important; right: 0 !important; flex-direction: column !important; gap: 18px !important; padding: 24px 20px !important; background: #f4f2ec !important; border-bottom: 1px solid #14130f; z-index: 40; }
+    .site-nav > * { animation-name: none !important; }
+    .nav-toggle-cb:checked ~ .site-nav { visibility: visible; opacity: 1; transform: none; pointer-events: auto; transition: opacity 0.22s ease, transform 0.35s cubic-bezier(0.22,1,0.36,1), visibility 0s; }
+    .nav-toggle-cb:checked ~ .site-nav > * { animation-name: popIn !important; animation-duration: 0.44s; animation-timing-function: cubic-bezier(0.34,1.56,0.64,1); animation-fill-mode: backwards; }
     .cta-row { grid-template-columns: 1fr !important; height: auto !important; }
     .cta-row .cta-carousel { height: 280px !important; }
     .cta-row > div:last-child { border-left: none !important; padding-left: 0 !important; padding-top: 16px !important; }
@@ -93,10 +108,13 @@
     .hero-line { grid-template-columns: 1fr !important; row-gap: 0.04em !important; justify-items: center; }
     .hero-line > * { justify-self: center !important; }
     .hero-line { font-size: clamp(52px, 16vw, 96px) !important; }
+    section[data-screen-label="Comes to life"] { min-height: calc(100vh - 64px); box-sizing: border-box; display: flex !important; flex-direction: column; justify-content: center; }
+    section[data-screen-label="Comes to life"] .hero-line { width: 100%; }
   }
   @media (max-width: 860px) {
     .chapter-grid { grid-template-columns: 1fr !important; row-gap: 28px !important; }
     .chapter-grid > .chapter-num { position: static !important; }
+    .chapter-grid { padding-top: 40px !important; }
   }
   .foot-cb { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
   @media (max-width: 720px) {
@@ -137,7 +155,7 @@
   </header>
 
   <div ref="{{ heroTrackRef }}" class="hero-track" style="position: relative; height: calc(100vh - 78px)">
-  <div onMouseMove="{{ onApertureMouseMove }}" onMouseLeave="{{ onApertureMouseLeave }}" onTouchMove="{{ onApertureTouchMove }}" onClick="{{ onHeroClick }}" data-screen-label="Opening — Name" class="hero-stage" style="position: sticky; top: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; height: calc(100vh - 78px); min-height: 0; box-sizing: border-box; padding: 96px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; overflow: hidden">
+  <div onMouseMove="{{ onApertureMouseMove }}" onMouseLeave="{{ onApertureMouseLeave }}" onTouchStart="{{ onApertureTouchStart }}" onTouchEnd="{{ onApertureTouchEnd }}" onTouchMove="{{ onApertureTouchMove }}" onClick="{{ onHeroClick }}" data-screen-label="Opening — Name" class="hero-stage" style="position: sticky; top: 78px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 26px; height: calc(100vh - 78px); min-height: 0; box-sizing: border-box; padding: 96px 5vw; text-align: center; background: radial-gradient(circle at 50% -10%, rgba(244,242,236,0.08), transparent 60%), #14130f; color: #f4f2ec; overflow: hidden">
     <canvas ref="{{ wavesRef }}" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none"></canvas>
     <div ref="{{ glassRef }}" aria-hidden="true" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: calc(min(820px, 112vw, 88vh) * 0.965); height: calc(min(820px, 112vw, 88vh) * 0.965); border-radius: 50%; pointer-events: none; backdrop-filter: blur(18px) saturate(170%); -webkit-backdrop-filter: blur(18px) saturate(170%); background: radial-gradient(circle at 30% 22%, rgba(255,255,255,0.12), rgba(255,255,255,0.02) 55%); box-shadow: inset 0 1px 0 rgba(255,255,255,0.35), inset 0 -18px 40px rgba(255,255,255,0.04)"></div>
     <svg ref="{{ apertureSvgRef }}" viewBox="0 0 200 200" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: min(820px, 112vw, 88vh); height: min(820px, 112vw, 88vh); pointer-events: none; opacity: 1; filter: drop-shadow(0 18px 40px rgba(0,0,0,0.35))">
@@ -159,7 +177,7 @@
     <div aria-hidden="true" style="{{ tipStyle }}"><sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Click to take Alex's photo</span></sc-if><sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><span style="display: block; animation: jdTipPulse 1.5s ease-in-out infinite">Tap when Alex looks sharp</span></sc-if></div>
     <div ref="{{ flashRef }}" aria-hidden="true" style="position: absolute; inset: 0; z-index: 4; pointer-events: none; background: #fffdf6; opacity: 0"></div>
     <sc-if value="{{ gameHint }}" hint-placeholder-val="{{ true }}">
-      <button type="button" onClick="{{ startPlay }}" style="position: absolute; z-index: 3; right: 4vw; bottom: 18px; padding: 4px; border: none; background: none; cursor: pointer; font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 18px; line-height: 1; letter-spacing: 0.1em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 4px 0 #14130f; opacity: {{ playHintOpacity }}; transition: opacity 0.3s ease" style-hover="opacity: 1; color: oklch(0.85 0.15 85)" style-active="transform: translateY(2px)">Click to play</button>
+      <button type="button" class="play-hint" onClick="{{ startPlay }}" style="position: absolute; z-index: 3; right: 4vw; bottom: 18px; padding: 4px; border: none; background: none; cursor: pointer; font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 18px; line-height: 1; letter-spacing: 0.1em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 4px 0 #14130f; opacity: {{ playHintOpacity }}; transition: opacity 0.3s ease" style-hover="opacity: 1; color: oklch(0.85 0.15 85)" style-active="transform: translateY(2px)"><span>Click to play</span></button>
       {{ peeker }}
     </sc-if>
     <sc-if value="{{ gameHud }}" hint-placeholder-val="{{ false }}">
@@ -177,9 +195,9 @@
             <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 10px; padding: 14px 16px 16px; border-radius: 14px; background: #1d1c21; border: 3px solid #14130f; min-width: 0"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: #fffdf6; text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Memory</span><span>{{ rulesMem }}</span><span style="font-size: 13px; line-height: 1.5; color: #d6d2c6">A blurry shot or one taken while she's turned away is a miss. Three misses and the card is full.</span></div>
           </div>
           <div style="display: flex; flex-direction: column; gap: 12px; font-size: 14px; line-height: 1.55">
-            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Focus</span><span>The iris is your focus ring. Move the mouse left or right to pull focus. You can also spin the iris by circling its edge.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shoot</span><span>Click anywhere when she looks sharp.</span></div></sc-if>
-            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Focus</span><span>Focus is locked. Alex walks in and out of it.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shoot</span><span>Tap anywhere the moment she looks sharp.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Rounds</span><span>Every shot you land, she moves faster and the sharp moment gets shorter.</span></div></sc-if>
-            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: baseline"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 1; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Phone</span><span>Tap the moment she steps into focus.</span></div></sc-if>
+            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 22px; padding-top: 1px; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Focus</span><span>The iris is your focus ring. Move the mouse left or right to pull focus. You can also spin the iris by circling its edge.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 22px; padding-top: 1px; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shoot</span><span>Click anywhere when she looks sharp.</span></div></sc-if>
+            <sc-if value="{{ isMobileGame }}" hint-placeholder-val="{{ false }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 22px; padding-top: 1px; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Focus</span><span>Focus is locked. Alex walks in and out of it.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 22px; padding-top: 1px; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Shoot</span><span>Tap anywhere the moment she looks sharp.</span></div><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 22px; padding-top: 1px; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Rounds</span><span>Every shot you land, she moves faster and the sharp moment gets shorter.</span></div></sc-if>
+            <sc-if value="{{ notMobileGame }}" hint-placeholder-val="{{ true }}"><div style="display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 12px; align-items: start"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 22px; line-height: 22px; padding-top: 1px; letter-spacing: 0.08em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">Phone</span><span>Tap the moment she steps into focus.</span></div></sc-if>
           </div>
           <span style="font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #b8b4a9">Best played on a desktop or laptop.</span>
         </div>
@@ -187,15 +205,15 @@
     </sc-if>
     <sc-if value="{{ gameEnded }}" hint-placeholder-val="{{ false }}">
       <div onClick="{{ playAgain }}" style="position: absolute; inset: 0; z-index: 6; display: flex; align-items: center; justify-content: center; padding: 12px 24px; box-sizing: border-box; background: rgba(20,19,15,0.6); cursor: pointer">
-        <div onClick="{{ stopClick }}" style="position: relative; cursor: default; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 24px 32px; border-radius: 20px; background: #14130f; border: 1px solid rgba(244,242,236,0.18); color: #f4f2ec; max-width: 92vw; max-height: calc(100% - 24px); overflow-y: auto; box-sizing: border-box; text-align: center">
+        <div class="end-card" onClick="{{ stopClick }}" style="position: relative; cursor: default; display: flex; flex-direction: column; align-items: center; gap: 14px; padding: 24px 32px; border-radius: 20px; background: #14130f; border: 1px solid rgba(244,242,236,0.18); color: #f4f2ec; max-width: 92vw; max-height: calc(100% - 24px); overflow-y: auto; box-sizing: border-box; text-align: center">
           <button type="button" aria-label="Close and restart" onClick="{{ playAgain }}" style="position: absolute; top: 12px; right: 12px; width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(244,242,236,0.25); background: transparent; color: #f4f2ec; font-size: 18px; line-height: 1; cursor: pointer" style-hover="background: #f4f2ec; color: #14130f">×</button>
-          <div style="flex: none; width: min(86px, 9.5vh); height: min(200px, 22vh)">{{ endGirl }}</div>
-          <div style="display: flex; align-items: center; justify-content: center; gap: 14px"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 56px; line-height: 0.9; letter-spacing: 0.01em; color: {{ endColor }}">{{ endTitle }}</span><sc-if value="{{ endLose }}" hint-placeholder-val="{{ false }}"><span style="display: block; flex: none; filter: drop-shadow(0 3px 0 #14130f)">{{ endSd }}</span></sc-if></div>
+          <div class="end-girl" style="flex: none; width: min(86px, 9.5vh); height: min(200px, 22vh)">{{ endGirl }}</div>
+          <sc-if value="{{ endLose }}" hint-placeholder-val="{{ false }}"><div style="display: flex; flex-direction: column; align-items: center; gap: 6px"><span class="end-title" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 56px; line-height: 0.9; letter-spacing: 0.01em; color: {{ endColor }}">Memory</span><div style="display: flex; align-items: center; justify-content: center; gap: 10px"><span class="end-title" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 56px; line-height: 0.9; letter-spacing: 0.01em; color: {{ endColor }}">full</span><span style="display: block; flex: none; filter: drop-shadow(0 3px 0 #14130f)">{{ endSd }}</span></div></div></sc-if><sc-if value="{{ endWin }}" hint-placeholder-val="{{ true }}"><span class="end-title" style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 56px; line-height: 0.9; letter-spacing: 0.01em; color: {{ endColor }}">{{ endTitle }}</span></sc-if>
           <span style="font-size: 14px; color: {{ endColor }}">{{ endSub }}</span>
           
           <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; padding: 10px; background: #0b0a08; border-radius: 6px">
             <sc-for list="{{ endShots }}" as="s" hint-placeholder-count="5">
-              <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><div style="width: 72px; height: 96px; border-radius: 3px; overflow: hidden; background: #2a2722">{{ s.thumb }}</div><span style="{{ s.capStyle }}">{{ s.cap }}</span></div>
+              <div style="display: flex; flex-direction: column; align-items: center; gap: 4px"><div class="end-thumb" style="width: 72px; height: 96px; border-radius: 3px; overflow: hidden; background: #2a2722">{{ s.thumb }}</div><span style="{{ s.capStyle }}">{{ s.cap }}</span></div>
             </sc-for>
           </div>
           <sc-if value="{{ endLose }}" hint-placeholder-val="{{ false }}"><span style="font-family: 'Bebas Neue', Helvetica, sans-serif; font-size: 32px; line-height: 1; letter-spacing: 0.06em; color: oklch(0.85 0.15 85); text-shadow: 2px 2px 0 #14130f, -2px 2px 0 #14130f, 2px -2px 0 #14130f, -2px -2px 0 #14130f, 0 2.5px 0 #14130f, 0 -2.5px 0 #14130f, 2.5px 0 0 #14130f, -2.5px 0 0 #14130f, 0 5px 0 #14130f">{{ hitCount }}/5</span></sc-if>
@@ -792,7 +810,7 @@ class Component extends DCLogic {
     const onScroll = () => {
       const tr = this.heroTrackRef.current, mesh = this.meshWrapRef.current; if (!tr) return;
       const r = tr.getBoundingClientRect();
-      if (this._playP > 0 && r.bottom < window.innerHeight * 0.45 && !this._playTw) this._playP = 0;
+      if (this._playP > 0 && (r.bottom < window.innerHeight * 0.7 || Math.abs(window.scrollY - (this._playY ?? window.scrollY)) > 40) && !this._playTw && this._exitPlay) this._exitPlay();
       const p = this._playP || 0;
       this._heroP = p; this._heroVisible = r.bottom > 78; if ((p >= 0.25) !== !!this.state.gInView) this.setState({ gInView: p >= 0.25 });
       const cards = mesh && mesh.parentElement && mesh.parentElement.querySelector(".landing-two-col");
@@ -800,11 +818,16 @@ class Component extends DCLogic {
       [[mesh, -38], [cards, 46]].forEach(([el, off]) => { if (!el) return; if (p > 0) el.style.animation = "none"; el.style.translate = "0 " + (e * off) + "vh"; el.style.opacity = fade; el.style.pointerEvents = p > 0.4 ? "none" : ""; });
       const gl = this.gameLayerRef.current; if (gl) gl.style.translate = "0 " + ((1 - e) * 70) + "vh";
       if (p > 0 && !this.state.gameOn) this.startGame();
-      else if (p === 0 && this.state.gameOn) { cancelAnimationFrame(this._gRaf); this.setState({ gameOn: false, gEnded: null, gLcd: null }); }
+      else if (p === 0 && this.state.gameOn) { const st = document.querySelector(".hero-stage"); if (st) st.style.touchAction = ""; cancelAnimationFrame(this._gRaf); this.setState({ gameOn: false, gEnded: null, gLcd: null }); }
     };
     this._heroScroll = onScroll;
+    this._exitPlay = () => {
+      if (this._playTw || !(this._playP > 0)) return; const t0 = performance.now(), from = this._playP;
+      const back = (now) => { const k = Math.min(1, (now - t0) / 800); this._playP = from * (1 - k); onScroll(); this._playTw = k < 1 ? requestAnimationFrame(back) : null; };
+      this._playTw = requestAnimationFrame(back);
+    };
     this._startPlay = () => {
-      if (this._playTw) return; const t0 = performance.now(), from = this._playP || 0;
+      if (this._playTw) return; this._playY = window.scrollY; const t0 = performance.now(), from = this._playP || 0;
       const step = (now) => { const k = Math.min(1, (now - t0) / 900); this._playP = from + (1 - from) * k; onScroll(); this._playTw = k < 1 ? requestAnimationFrame(step) : null; };
       this._playTw = requestAnimationFrame(step);
     };
@@ -841,7 +864,7 @@ class Component extends DCLogic {
   }
   startGame() {
     cancelAnimationFrame(this._gRaf);
-    this._mob = this._isMobileGame(); this.setState({ gameOn: true, gLives: 3, gHits: 0, gPose: 0, gShots: [], gEnded: null, gLcd: null, gRules: false, gCeleb: null }); this._gUsed = []; clearTimeout(this._celebT);
+    this._mob = this._isMobileGame(); { const st = document.querySelector(".hero-stage"); if (st) st.style.touchAction = this._mob ? "none" : ""; } this.setState({ gameOn: true, gLives: 3, gHits: 0, gPose: 0, gShots: [], gEnded: null, gLcd: null, gRules: false, gCeleb: null }); this._gUsed = []; clearTimeout(this._celebT);
     if (!this._tipDone) { this._tipDone = true; this._gClicked = false; [[2000, true], [5000, false], [10000, true], [13000, false]].forEach(([ms, v]) => setTimeout(() => this.setState({ gTip: v && !this._gClicked }), ms)); }
     this._gSeq = [0].concat([1, 2, 3, 7, 8, 9].sort(() => Math.random() - 0.5).slice(0, 3), [4]);
     this._gB = { d: this._mob ? 0.85 : 0.35, t: 0, seg: null, facing: "front", vel: 0, lastDir: -1, walking: true }; this._gLast = performance.now(); this._gCool = performance.now() + 400;
@@ -1788,9 +1811,10 @@ void main(){
   HERO_WORDS = ["Film", "Commercial", "PSA", "Music Video"];
   ch01Ref = React.createRef();
   comesRef = React.createRef();
+  _heroDelay = () => [2400, 1000, 1000, 1000][this.state.heroIndex || 0] || 1000;
   syncHeroTimer = () => {
     const run = this._heroVis || this.state.stripOn;
-    if (run && !this._heroTimer && this._heroTick) this._heroTimer = setInterval(this._heroTick, 2600);
+    if (run && !this._heroTimer && this._heroTick) this._heroTimer = setTimeout(this._heroTick, this._heroDelay());
     else if (!run && this._heroTimer) { clearInterval(this._heroTimer); this._heroTimer = null; this.setState({ heroIndex: 0, heroPrev: 0 }); }
   };
   onStripScroll = () => {
@@ -1801,6 +1825,7 @@ void main(){
     if (on !== this.state.stripOn || top !== this.state.stripTop) this.setState({ stripOn: on, stripTop: top }, this.syncHeroTimer);
   };
   componentDidMount() {
+    { const m = /[#&]end=(win|lose)/.exec(location.hash); if (m) { this._mob = this._isMobileGame(); const ok = (pose) => ({ pose, ok: true, blur: 0 }); this.setState(m[1] === "win" ? { gEnded: "win", gHits: 5, gShots: [ok(0), ok(1), ok(2), ok(3), ok(4)] } : { gEnded: "lose", gHits: 2, gShots: [ok(0), ok(1), { pose: 2, gag: "tilt", blur: 1.5 }, { pose: 3, gag: "blur", blur: 4 }, { pose: 7, gag: "back", back: true, blur: 1 }] }); } }
     window.addEventListener("scroll", this.onStripScroll, { passive: true }); this.onStripScroll();
     this._initHeroScroll();
     const peekClear = () => { const tr = this.heroTrackRef.current, cards = tr && tr.querySelector(".landing-two-col"); if (!tr || !cards) return true; const hb = tr.getBoundingClientRect(), cb = cards.getBoundingClientRect(); return cb.bottom < hb.bottom - 112 || cb.height === 0; };
@@ -1835,8 +1860,8 @@ void main(){
     if (this._heroReduce) this.setState({ pmCount: this.PM_ITEMS.length, prodP: 1 });
     else { window.addEventListener("scroll", this.onPmScroll, { passive: true }); this.onPmScroll(); window.addEventListener("wheel", this.onProdWheel, { passive: false }); this._prodLast = performance.now(); this._prodTimer = setInterval(this.prodTick, 250); }
     this._heroReduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const heroTick = () => this.setState(s => ({ heroIndex: ((s.heroIndex || 0) + 1) % this.HERO_WORDS.length, heroPrev: s.heroIndex || 0 }));
-    this._heroTimer = setInterval(heroTick, 2600);
+    const heroTick = () => this.setState(s => ({ heroIndex: ((s.heroIndex || 0) + 1) % this.HERO_WORDS.length, heroPrev: s.heroIndex || 0 }), () => { if (this._heroTimer) this._heroTimer = setTimeout(heroTick, this._heroDelay()); });
+    this._heroTimer = setTimeout(heroTick, this._heroDelay());
     if (this.heroMidRef.current && window.IntersectionObserver) {
       this._heroWordObs = new IntersectionObserver((en) => {
         this._heroVis = en.some(x => x.isIntersecting); this._heroTick = heroTick; this.syncHeroTimer();
@@ -1924,11 +1949,12 @@ void main(){
           if (frameSpeed < 0.5) {
             const cx = this._apertureCurNX, cy = this._apertureCurNY, rr = Math.hypot(cx, cy), pr = Math.hypot(prevNX, prevNY);
             let delta;
-            if (rr > 0.62 && rr < 1.15 && pr > 0.62) {
+            const mobile = this._isMobileGame(), ringLo = mobile ? 0.4 : 0.62, ringHi = mobile ? 1.8 : 1.15;
+            if (rr > ringLo && rr < ringHi && pr > ringLo) {
               let da = Math.atan2(-cy, cx) - Math.atan2(-prevNY, prevNX);
               if (da > Math.PI) da -= Math.PI * 2; else if (da < -Math.PI) da += Math.PI * 2;
               delta = da / (Math.PI * 2) * 2.15;
-            } else delta = (this._focusHX != null && prevHX != null) ? (this._focusHX - prevHX) * 3.2 : dx * 1.075;
+            } else delta = (this._focusHX != null && prevHX != null) ? (this._focusHX - prevHX) * 3.2 : dx * (mobile ? 1.7 : 1.075);
             this._irisTarget = Math.min(2.65, Math.max(0.3, this._irisTarget + delta));
           }
         }
@@ -2202,10 +2228,10 @@ void main(){
       rulesOpen: !!this.state.gRules && !!this.state.gameOn && !!this.state.gInView,
       toggleRules: (e) => { e.stopPropagation(); this.setState({ gRules: !this.state.gRules }); },
       endColor: this.state.gEnded === "win" ? "#2FB85A" : "#DE2828",
-      endLose: this.state.gEnded === "lose",
-      endSd: this.state.gEnded === "lose" ? h0("span", { style: { display: "block", width: "34px", height: "43px", animation: "jdEndSdBlink 1s steps(1, end) infinite" } },
+      endLose: this.state.gEnded === "lose", endWin: this.state.gEnded !== "lose",
+      endSd: this.state.gEnded === "lose" ? h0("span", { className: "end-sd", style: { display: "block", width: "31px", height: "39px", animation: "jdEndSdBlink 1s steps(1, end) infinite" } },
         h0("style", null, "@keyframes jdEndSdBlink{0%{opacity:1}50%{opacity:.25}}"),
-        h0("svg", { viewBox: "0 0 22 28", width: "34", height: "43", style: { display: "block", overflow: "visible" } },
+        h0("svg", { viewBox: "0 0 22 28", width: "31", height: "39", style: { display: "block", overflow: "visible" } },
           h0("path", { d: "M 8 1.5 L 20.5 1.5 L 20.5 26.5 L 1.5 26.5 L 1.5 8 Z", fill: "oklch(0.6 0.22 25)", stroke: "#14130f", strokeWidth: 2.5, strokeLinejoin: "round" }),
           h0("rect", { x: 5, y: 15, width: 12, height: 8, rx: 1.5, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1.5 }),
           [9, 12.5, 16].map(x => h0("rect", { key: x, x, y: 4.5, width: 2, height: 5, rx: 0.8, fill: "#fffdf6", stroke: "#14130f", strokeWidth: 1 })))) : null,
@@ -2260,9 +2286,16 @@ void main(){
         this._gClicked = true; if (this.state.gTip) this.setState({ gTip: false });
         this.shoot();
       },
+      onApertureTouchStart: (e) => { const t = e.touches && e.touches[0]; if (!t) return; this._tsx = this._tlx = t.clientX; this._tsy = this._tly = t.clientY; this._tPath = 0; },
+      onApertureTouchEnd: () => { this._tsx = null; },
       onApertureTouchMove: (e) => {
         const t = e.touches && e.touches[0], svg = this.apertureSvgRef.current;
         if (!t || !svg) return;
+        if (this._tsx != null) {
+          this._tPath += Math.hypot(t.clientX - this._tlx, t.clientY - this._tly); this._tlx = t.clientX; this._tly = t.clientY;
+          const ndx = t.clientX - this._tsx, ndy = t.clientY - this._tsy;
+          if (this.state.gameOn && (this._playP || 0) > 0.5 && !this._playTw && Math.abs(ndy) > 90 && Math.abs(ndx) < Math.abs(ndy) * 0.45 && Math.hypot(ndx, ndy) / this._tPath > 0.88) { this._tsx = null; this._exitPlay && this._exitPlay(); return; }
+        }
         const rect = svg.getBoundingClientRect();
         const fracX = Math.min(1, Math.max(0, (t.clientX - rect.left) / rect.width)), fracY = 1 - Math.min(1, Math.max(0, (t.clientY - rect.top) / rect.height));
         if (!this._apertureHover) this._apertureEnterTime = performance.now();
